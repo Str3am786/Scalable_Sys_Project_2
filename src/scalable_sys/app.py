@@ -1,7 +1,7 @@
 import argparse
-from .config import load_config
-from .llm.llama_inproc import LlamaInProc
-from .llm.llama_server import LlamaServer
+from src.scalable_sys.config import load_config
+from src.scalable_sys.llm.llama_inproc import LlamaInProc
+from src.scalable_sys.llm.llama_server import LlamaServer
 
 # llm = get_llm()  # inproc or server
 # if cfg.cache.enable_llm:
