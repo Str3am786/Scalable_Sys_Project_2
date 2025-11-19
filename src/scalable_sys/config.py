@@ -37,11 +37,14 @@ def load_config(path: str = "config.yaml") -> LLMConfig:
         rag_db_path = PROJECT_ROOT / rag_db_path
     rag_db_path_str = str(rag_db_path)
 
+    server_base_url = os.getenv("LLM_BASE_URL", cfg.get("server", {}).get("base_url", "http://localhost:8000/v1"))
+    server_api_key = os.getenv("LLM_API_KEY", cfg.get("server", {}).get("api_key", "sk-noauth"))
+
     return LLMConfig(
         backend=cfg["backend"],
         model_path=cfg.get("model_path", ""),
-        server_base_url=cfg.get("server", {}).get("base_url", "http://localhost:8000/v1"),
-        server_api_key=cfg.get("server", {}).get("api_key", "sk-noauth"),
+        server_base_url=server_base_url,
+        server_api_key=server_api_key,
         server_model=cfg.get("server", {}).get("model", "local"),
         n_ctx=cfg.get("params", {}).get("n_ctx", 4096),
         n_gpu_layers=cfg.get("params", {}).get("n_gpu_layers", 0),

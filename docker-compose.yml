@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - LLM_BASE_URL=http://host.docker.internal:11434/v1
+      - LLM_API_KEY=ollama
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data:/app/data
+    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Nobel laureats from Germany"]

@@ -38,6 +38,15 @@ EXEMPLARS: list[dict] = [
             "RETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year"
         ),
     },
+
+    {
+        "question": "Which Nobel laureates were born in the United States?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'united states' "
+            "RETURN s.knownName AS scholar, ci.name AS city"
+        ),
+    },
     {
         "question": "Which institutions are located in the United Kingdom?",
         "cypher": (
@@ -47,11 +56,60 @@ EXEMPLARS: list[dict] = [
         ),
     },
     {
-        "question": "Which Nobel laureates were born in the United States?",
+        "question": "Which Nobel laureates were born in Germany?",
         "cypher": (
             "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'united states' "
-            "RETURN s.knownName AS scholar, ci.name AS city"
+            "WHERE toLower(co.name) = 'germany' "
+            "RETURN s.knownName AS scholar, ci.name AS birth_city, co.name AS birth_country"
+        ),
+    },
+    {
+        "question": "Which laureates worked at institutions in France?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'france' "
+            "RETURN s.knownName AS scholar, i.name AS institution"
+        ),
+    },
+    {
+        "question": "Who won the Chemistry prize between 1950 and 1960?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'chemistry' "
+            "AND p.awardYear >= 1950 AND p.awardYear <= 1960 "
+            "RETURN s.knownName, p.awardYear"
+        ),
+    },
+    {
+        "question": "List all female Nobel laureates.",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(s.gender) = 'female' "
+            "RETURN s.knownName, p.category, p.awardYear"
+        ),
+    },
+    {
+        "question": "Nobel laureates from Germany",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'germany' "
+            "RETURN s.knownName AS scholar, s.birthDate AS born, ci.name AS city"
+        ),
+    },
+    {
+        "question": "List all Swedish laureates.",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'sweden' "
+            "RETURN s.knownName AS scholar, p.awardYear AS year"
+        ),
+    },
+    {
+        "question": "Which laureates were affiliated with organizations in France?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'france' "
+            "RETURN s.knownName AS scholar, i.name AS institution"
         ),
     },
 ]

@@ -267,25 +267,31 @@ You are an expert in writing Cypher queries for a Nobel laureate graph database.
 </QUESTION>
 
 <GUIDELINES>
-- When matching on Scholar names, ALWAYS match on the `knownName` property.
-- For countries, cities, continents and institutions, you can match on the `name` property.
-- Always label variables in MATCH, e.g. (s:Scholar)-[:WON]->(p:Prize).
-- When comparing string properties:
-  - Use the WHERE clause.
-  - Lowercase the property values before comparison.
-  - Use the CONTAINS operator for substring matching.
-- NEVER use `.name` on :Prize or :Scholar.
-  - For :Scholar use `knownName`.
-  - For :Prize use `category` (and optionally `awardYear`).
-- Do NOT use APOC.
-- Return property values rather than whole nodes/relationships.
+1. **Label Matching**:
+   - Scholars: match on `knownName`.
+   - Countries/Cities/Institutions: match on `name`.
+   - Prizes: match on `category` (e.g., 'physics', 'chemistry').
+
+2. **Geography & Locations**:
+   - "Born in [Country]" OR "From [Country]" -> Use `(:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(:Country)`.
+   - "Worked in [Country]" OR "Affiliated with [Country]" -> Use `(:Scholar)-[:AFFILIATED_WITH]->(:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(:Country)`.
+   - Do NOT check for country names inside the Scholar's name property.
+
+3. **String Comparison**:
+   - ALWAYS use `toLower(...)` for comparisons.
+   - Use `CONTAINS` for loose matching (names), but use `=` for categories/countries if the match is exact.
+   
+4. **Formatting**:
+   - Always label variables in MATCH paths (e.g., `(s:Scholar)`).
+   - Return specific properties (e.g., `s.knownName`) rather than whole nodes.
 </GUIDELINES>
 
 <EXEMPLARS>
 {exemplars_block}
 </EXEMPLARS>
 
-Write a single Cypher query that answers the question. 
+Task: Write a single Cypher query that answers the <QUESTION>. 
+Do not replicate the logic of the exemplars unless it applies to the <QUESTION>.
 Return ONLY the Cypher query, no explanations, no backticks.
 """.strip()
 

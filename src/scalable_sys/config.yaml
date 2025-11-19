@@ -1,21 +1,17 @@
 llm:
-  backend: rag        # "server", "inproc", or "rag"
-  model_path: models/Phi-3-mini-4k-instruct-q4.gguf
-
-  server:
-    base_url: http://localhost:8008/v1
-    api_key: sk-noauth
-    model: local
-
-  params:
-    n_ctx: 4096
-    n_gpu_layers: 0
-
+  backend: rag
   rag:
-    db_path: data/nobel.kuzu
+    db_path: "data/nobel.kuzu"
     use_exemplars: true
     use_self_refine: true
     use_postprocess: true
     cache_text2cypher: true
     cache_maxsize: 256
     cache_ttl_seconds: 0
+  server:
+    base_url: "http://localhost:11434/v1"
+    api_key: "ollama"
+    model: "llama3.1"
+  params:
+    n_ctx: 4096
+    n_gpu_layers: 0
