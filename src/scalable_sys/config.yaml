@@ -1,5 +1,5 @@
 llm:
-  backend: rag        # "server", "inproc", or "rag"
+  backend: rag        # "server" or "rag"
   model_path: models/Phi-3-mini-4k-instruct-q4.gguf
 
   server:
