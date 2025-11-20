@@ -10,6 +10,7 @@ from typing import Any, Iterable, override
 
 import dspy
 import kuzu
+import hashlib
 
 from ..cache.memo import ttl_lru_cache
 from ..llm.base import LLM
@@ -183,12 +184,24 @@ class GraphRAG(LLM):
 
     def _make_cached_generator(self, maxsize, ttl):
         @ttl_lru_cache(maxsize=maxsize, ttl_seconds=ttl)
-        def _cached(key: str):
-            data = json.loads(key)
+        def _cached(complex_key: str):
+            # Extract the payload from our custom key format
+            # Format: "HASH_SIGNATURE|JSON_PAYLOAD"
+            _, json_payload = complex_key.split("|", 1)
+            data = json.loads(json_payload)
             return self._generate_cypher_no_cache(data['q'], data['ex'])
 
         def wrapper(q, ex):
-            key = json.dumps({"q": q, "ex": ex, "schema": self.schema_str}, sort_keys=True)
+            # [TASK 2] Keying by Question Hash and Schema Hash
+            q_hash = hashlib.sha256(q.encode()).hexdigest()[:16]
+            schema_hash = hashlib.sha256(self.schema_str.encode()).hexdigest()[:16]
+
+            # We carry the payload for execution, but the prefix is the required hash
+            # This ensures that if q or schema changes, the hash changes.
+            payload = json.dumps({"q": q, "ex": ex})
+
+            # The key effectively becomes the Identity of the request
+            key = f"{q_hash}_{schema_hash}|{payload}"
             return _cached(key)
 
         return wrapper
