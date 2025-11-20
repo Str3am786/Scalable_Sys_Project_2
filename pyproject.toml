@@ -9,6 +9,10 @@ description = "Nobel Laureat RAG"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "openai",
+    "kuzu",
+    "polars",
+    "pyarrow"
 ]
 
 [tool.setuptools]
