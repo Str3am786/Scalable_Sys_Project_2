@@ -54,6 +54,14 @@ EXEMPLARS: list[dict] = [
             "RETURN s.knownName AS scholar, ci.name AS city"
         ),
     },
+    {
+        "question": "Which Nobel laureates are from Germany?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'germany' "
+            "RETURN s.knownName AS laureate, co.name AS country"
+        )
+    },
 ]
 
 EXEMPLAR_QUESTIONS: List[str] = [ex["question"] for ex in EXEMPLARS]
