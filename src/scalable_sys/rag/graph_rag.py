@@ -1,22 +1,281 @@
-# src/scalable_sys/rag/graph_rag.py
 from __future__ import annotations
 
+# Standard library
 import json
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, override
 
+
+import dspy
 import kuzu
+import hashlib
 
-from ..llm.base import LLM
 from ..cache.memo import ttl_lru_cache
+from ..llm.base import LLM
 from .prompts import (
-    select_exemplars,
     format_exemplars_for_prompt,
     postprocess_cypher,
+    select_exemplars,
 )
 
+
+
+# =========================================================================
+#  PART 1: DSPy Signatures
+# =========================================================================
+
+class Text2Cypher(dspy.Signature):
+    """Translate a natural language question into a Cypher query for KuzuDB.
+
+    IMPORTANT GUIDELINES:
+    1. Do NOT filter by property (e.g. p.category = 'physics') unless the user EXPLICITLY asks for it.
+    2. Use the schema strictly. Do not invent relationships like [:AFFILIATED_WITH]->(:Country) if they don't exist.
+    3. If asking for 'Laureates from [Country]', use the [:BORN_IN] or [:IS_LOCATED_IN] paths as seen in the schema.
+    """
+
+    graph_schema = dspy.InputField(desc="The graph schema (nodes, edges, properties)")
+    exemplars = dspy.InputField(desc="Relevant Q&A examples to guide the model")
+    question = dspy.InputField(desc="The user's question")
+
+    cypher = dspy.OutputField(desc="A valid Cypher query string. No markdown.")
+
+
+class RepairCypher(dspy.Signature):
+    """Fix a broken Cypher query based on the database error message."""
+
+    graph_schema = dspy.InputField(desc="The graph schema")
+    original_question = dspy.InputField()
+    bad_cypher = dspy.InputField(desc="The query that failed")
+    error_msg = dspy.InputField(desc="The error returned by KuzuDB")
+
+    repaired_cypher = dspy.OutputField(desc="The fixed Cypher query")
+
+
+class GenerateAnswer(dspy.Signature):
+    """Answer the user question based on the database results."""
+    question = dspy.InputField()
+    context = dspy.InputField(desc="Structured data retrieved from the graph")
+    answer = dspy.OutputField(desc="Natural language answer")
+
+
+# =========================================================================
+#  PART 2: DSPy Module
+# =========================================================================
+
+class RefinedCypherGenerator(dspy.Module):
+    def __init__(self, schema_str, conn: kuzu.Connection, use_postprocess: bool):
+        super().__init__()
+        self.conn = conn
+        self.schema_str = schema_str
+        self.use_postprocess = use_postprocess
+
+        self.generate = dspy.ChainOfThought(Text2Cypher)
+        self.repair = dspy.ChainOfThought(RepairCypher)
+
+    def validate_cypher(self, cypher_query) -> tuple[bool, str]:
+        try:
+            self.conn.execute(f"EXPLAIN {cypher_query}")
+            return True, ""
+        except Exception as e:
+            return False, str(e)
+
+    def forward(self, question, exemplars_str):
+        # Step 1: Generation
+        response = self.generate(
+            graph_schema=self.schema_str,
+            exemplars=exemplars_str,
+            question=question
+        )
+        cypher = response.cypher
+
+        # Step 2: Validation & Repair
+        valid, error_msg = self.validate_cypher(cypher)
+
+        max_retries = 3
+        for i in range(max_retries):
+            if valid:
+                break
+            print(f"  [Refining attempt {i + 1}] Error: {error_msg[:80]}...")
+
+            response = self.repair(
+                graph_schema=self.schema_str,
+                original_question=question,
+                bad_cypher=cypher,
+                error_msg=error_msg
+            )
+            cypher = response.repaired_cypher
+            valid, error_msg = self.validate_cypher(cypher)
+
+        # Step 3: Post-process
+        if self.use_postprocess:
+            cypher = postprocess_cypher(cypher)
+
+        return cypher
+
+
+# =========================================================================
+#  PART 3: GraphRAG Class (With Fallback)
+# =========================================================================
+
+class GraphRAG(LLM):
+    def __init__(
+            self,
+            llm: LLM,
+            db_path: str,
+            *,
+            use_exemplars: bool = True,
+            use_self_refine: bool = True,
+            use_postprocess: bool = True,
+            cache_text2cypher: bool = True,
+            cache_maxsize: int = 256,
+            cache_ttl_seconds: int = 0,
+    ):
+        self.base_llm = llm
+        self.use_exemplars = use_exemplars
+
+        # --- FIX: Auto-detect OpenAI provider for local models ---
+        dspy_model = llm.model
+        if not dspy_model.startswith("openai/"):
+            dspy_model = "openai/" + dspy_model
+
+        print(f"Configuring DSPy with model: {dspy_model} at {llm.client.base_url}")
+
+        dspy_lm = dspy.LM(
+            model=dspy_model,
+            api_base=str(llm.client.base_url),
+            api_key=llm.client.api_key,
+        )
+        dspy.configure(lm=dspy_lm)
+
+        # Setup DB
+        path = Path(db_path)
+        if not path.exists():
+            raise FileNotFoundError(f"DB not found at {path}")
+        self.db = kuzu.Database(str(path), read_only=True)
+        self.conn = kuzu.Connection(self.db)
+        self.schema_str = self._get_schema_str()
+
+        # Pipeline
+        self.pipeline = RefinedCypherGenerator(
+            schema_str=self.schema_str,
+            conn=self.conn,
+            use_postprocess=use_postprocess
+        )
+        self.answer_gen = dspy.Predict(GenerateAnswer)
+
+        # Caching
+        if cache_text2cypher:
+            self._generate_cypher = self._make_cached_generator(
+                maxsize=cache_maxsize, ttl=cache_ttl_seconds
+            )
+        else:
+            self._generate_cypher = self._generate_cypher_no_cache
+
+    def _get_schema_str(self):
+        # Simplified schema dump
+        try:
+            nodes = self.conn.execute("CALL SHOW_TABLES() WHERE type = 'NODE' RETURN *;").get_as_df()['name'].tolist()
+            rels = self.conn.execute("CALL SHOW_TABLES() WHERE type = 'REL' RETURN *;").get_as_df()['name'].tolist()
+            return json.dumps({"nodes": nodes, "relationships": rels})
+        except Exception:
+            return "Schema unavailable"
+
+    def _make_cached_generator(self, maxsize, ttl):
+        @ttl_lru_cache(maxsize=maxsize, ttl_seconds=ttl)
+        def _cached(complex_key: str):
+            # Extract the payload from our custom key format
+            # Format: "HASH_SIGNATURE|JSON_PAYLOAD"
+            _, json_payload = complex_key.split("|", 1)
+            data = json.loads(json_payload)
+            return self._generate_cypher_no_cache(data['q'], data['ex'])
+
+        def wrapper(q, ex):
+            # [TASK 2] Keying by Question Hash and Schema Hash
+            q_hash = hashlib.sha256(q.encode()).hexdigest()[:16]
+            schema_hash = hashlib.sha256(self.schema_str.encode()).hexdigest()[:16]
+
+            # We carry the payload for execution, but the prefix is the required hash
+            # This ensures that if q or schema changes, the hash changes.
+            payload = json.dumps({"q": q, "ex": ex})
+
+            # The key effectively becomes the Identity of the request
+            key = f"{q_hash}_{schema_hash}|{payload}"
+            return _cached(key)
+
+        return wrapper
+
+    def _generate_cypher_no_cache(self, question, exemplars):
+        return self.pipeline(question=question, exemplars_str=exemplars)
+
+    def generate(self, prompt: str, **kwargs) -> str:
+        answer, _ = self.query_with_stats(prompt)
+        return answer
+
+    def stream(self, prompt: str, **kwargs) -> Iterable[str]:
+        yield self.generate(prompt)
+
+    def query_with_stats(self, question: str) -> tuple[str, dict]:
+        t0 = time.perf_counter()
+
+        # 1. Exemplars
+        exemplars_str = ""
+        if self.use_exemplars:
+            exs = select_exemplars(question, k=3)
+            exemplars_str = format_exemplars_for_prompt(exs)
+
+        t1 = time.perf_counter()
+
+        # 2. Generate Cypher
+        cypher = self._generate_cypher(question, exemplars_str)
+
+        t2 = time.perf_counter()
+        print(f"\n=== Generated Cypher ===\n{cypher}\n")
+
+        # 3. Execute DB Query
+        rows = []
+        try:
+            result = self.conn.execute(cypher)
+            columns = result.get_column_names()
+            while result.has_next():
+                row = result.get_next()
+                rows.append(dict(zip(columns, row)))
+        except Exception as e:
+            print(f"Execution error: {e}")
+
+        t3 = time.perf_counter()
+
+        # 4. Generate Answer or FALLBACK
+        if not rows:
+            print(">>> No data found in graph. Falling back to base LLM.")
+            # Fallback: Just ask the LLM directly
+            answer = self.base_llm.generate(question)
+        else:
+            # RAG: Answer using context
+            context_str = json.dumps(rows[:20])
+            ans_response = self.answer_gen(question=question, context=context_str)
+            answer = ans_response.answer
+
+        t4 = time.perf_counter()
+
+        stats = {
+            "total": t4 - t0,
+            "text2cypher": t2 - t1,
+            "db_exec": t3 - t2,
+            "answer_gen": t4 - t3
+        }
+
+        print("\n=== Timing Stats ===")
+        for k, v in stats.items():
+            print(f"{k}: {v:.4f}s")
+
+        return answer, stats
+
+
+# =========================================================================
+#  Manual Implementation
+# =========================================================================
 
 @dataclass
 class KuzuSchema:

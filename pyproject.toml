@@ -9,7 +9,6 @@ description = "Nobel Laureat RAG"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "llama-cpp-python; sys_platform != 'win32'",  # optional if using server-only
     "openai",
     "kuzu",
     "polars",
