@@ -2,16 +2,11 @@ llm:
   backend: rag
   rag:
     db_path: "data/nobel.kuzu"
+    # Behavior Flags
     use_exemplars: true
     use_self_refine: true
     use_postprocess: true
+    # Caching Strategy
     cache_text2cypher: true
     cache_maxsize: 256
     cache_ttl_seconds: 0
-  server:
-    base_url: "http://localhost:11434/v1"
-    api_key: "ollama"
-    model: "llama3.1"
-  params:
-    n_ctx: 4096
-    n_gpu_layers: 0
