@@ -10,6 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 # ---- Few-shot exemplars for Text2Cypher ----
 
 EXEMPLARS: list[dict] = [
+    # Basic Retrieval
     {
         "question": "Which scholars won the Nobel Prize in Physics?",
         "cypher": (
@@ -19,6 +20,53 @@ EXEMPLARS: list[dict] = [
             "ORDER BY p.awardYear"
         ),
     },
+
+    # Filtering (Ranges & Specific Dates)
+    {
+        "question": "Who won the Nobel Prize in Physics in 2001?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'physics' AND p.awardYear = 2001 "
+            "RETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year"
+        ),
+    },
+    {
+        "question": "List all female Nobel laureates.",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(s.gender) = 'female' "
+            "RETURN s.knownName, p.category, p.awardYear"
+        ),
+    },
+    {
+        "question": "Who won the Chemistry prize between 1950 and 1960?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'chemistry' "
+            "AND p.awardYear >= 1950 AND p.awardYear <= 1960 "
+            "RETURN s.knownName, p.awardYear"
+        ),
+    },
+
+    # Geography: Birthplace
+    {
+        "question": "Which Nobel laureates were born in the United States?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'united states' "
+            "RETURN s.knownName AS scholar, ci.name AS city"
+        ),
+    },
+    {
+        "question": "Which Nobel laureates were born in Germany?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) = 'germany' "
+            "RETURN s.knownName AS scholar, ci.name AS birth_city, co.name AS birth_country"
+        ),
+    },
+
+    # Geography: Affiliation/Work
     {
         "question": "Which scholars won Nobel Prizes in Physics and were affiliated with the University of Cambridge?",
         "cypher": (
@@ -31,36 +79,11 @@ EXEMPLARS: list[dict] = [
         ),
     },
     {
-        "question": "Who won the Nobel Prize in Physics in 2001?",
-        "cypher": (
-            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
-            "WHERE toLower(p.category) = 'physics' AND p.awardYear = 2001 "
-            "RETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year"
-        ),
-    },
-
-    {
-        "question": "Which Nobel laureates were born in the United States?",
-        "cypher": (
-            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'united states' "
-            "RETURN s.knownName AS scholar, ci.name AS city"
-        ),
-    },
-    {
         "question": "Which institutions are located in the United Kingdom?",
         "cypher": (
             "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
             "WHERE toLower(co.name) = 'united kingdom' "
             "RETURN i.name AS institution, ci.name AS city"
-        ),
-    },
-    {
-        "question": "Which Nobel laureates were born in Germany?",
-        "cypher": (
-            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'germany' "
-            "RETURN s.knownName AS scholar, ci.name AS birth_city, co.name AS birth_country"
         ),
     },
     {
@@ -71,55 +94,88 @@ EXEMPLARS: list[dict] = [
             "RETURN s.knownName AS scholar, i.name AS institution"
         ),
     },
+
+    # Mentorship & Lineage
     {
-        "question": "Who won the Chemistry prize between 1950 and 1960?",
+        "question": "Who is the academic grandfather of Richard Feynman?",
+        "cypher": (
+            "MATCH (grand_mentor:Scholar)-[:MENTORED]->(mentor:Scholar)-[:MENTORED]->(laureate:Scholar) "
+            "WHERE toLower(laureate.knownName) CONTAINS 'richard feynman' "
+            "RETURN grand_mentor.knownName"
+        ),
+    },
+    {
+        "question": "Who are the mentors of scholars who won the Medicine prize in 2015?",
+        "cypher": (
+            "MATCH (mentor:Scholar)-[:MENTORED]->(laureate:Scholar) "
+            "MATCH (laureate)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'medicine' AND p.awardYear = 2015 "
+            "RETURN mentor.knownName AS mentor, laureate.knownName AS winner"
+        ),
+    },
+
+    # Birth + Workplace
+    {
+        "question": "List Physics laureates who were born in Germany but were affiliated with an institution in the USA.",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'physics' "
+            "MATCH (s)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(birth_country:Country) "
+            "WHERE toLower(birth_country.name) = 'germany' "
+            "MATCH (s)-[:AFFILIATED_WITH]->(:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(work_country:Country) "
+            "WHERE toLower(work_country.name) = 'usa' "
+            "RETURN DISTINCT s.knownName"
+        ),
+    },
+    {
+        "question": "Which institutions in the United Kingdom have hosted Chemistry laureates?",
+        "cypher": (
+            "MATCH (i:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(c:Country) "
+            "WHERE toLower(c.name) = 'united kingdom' "
+            "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i) "
+            "MATCH (s)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'chemistry' "
+            "RETURN DISTINCT i.name"
+        ),
+    },
+
+    # Aggregation (Counting)
+    {
+        "question": "How many Nobel laureates were born in Poland?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(c:Country) "
+            "WHERE toLower(c.name) = 'poland' "
+            "RETURN count(s) as laureate_count"
+        )
+    },
+    {
+        "question": "How many Chemistry laureates are there?",
         "cypher": (
             "MATCH (s:Scholar)-[:WON]->(p:Prize) "
             "WHERE toLower(p.category) = 'chemistry' "
-            "AND p.awardYear >= 1950 AND p.awardYear <= 1960 "
-            "RETURN s.knownName, p.awardYear"
-        ),
-    },
-    {
-        "question": "List all female Nobel laureates.",
-        "cypher": (
-            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
-            "WHERE toLower(s.gender) = 'female' "
-            "RETURN s.knownName, p.category, p.awardYear"
-        ),
-    },
-    {
-        "question": "Nobel laureates from Germany",
-        "cypher": (
-            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'germany' "
-            "RETURN s.knownName AS scholar, s.birthDate AS born, ci.name AS city"
-        ),
-    },
-    {
-        "question": "List all Swedish laureates.",
-        "cypher": (
-            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'sweden' "
-            "RETURN s.knownName AS scholar, p.awardYear AS year"
-        ),
-    },
-    {
-        "question": "Which laureates were affiliated with organizations in France?",
-        "cypher": (
-            "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'france' "
-            "RETURN s.knownName AS scholar, i.name AS institution"
-        ),
-    },
-    {
-        "question": "Which Nobel laureates are from Germany?",
-        "cypher": (
-            "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE toLower(co.name) = 'germany' "
-            "RETURN s.knownName AS laureate, co.name AS country"
+            "RETURN count(s) as chemistry_laureates"
         )
     },
+
+    # Limits (First, Last, Oldest)
+    {
+        "question": "Who was the first person to win the Nobel Prize in Physics?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'physics' "
+            "RETURN s.knownName, p.awardYear "
+            "ORDER BY p.awardYear ASC LIMIT 1"
+        )
+    },
+    {
+        "question": "List the 5 most recent Economics laureates.",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'economics' "
+            "RETURN s.knownName, p.awardYear "
+            "ORDER BY p.awardYear DESC LIMIT 5"
+        )
+    }
 ]
 
 EXEMPLAR_QUESTIONS: List[str] = [ex["question"] for ex in EXEMPLARS]
@@ -128,19 +184,39 @@ _tfidf_vectorizer = TfidfVectorizer()
 _EXEMPLAR_MATRIX = _tfidf_vectorizer.fit_transform(EXEMPLAR_QUESTIONS)
 
 
-def select_exemplars(question: str, k: int = 3) -> List[Dict]:
-    """Return top-k exemplar dicts most similar to the question."""
+def select_exemplars(question: str, k: int = 3, threshold: float = 0.35) -> List[Dict]:
+    """
+    Return top-k exemplar dicts most similar to the question.
+    Filters out exemplars with similarity < threshold to avoid noise.
+    """
     if not EXEMPLARS:
         return []
 
     query_vec = _tfidf_vectorizer.transform([question])
     sims = cosine_similarity(query_vec, _EXEMPLAR_MATRIX)[0]
 
-    k = min(k, len(EXEMPLARS))
-    top_indices = sims.argsort()[::-1][:k]
+    # Filter indices by threshold
+    valid_indices = [i for i, sim in enumerate(sims) if sim >= threshold]
 
-    # Debug logging – remove or gate with a flag if needed
+    # If nothing meets the threshold, fallback to at least the single best match 
+    # Unless it's truly terrible (< 0.1)
+    if not valid_indices:
+        best_idx = sims.argmax()
+        if sims[best_idx] < 0.1:
+            return []
+        valid_indices = [best_idx]
+
+    # Sort valid indices by score descending
+    valid_indices.sort(key=lambda i: sims[i], reverse=True)
+    
+    # Take top k
+    top_indices = valid_indices[:k]
+
+    # Debug logging
     print(f"\n=== Selected exemplars for question: {question!r} ===")
+    if not top_indices:
+        print("  (No exemplars met the similarity threshold)")
+    
     for rank, idx in enumerate(top_indices, start=1):
         ex_q = EXEMPLARS[idx]["question"]
         print(f"{rank}. sim={sims[idx]:.3f}  Q: {ex_q}")

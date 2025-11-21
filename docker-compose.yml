@@ -9,4 +9,4 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./data:/app/data
-    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Nobel laureats from Germany"]
+    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars won Nobel Prizes in Physics and were affiliated with the University of Cambridge?"]

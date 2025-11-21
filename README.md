@@ -9,7 +9,7 @@ This project implements a Graph Retrieval-Augmented Generation (GraphRAG) system
 ## Prerequisites
 * [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 * [Ollama](https://ollama.com/)
-* Python 3.10+ (only for initial data generation)
+* Python 3.12+
 
 ## Quick Start
 
