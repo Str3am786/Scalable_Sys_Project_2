@@ -4,5 +4,5 @@ marimo
 openai
 scikit-learn
 pyyaml
-llama-cpp-python
 pyarrow
+dspy
