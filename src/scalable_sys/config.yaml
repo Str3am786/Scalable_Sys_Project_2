@@ -10,3 +10,9 @@ llm:
     cache_text2cypher: true
     cache_maxsize: 256
     cache_ttl_seconds: 0
+  
+  evaluation:
+    model : "llama3.1"
+    url : "http://host.docker.internal:11434/v1"
+    key : "ollama"
+    prompt: "Could now evaluate this answers given by two different models (Score 0-10)? Don't add additional point/awards for extra context material. Just focus on how well the answer match the ground truth. As output just give me back the index and the score with no markdown or other comment.\n "

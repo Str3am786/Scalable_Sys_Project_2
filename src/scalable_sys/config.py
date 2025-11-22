@@ -22,6 +22,13 @@ class LLMConfig:
     rag_cache_text2cypher: bool
     rag_cache_maxsize: int
     rag_cache_ttl_seconds: int
+    
+    #evaluation model
+    evaluation_model : str
+    evaluation_url : str
+    evaluation_key : str
+    evaluation_prompt : str
+
 
 def load_config(yaml_path: str = "config.yaml") -> LLMConfig:
     # Load Behavioral Config from YAML
@@ -29,7 +36,8 @@ def load_config(yaml_path: str = "config.yaml") -> LLMConfig:
         file_cfg = yaml.safe_load(f)["llm"]
 
     rag_cfg = file_cfg.get("rag", {})
-
+    evaluation = file_cfg.get("evaluation", {})
+    
     # Resolve DB path relative to project root
     raw_db_path = rag_cfg.get("db_path", "data/nobel.kuzu")
     db_path = Path(raw_db_path)
@@ -50,4 +58,9 @@ def load_config(yaml_path: str = "config.yaml") -> LLMConfig:
         rag_cache_text2cypher=rag_cfg.get("cache_text2cypher", True),
         rag_cache_maxsize=rag_cfg.get("cache_maxsize", 256),
         rag_cache_ttl_seconds=rag_cfg.get("cache_ttl_seconds", 0),
+        
+        evaluation_model = evaluation.get("model", ""),
+        evaluation_url = evaluation.get("url", ""),
+        evaluation_key = evaluation.get("key", ""),
+        evaluation_prompt = evaluation.get("prompt", "")
     )

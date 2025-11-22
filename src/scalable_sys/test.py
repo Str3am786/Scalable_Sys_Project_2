@@ -11,10 +11,28 @@ from datetime import datetime
 import json
 from typing import List, Dict, Any
 import os
+from .rag.prompts import EVALUATION_PROMPT
 
+
+def make_evaluation_model(cfg):
+    """Evaluation model and prompt."""
+    
+
+
+    return LlamaServer(
+        base_url=cfg.evaluation_url,
+        api_key=cfg.evaluation_key,
+        model=cfg.evaluation_model,
+    ), cfg.evaluation_prompt
+    
+
+def get_evaluation_model():
+    
+    cfg = load_config()
+    evaluation_llm = make_evaluation_model(cfg)
+    return evaluation_llm
 
 def record_test(filename : str, result)-> None:
-
 
     filename = f"./data/{filename}"
     if not os.path.exists(filename):
@@ -62,7 +80,7 @@ def load_test_set(path: str = "./data/test_input.json") -> List[Dict[str, Any]]:
 
 
 
-def _make_base_llm(cfg):
+def _make_prediction_llm(cfg):
     """Plain LLM factory independent of RAG."""
 
     if cfg.backend in ("server", "rag"):
@@ -84,7 +102,7 @@ def get_llm(use_cache: bool = False, rag: bool = False):
       - GraphRAG (DSPy)            when backend == "rag"
     """
     cfg = load_config()
-    base_llm = _make_base_llm(cfg)
+    base_llm = _make_prediction_llm(cfg)
     
     if rag:
         # Instantiate the DSPy-based GraphRAG pipeline
@@ -117,8 +135,8 @@ def get_llm(use_cache: bool = False, rag: bool = False):
 
 
 def main():
-    
-    
+    print("START")
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--prompt", required=True, help="User question or prompt")
     
@@ -149,23 +167,27 @@ def main():
     args = parser.parse_args()
     
     
-    test = True
     use_cache = not args.no_cache
     print("RAG: ",args.rag)
     
     if args.complete_test:
         print("TEST COMPLETO")
-        res = []
+        
         test_set = load_test_set()
-        
         test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        
+
+        evaluation_model, evaluation_script = get_evaluation_model()
+        compare = ["data/2025-11-22_17-08-53_rag_True_cache_True.json","data/2025-11-22_17-08-53_rag_False_cache_True.json"] 
+        compare = []
+    
         for i in range(2):
             for j in range(2):
                 rag = bool(i)
                 use_cache = bool(j)
                 llm = get_llm(use_cache=use_cache, rag = rag)
                 filename = f"{test_datetime}_rag_{rag}_cache_{use_cache}.json"
+                if j == 1:
+                    compare.append(f"data/{filename}")
                 
                 for test in test_set:
                     prompt = test["question"]
@@ -192,8 +214,36 @@ def main():
                             "time": str(delta),
                         }
                     record_test(filename,result)
-                    
+            
+        with open(compare[0], "r", encoding="utf-8") as f:
+            data_plain = json.load(f)["results"]
         
+        with open(compare[1], "r", encoding="utf-8") as f:
+            data_rag = json.load(f)["results"]
+            print(data_rag)
+                
+        with open("data/test_input.json", "r", encoding="utf-8") as f:
+            data_true = json.load(f)["tests"]
+            
+        
+        for i in range(len(data_true["tests"])):
+            true_answer = data_true[i]
+            rag_answer = data_rag[i]
+            plain_answer = data_plain[i] 
+            
+            evaluation_input = (
+                evaluation_script
+                + "\nRAG_ANSWER:\n" + json.dumps(rag_answer)
+                + "\nPLAIN_MODEL_ANSWER:\n" + json.dumps(plain_answer)
+                + "\nGROUND_TRUTH:\n" + json.dumps(true_answer)
+            )
+            
+            print(evaluation_input)
+            
+            # Generate evaluation (assuming evaluation_model is already defined)
+            evaluation_result = evaluation_model.generate(evaluation_input)
+            print("Evaluation Result:\n", evaluation_result)
+            
     elif args.test:
         # Just one test of the 4 -- Maybe we can drop it
         print("Partial")
@@ -202,9 +252,7 @@ def main():
         print(llm.generate(args.prompt))      
     
     else:
-        test = False
-        
-        print(f"Test: {test}")
+
         print(f"Cache: {use_cache}")
         llm = get_llm(use_cache=use_cache, rag = args.rag)
         start = datetime.now()

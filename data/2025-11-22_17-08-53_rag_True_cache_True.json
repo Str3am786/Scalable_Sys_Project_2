@@ -1,0 +1,114 @@
+{
+  "results": [
+    {
+      "question": "Which scholars won Physics in 1921?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'physics' AND p.awardYear = 1921 RETURN s.knownName",
+      "answer": "Albert Einstein.",
+      "stats": {
+        "total": 0.0747416669910308,
+        "text2cypher": 0.01745404199755285,
+        "db_exec": 0.05153004098974634,
+        "answer_gen": 0.005315959002473392
+      }
+    },
+    {
+      "question": "Which scholars were born in Germany?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'germany' RETURN s.knownName",
+      "answer": "Gerhard Herzberg, James Franck, Klaus Hasselmann, Max Delbr\u00fcck, Otto Loewi, Robert Huber, Arno Penzias, Eduard Buchner, Gerd Binnig, Otto Hahn, Robert J. Aumann, Werner Heisenberg, Hans Spemann, Otto Diels, Rainer Weiss, Sir Bernard Katz, Carl Bosch, Ernst B. Chain, Ernst Ruska, Georg Wittig",
+      "stats": {
+        "total": 0.07651395800348837,
+        "text2cypher": 0.013074417001917027,
+        "db_exec": 0.057445624988758937,
+        "answer_gen": 0.005548958011786453
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "answer": "The medicine prize was awarded in 1922. The chemistry prize was awarded in 1922. The physics prize was awarded in 1922.",
+      "stats": {
+        "total": 0.016631208010949194,
+        "text2cypher": 0.011313666997011751,
+        "db_exec": 0.0003324999997857958,
+        "answer_gen": 0.004558750006253831
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' AND p.awardYear = 2000 RETURN s.knownName",
+      "answer": "Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 0.018708458010223694,
+        "text2cypher": 0.013278915997943841,
+        "db_exec": 0.0011084169964306056,
+        "answer_gen": 0.003848083011689596
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "answer": "The medicine prize was awarded in 1922. The chemistry prize was awarded in 1922. The physics prize was awarded in 1922.",
+      "stats": {
+        "total": 0.01718954100215342,
+        "text2cypher": 1.2333999620750546e-05,
+        "db_exec": 0.011673083005007356,
+        "answer_gen": 0.005086082994239405
+      }
+    },
+    {
+      "question": "Which scholars were born in Paris?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' RETURN s.knownName",
+      "answer": "Esther Duflo was born in Paris.",
+      "stats": {
+        "total": 0.04639370899531059,
+        "text2cypher": 0.011604457991779782,
+        "db_exec": 0.02976475001196377,
+        "answer_gen": 0.004572541991365142
+      }
+    },
+    {
+      "question": "Which institutions are located in USA?",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'united states' OR toLower(co.name) CONTAINS 'usa' RETURN i.name",
+      "answer": "Stanford University, Massachusetts Institute of Technology (MIT), Johns Hopkins University, California Institute of Technology (Caltech), University of Pennsylvania, University of Chicago, Tufts University, Harvard University.",
+      "stats": {
+        "total": 0.061194167006760836,
+        "text2cypher": 0.012555291003081948,
+        "db_exec": 0.0423357920080889,
+        "answer_gen": 0.005622291995678097
+      }
+    },
+    {
+      "question": "Which scholars won Nobel Prizes in Physics after 1950?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND p.awardYear > 1950 RETURN s.knownName",
+      "answer": "The scholars who won Nobel Prizes in Physics after 1950 are: Ernest T.S. Walton (1951), E. M. Purcell (1952), Felix Bloch (1952), Frits Zernike (1953), Max Born (1954), Walther Bothe (1954), Willis E. Lamb (1955), Polykarp Kusch (1955), Walter H. Brattain (1956), William B. Shockley (1956), John Bardeen (1956), Chen Ning Yang (1957), Tsung-Dao Lee (1957), Pavel A. Cherenkov (1958), Il\\u00b4ja M. Frank (1958), Igor Y. Tamm (1958), Owen Chamberlain (1959), Emilio Segr\\u00e8 (1959), and Donald A. Glaser (1960).",
+      "stats": {
+        "total": 0.019480333008687012,
+        "text2cypher": 0.012462915998185053,
+        "db_exec": 0.0015026670007500798,
+        "answer_gen": 0.00505787500878796
+      }
+    },
+    {
+      "question": "Which scholars died in Switzerland?",
+      "cypher": "MATCH (s:Scholar)-[:DIED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'switzerland' RETURN s.knownName",
+      "answer": "Here are a few notable scholars who passed away in Switzerland:\n\n1. **Friedrich Nietzsche** (1844-1900): The German philosopher and cultural critic died in Weimar, but his sister Elisabeth F\u00f6rster-Nietzsche moved to Sils Maria, Switzerland, where she managed the Nietzsche estate and edited many of his works.\n2. **Ernst Haeckel** (1834-1919): A German zoologist, philosopher, and naturalist who spent some time in Switzerland, particularly in Bern, where he was a professor at the University of Bern. He died in Jena, Germany, but had connections to Switzerland through his work.\n3. **Albert Schweitzer** (1875-1965): The French-German theologian, missionary, and musician lived in Lambar\u00e9n\u00e9, Gabon, for many years, but also spent time in Switzerland, particularly in Basel, where he studied theology. He died in Lambar\u00e9n\u00e9, but had strong ties to Switzerland.\n4. **Carl Jung** (1875-1961): The Swiss psychiatrist and psychoanalyst was born in Kesswil, Switzerland, and spent most of his life in Switzerland, including time in Zurich and K\u00fcsnacht. He died in K\u00fcsnacht.\n\nThese are just a few examples of scholars who had connections to Switzerland through their lives or work. If you're looking for more information on specific individuals, please let me know!",
+      "stats": {
+        "total": 19.088137259008363,
+        "text2cypher": 0.012812790999305435,
+        "db_exec": 0.0003802499995799735,
+        "answer_gen": 19.07447817600041
+      }
+    },
+    {
+      "question": "Which scholars are affiliated with Max Planck Institute?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'max planck institute' RETURN s.knownName",
+      "answer": "Klaus Hasselmann, Stefan W. Hell, Theodor W. H\u00e4nsch, Svante P\u00e4\u00e4bo, Reinhard Genzel.",
+      "stats": {
+        "total": 0.05632320899167098,
+        "text2cypher": 0.03073370800120756,
+        "db_exec": 0.018997125007444993,
+        "answer_gen": 0.004985458988812752
+      }
+    }
+  ]
+}

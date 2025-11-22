@@ -7,6 +7,50 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+EVALUATION_PROMPT = (
+    "You are an impartial evaluator. Your task is to compare two answers to the same question:\n\n"
+    "1) A RAG-based answer (Answer A)\n"
+    "2) A plain LLM answer without retrieval (Answer B)\n\n"
+    "You must evaluate which answer is better according to the following criteria:\n\n"
+    "1. Correctness – factual accuracy, logical consistency, and alignment with the question.\n"
+    "2. Grounding – whether the answer relies on verifiable information, avoids hallucinations, and is supported by provided facts if present.\n"
+    "3. Completeness – whether it fully answers all components of the question.\n"
+    "4. Clarity – readability, coherence, and organization of the response.\n"
+    "5. Safety – absence of fabricated citations, misinformation, or overconfident claims.\n\n"
+    "Instructions:\n"
+    "- Read the question.\n"
+    "- Read both answers completely.\n"
+    "- Score each answer from 1 to 10 for each criterion.\n"
+    "- Provide a brief justification for each score.\n"
+    "- Provide a final verdict: “Answer A is better”, “Answer B is better”, or “Both are equivalent”.\n"
+    "- Be strict about hallucinations and factual errors.\n\n"
+    "Output Format (strict):\n"
+    "{\n"
+    "  \"scores\": {\n"
+    "    \"answer_a\": {\n"
+    "      \"correctness\": <1-10>,\n"
+    "      \"grounding\": <1-10>,\n"
+    "      \"completeness\": <1-10>,\n"
+    "      \"clarity\": <1-10>,\n"
+    "      \"safety\": <1-10>\n"
+    "    },\n"
+    "    \"answer_b\": {\n"
+    "      \"correctness\": <1-10>,\n"
+    "      \"grounding\": <1-10>,\n"
+    "      \"completeness\": <1-10>,\n"
+    "      \"clarity\": <1-10>,\n"
+    "      \"safety\": <1-10>\n"
+    "    }\n"
+    "  },\n"
+    "  \"justification\": \"<3–6 sentences summarizing reasoning>\",\n"
+    "  \"winner\": \"<A | B | tie>\"\n"
+    "}\n\n"
+    "Content to evaluate:\n"
+    "Question: {{QUESTION}}\n\n"
+    "Answer A (RAG): {{RAG_ANSWER}}\n\n"
+    "Answer B (Plain LLM): {{LLM_ANSWER}}\n"
+)
+
 # ---- Few-shot exemplars for Text2Cypher ----
 
 EXEMPLARS: list[dict] = [
