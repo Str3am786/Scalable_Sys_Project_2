@@ -168,6 +168,7 @@ class GraphRAG(LLM):
         self.base_llm = llm
         self.use_exemplars = use_exemplars
 
+
         # Configure DSPy with the provided LLM
         dspy_model = llm.model
         if not dspy_model.startswith("openai/"):
@@ -180,7 +181,12 @@ class GraphRAG(LLM):
             api_key=llm.client.api_key,
             temperature=0.0 # Deterministic for code generation
         )
+        
         dspy.configure(lm=dspy_lm)
+        # dspy.configure_cache(
+        #     enable_disk_cache=False,
+        #     enable_memory_cache=False,
+        # )
 
         # Setup DB
         path = Path(db_path)
@@ -202,10 +208,12 @@ class GraphRAG(LLM):
 
         # Setup Caching
         if cache_text2cypher:
+            print("CACHEEEE")
             self._generate_cypher = self._make_cached_generator(
                 maxsize=cache_maxsize, ttl=cache_ttl_seconds
             )
         else:
+            print("NO SULLA CARTA CACHEEEE")
             self._generate_cypher = self._generate_cypher_no_cache
 
     def _get_schema_str(self):
@@ -226,7 +234,7 @@ class GraphRAG(LLM):
                 props = self.conn.execute(f"CALL TABLE_INFO('{node}') RETURN name, type;").get_as_df()
                 # Convert to list of tuples (name, type)
                 schema_details["nodes"][node] = list(zip(props['name'], props['type']))
-
+                
             return json.dumps(schema_details, indent=2)
         except Exception as e:
             print(f"Warning: Could not auto-load schema: {e}")
@@ -235,6 +243,8 @@ class GraphRAG(LLM):
     def _make_cached_generator(self, maxsize, ttl):
         @ttl_lru_cache(maxsize=maxsize, ttl_seconds=ttl)
         def _cached(complex_key: str):
+            print("IININININININininininininininiininininininininininin")
+
             _, json_payload = complex_key.split("|", 1)
             data = json.loads(json_payload)
             return self._generate_cypher_no_cache(data['q'], data['ex'])
@@ -255,8 +265,8 @@ class GraphRAG(LLM):
     # --- LLM Interface Methods ---
 
     def generate(self, prompt: str, **kwargs) -> str:
-        answer, _ = self.query_with_stats(prompt)
-        return answer
+        answer, stats , cypher= self.query_with_stats(prompt)
+        return answer, stats, cypher
 
     def stream(self, prompt: str, **kwargs) -> Iterable[str]:
         # Simple fallback to generate for now
@@ -328,4 +338,4 @@ class GraphRAG(LLM):
         for k, v in stats.items():
             print(f"{k:>12}: {v:.4f}s")
 
-        return answer, stats
+        return answer, stats, cypher

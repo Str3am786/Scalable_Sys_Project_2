@@ -1,0 +1,114 @@
+{
+  "results": [
+    {
+      "question": "Which scholars won Physics in 1921?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND p.awardYear = 1921 RETURN s.knownName",
+      "answer": "Not enough context",
+      "stats": {
+        "total": 37.93512193400238,
+        "text2cypher": 34.538967473999946,
+        "db_exec": 0.0052814590017078444,
+        "answer_gen": 3.387739418001729
+      }
+    },
+    {
+      "question": "Which scholars were born in Germany?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'germany' RETURN s.knownName",
+      "answer": "The scholars born in Germany are: Gerhard Herzberg, James Franck, Klaus Hasselmann, Max Delbr\u00fcck, Otto Loewi, Robert Huber, Arno Penzias, Eduard Buchner, Gerd Binnig, Otto Hahn, Werner Heisenberg, Hans Spemann, Otto Diels, Rainer Weiss, Sir Bernard Katz, Carl Bosch, Ernst B. Chain, Ernst Ruska, and Georg Wittig.",
+      "stats": {
+        "total": 32.688829139995505,
+        "text2cypher": 21.446193426003447,
+        "db_exec": 0.006360290994052775,
+        "answer_gen": 11.234606714002439
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "answer": "The prizes awarded in 1922 were for medicine, chemistry, and physics.",
+      "stats": {
+        "total": 37.234008016996086,
+        "text2cypher": 32.67245509799977,
+        "db_exec": 0.0014179160061758012,
+        "answer_gen": 4.554431668992038
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' AND p.awardYear = 2000 RETURN s.knownName",
+      "answer": "Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger won Chemistry prizes in 2000.",
+      "stats": {
+        "total": 32.300217307012645,
+        "text2cypher": 27.3171374710073,
+        "db_exec": 0.00249650000478141,
+        "answer_gen": 4.9761126689991215
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "answer": "The prizes awarded in 1922 were for medicine, chemistry, and physics.",
+      "stats": {
+        "total": 0.020572082998114638,
+        "text2cypher": 6.958299491088837e-05,
+        "db_exec": 0.00127891699958127,
+        "answer_gen": 0.017893583004479297
+      }
+    },
+    {
+      "question": "Which scholars were born in Paris?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' RETURN s.knownName",
+      "answer": "Paris, the City of Light, has been home to many renowned scholars throughout history. Here are a few notable ones:\n\n1. **Ren\u00e9 Descartes** (1596-1650): A philosopher and mathematician who is widely regarded as the father of modern Western philosophy.\n2. **Voltaire** (1694-1778): A philosopher, historian, and writer who was a leading figure in the Enlightenment.\n3. **Denis Diderot** (1713-1784): An encyclopedist, philosopher, and art critic who co-founded the Encyclop\u00e9die, a comprehensive reference work that reflected the values of the Enlightenment.\n4. **Jean-Jacques Rousseau** (1712-1778): A philosopher and writer who is best known for his influential works on social contract theory and human nature.\n5. **Pierre-Simon Laplace** (1749-1827): A mathematician, astronomer, and physicist who made significant contributions to the fields of celestial mechanics and probability theory.\n6. **Alexandre Dumas** (1802-1870): A writer and historian who is best known for his novels, such as \"The Count of Monte Cristo\" and \"The Three Musketeers\".\n7. **\u00c9mile Zola** (1840-1902): A novelist, playwright, and journalist who was a leading figure in the Naturalist movement.\n8. **Henri Poincar\u00e9** (1854-1912): A mathematician, physicist, and philosopher who made significant contributions to various fields, including topology, algebraic geometry, and relativity theory.\n9. **Marcel Mauss** (1872-1950): An anthropologist and sociologist who is best known for his work on the sociology of knowledge and the concept of \"gift economies\".\n10. **Claude L\u00e9vi-Strauss** (1883-1975): A structural anthropologist who is widely regarded as one of the founders of modern anthropology.\n\nThese are just a few examples of scholars born in Paris, but there are many more notable figures who have made significant contributions to various fields of study.",
+      "stats": {
+        "total": 52.707144108004286,
+        "text2cypher": 21.135446051994222,
+        "db_exec": 0.0020304999925429,
+        "answer_gen": 31.56840713901329
+      }
+    },
+    {
+      "question": "Which institutions are located in USA?",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'united states' OR toLower(co.name) CONTAINS 'usa' RETURN i.name",
+      "answer": "Stanford University, Massachusetts Institute of Technology (MIT), Johns Hopkins University, California Institute of Technology (Caltech), University of Pennsylvania, University of Chicago, Tufts University, Harvard University.",
+      "stats": {
+        "total": 30.423640597000485,
+        "text2cypher": 23.070536050989176,
+        "db_exec": 0.036421334007172845,
+        "answer_gen": 7.3072868780000135
+      }
+    },
+    {
+      "question": "Which scholars won Nobel Prizes in Physics after 1950?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND p.awardYear > 1950 RETURN s.knownName",
+      "answer": "The scholars who won Nobel Prizes in Physics after 1950 are: Ernest T.S. Walton (1951), E. M. Purcell (1952), Felix Bloch (1952), Frits Zernike (1953), Max Born (1954), Walther Bothe (1954), Willis E. Lamb (1955), Polykarp Kusch (1955), Walter H. Brattain (1956), William B. Shockley (1956), John Bardeen (1956), Chen Ning Yang (1957), Tsung-Dao Lee (1957), Pavel A. Cherenkov (1958), Il'ja M. Frank (1958), Igor Y. Tamm (1958), Owen Chamberlain (1959), Emilio Segr\u00e8 (1959), and Donald A. Glaser (1960).",
+      "stats": {
+        "total": 53.14211743998749,
+        "text2cypher": 32.36970834800741,
+        "db_exec": 0.040677832992514595,
+        "answer_gen": 20.730218841999886
+      }
+    },
+    {
+      "question": "Which scholars died in Switzerland?",
+      "cypher": "MATCH (s:Scholar)-[:DIED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'switzerland' RETURN s.knownName",
+      "answer": "Here are a few notable scholars who passed away in Switzerland:\n\n1. **Friedrich Nietzsche** (1844-1900): The German philosopher and cultural critic died in Weimar, but his sister Elisabeth F\u00f6rster-Nietzsche moved to Sils Maria, Switzerland, where she managed the Nietzsche estate and edited many of his works.\n2. **Ernst Haeckel** (1834-1919): A German zoologist, philosopher, and naturalist who spent some time in Switzerland, particularly in Bern, where he was a professor at the University of Bern. He died in Jena, Germany, but had connections to Switzerland through his work.\n3. **Albert Schweitzer** (1875-1965): The French-German theologian, missionary, and musician lived in Lambar\u00e9n\u00e9, Gabon, for many years, but also spent time in Switzerland, particularly in Basel, where he studied theology. He died in Lambar\u00e9n\u00e9, but had strong ties to Switzerland.\n4. **Carl Jung** (1875-1961): The Swiss psychiatrist and psychoanalyst was born in Kesswil, Switzerland, and spent most of his life in Switzerland, including time in Zurich and K\u00fcsnacht. He died in K\u00fcsnacht.\n\nThese are just a few examples of scholars who had connections to Switzerland through their lives or work. If you're looking for more information on specific individuals, please let me know!",
+      "stats": {
+        "total": 41.41921656100021,
+        "text2cypher": 20.883154883995303,
+        "db_exec": 0.0010605840070638806,
+        "answer_gen": 20.52934534299129
+      }
+    },
+    {
+      "question": "Which scholars are affiliated with Max Planck Institute?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'max planck institute' RETURN s.knownName",
+      "answer": "Klaus Hasselmann, Reinhard Genzel, Stefan W. Hell, Svante P\u00e4\u00e4bo, Theodor W. H\u00e4nsch",
+      "stats": {
+        "total": 25.53720605300623,
+        "text2cypher": 19.975453300998197,
+        "db_exec": 0.0081801659980556,
+        "answer_gen": 5.552134878002107
+      }
+    }
+  ]
+}

@@ -6,7 +6,7 @@ services:
 
     env_file:
       - .env
-
+    
     volumes:
       - ./data:/app/data
-    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars won Nobel Prizes in Physics?"]
+    command: ["python", "-m", "src.scalable_sys.test", "--prompt", "Which scholars won Nobel Prizes in Physics?","--rag","--complete-test"]
