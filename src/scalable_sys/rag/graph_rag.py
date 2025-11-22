@@ -30,11 +30,12 @@ class Text2Cypher(dspy.Signature):
        - `Scholar`: match names on property `knownName` (e.g., s.knownName).
        - `Country`, `City`, `Institution`: match names on property `name`.
        - `Prize`: match category on property `category` (e.g., 'physics').
+       - **Time**: Use `awardYear` for prize years.
 
     2. **Path Patterns (Strictly Follow These)**:
        - "Born in [Country]" -> `(:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(:Country)`
        - "Worked in / Affiliated with [Country]" -> `(:Scholar)-[:AFFILIATED_WITH]->(:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(:Country)`
-       - "Won prize in [Year]" -> `(:Scholar)-[:WON]->(:Prize {year: 2020})`
+       - "Won prize" -> `(:Scholar)-[:WON]->(:Prize)` (Filter by `{awardYear: ...}` ONLY if a specific year is asked).
 
     3. **String Matching**:
        - ALWAYS use `toLower(...)` for name comparisons.
@@ -43,7 +44,7 @@ class Text2Cypher(dspy.Signature):
          ALWAYS use a `WHERE` clause (e.g. `WHERE toLower(p.category) = 'physics'`).
 
     4. **Formatting**:
-       - Return only the specific properties needed (e.g., `return s.knownName, p.year`).
+       - Return only the specific properties needed (e.g., `return s.knownName, p.awardYear`).
        - Do NOT return whole nodes/maps unless necessary.
     </SCHEMA_RULES>
     """
@@ -71,12 +72,13 @@ class RepairCypher(dspy.Signature):
 
 
 class GenerateAnswer(dspy.Signature):
-    """Answer the user question based strictly on the provided database context.
-
+    """Answer the user question based on the provided database context.
+    
     <GUIDELINES>
-    1. Use ONLY the provided <CONTEXT>. Do not use outside knowledge.
-    2. If <CONTEXT> is empty or insufficient, output exactly: "Not enough context".
-    3. When mentioning dates, format them clearly (e.g., "October" instead of "10").
+    1. The <CONTEXT> provides the ground truth data. Use it to answer the question directly.
+    2. If the context is an empty list `[]` or clearly irrelevant, ONLY THEN output: "Not enough context".
+    3. Be concise. If the context is just a name, just state the name.
+    4. When mentioning dates, format them clearly (e.g., "October" instead of "10").
     </GUIDELINES>
     """
     question = dspy.InputField()
