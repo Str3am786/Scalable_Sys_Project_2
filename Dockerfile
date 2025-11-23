@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src ./src
 
-CMD ["python", "-m", "src.scalable_sys.app", "--prompt", "Who won the Nobel Prize in Physics in 1921?"]
+CMD ["python", "-m", "src.scalable_sys.test", "--prompt", "Who won the Nobel Prize in Physics in 1921?"]

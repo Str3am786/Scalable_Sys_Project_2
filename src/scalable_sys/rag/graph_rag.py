@@ -77,8 +77,10 @@ class GenerateAnswer(dspy.Signature):
     2. If the context is an empty list `[]` or clearly irrelevant, ONLY THEN output: "Not enough context".
     3. Be concise. If the context is just a name, just state the name.
     4. When mentioning dates, format them clearly (e.g., "October" instead of "10").
+    5. Obviously, use all the knowledge that you have to improve the answer with the provided data
     </GUIDELINES>
     """
+    #    3. Be concise. If the context is just a name, just state the name.
     question = dspy.InputField()
     context = dspy.InputField(desc="Structured data retrieved from the graph")
     answer = dspy.OutputField(desc="Natural language answer")
@@ -125,7 +127,7 @@ class RefinedCypherGenerator(dspy.Module):
         # Validate & Repair Loop
         valid, error_msg = self.validate_cypher(cypher)
         max_retries = 3
-
+        all_cyphers = [cypher]
         for i in range(max_retries):
             if valid:
                 break
@@ -143,10 +145,11 @@ class RefinedCypherGenerator(dspy.Module):
             # Post-process again after repair to ensure clean string
             if self.use_postprocess:
                 cypher = postprocess_cypher(cypher)
+            all_cyphers.append(cypher)
 
             valid, error_msg = self.validate_cypher(cypher)
 
-        return cypher
+        return cypher, all_cyphers
 
 
 # =========================================================================
@@ -184,10 +187,10 @@ class GraphRAG(LLM):
         )
         
         dspy.configure(lm=dspy_lm)
-        # dspy.configure_cache(
-        #     enable_disk_cache=False,
-        #     enable_memory_cache=False,
-        # )
+        dspy.configure_cache(
+            enable_disk_cache=False,
+            enable_memory_cache=False,
+        )
 
         # Setup DB
         path = Path(db_path)
@@ -244,7 +247,6 @@ class GraphRAG(LLM):
     def _make_cached_generator(self, maxsize, ttl):
         @ttl_lru_cache(maxsize=maxsize, ttl_seconds=ttl)
         def _cached(complex_key: str):
-            print("IININININININininininininininiininininininininininin")
 
             _, json_payload = complex_key.split("|", 1)
             data = json.loads(json_payload)
@@ -266,8 +268,8 @@ class GraphRAG(LLM):
     # --- LLM Interface Methods ---
 
     def generate(self, prompt: str, **kwargs) -> str:
-        answer, stats , cypher= self.query_with_stats(prompt)
-        return answer, stats, cypher
+        answer, stats , cypher, all_tested_cyphers= self.query_with_stats(prompt)
+        return answer, stats, cypher, all_tested_cyphers
 
     def stream(self, prompt: str, **kwargs) -> Iterable[str]:
         # Simple fallback to generate for now
@@ -287,7 +289,7 @@ class GraphRAG(LLM):
         t1 = time.perf_counter()
 
         # 2. Generate Cypher with ChainOfThought + Repair Loop + Postprocess
-        cypher = self._generate_cypher(question, exemplars_str)
+        cypher, all_tested_cyphers = self._generate_cypher(question, exemplars_str)
 
         t2 = time.perf_counter()
 
@@ -339,4 +341,4 @@ class GraphRAG(LLM):
         for k, v in stats.items():
             print(f"{k:>12}: {v:.4f}s")
 
-        return answer, stats, cypher
+        return answer, stats, cypher , all_tested_cyphers

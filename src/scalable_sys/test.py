@@ -177,43 +177,46 @@ def main():
         test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         evaluation_model, evaluation_script = get_evaluation_model()
-        compare = ["data/2025-11-22_17-08-53_rag_True_cache_True.json","data/2025-11-22_17-08-53_rag_False_cache_True.json"] 
-        compare = []
+        #print(evaluation_script)
+        compare = ["data/2025-11-23_17-20-35_rag_False_cache_False.json","data/2025-11-23_17-20-35_rag_True_cache_False.json"] 
+        #compare = []
     
-        for i in range(2):
-            for j in range(2):
-                rag = bool(i)
-                use_cache = bool(j)
-                llm = get_llm(use_cache=use_cache, rag = rag)
-                filename = f"{test_datetime}_rag_{rag}_cache_{use_cache}.json"
-                if j == 1:
-                    compare.append(f"data/{filename}")
+        # for i in range(2):
+        #     for j in range(2):
+        #         rag = bool(i)
+        #         use_cache = bool(j)
+        #         llm = get_llm(use_cache=use_cache, rag = rag)
+        #         filename = f"{test_datetime}_rag_{rag}_cache_{use_cache}.json"
+        #         if j == 1:
+        #             compare.append(f"data/{filename}")
                 
-                for test in test_set:
-                    prompt = test["question"]
-                    cypher = test["cypher"]
-                    true = test["expected"]
-                    if rag:
-                        answer, stats, c  = llm.generate(prompt)
+        #         for test in test_set:
                     
-                        result = {
-                            "question": prompt,
-                            "cypher": cypher,
-                            "answer": answer,
-                            "stats": stats
-                        }
-                    else:
-                        start = datetime.now()
-                        answer = llm.generate(prompt)
-                        end = datetime.now()
-                        delta = end - start
+        #             prompt = test["question"]
+        #             cypher = test["cypher"]
+        #             if rag:
+        #                 answer, stats, c , all_tested_cyphers = llm.generate(prompt)
+                    
+        #                 result = {
+        #                     "question": prompt,
+        #                     "cypher": c,
+        #                     "all_cyphers" : all_tested_cyphers,
+        #                     "answer": answer,
+        #                     "stats": stats
+        #                 }
+        #             else:
+        #                 start = datetime.now()
+        #                 answer = llm.generate(prompt)
+        #                 end = datetime.now()
+        #                 delta = (end - start).total_seconds()
                                         
-                        result = {
-                            "question": prompt,
-                            "answer": answer,
-                            "time": str(delta),
-                        }
-                    record_test(filename,result)
+        #                 result = {
+        #                     "question": prompt,
+        #                     "answer": answer,
+        #                     "time": str(delta),
+        #                 }
+                        
+        #             record_test(filename,result)
             
         with open(compare[0], "r", encoding="utf-8") as f:
             data_plain = json.load(f)["results"]
@@ -224,25 +227,46 @@ def main():
                 
         with open("data/test_input.json", "r", encoding="utf-8") as f:
             data_true = json.load(f)["tests"]
-            
         
-        for i in range(len(data_true["tests"])):
-            true_answer = data_true[i]
-            rag_answer = data_rag[i]
-            plain_answer = data_plain[i] 
+        evaluations_rag = []
+        evaluations_plain = []
+        
+        plain_f =  open("data/accuracy_plain.txt","a")
+        rag_f =  open("data/accuracy_rag.txt","a")
+        
+        for i in range(len(data_true)):
             
-            evaluation_input = (
+            question =  data_true[i]["question"]
+            true_answer = data_true[i]["expected"]
+            rag_answer = data_rag[i]["answer"]
+            plain_answer = data_plain[i]["answer"]
+            
+            evaluation_input_plain = (
                 evaluation_script
-                + "\nRAG_ANSWER:\n" + json.dumps(rag_answer)
-                + "\nPLAIN_MODEL_ANSWER:\n" + json.dumps(plain_answer)
+                + "\nQUESTION:\n" + json.dumps(question)
+                + "\nMODEL_ANSWER:\n" + json.dumps(plain_answer)
                 + "\nGROUND_TRUTH:\n" + json.dumps(true_answer)
             )
-            
-            print(evaluation_input)
-            
+                        
+            evaluation_input_rag = (
+                evaluation_script
+                + "\nQUESTION:\n" + json.dumps(question)
+                + "\nMODEL_ANSWER:\n" + json.dumps(rag_answer)
+                + "\nGROUND_TRUTH:\n" + json.dumps(true_answer)
+            )
+                        
             # Generate evaluation (assuming evaluation_model is already defined)
-            evaluation_result = evaluation_model.generate(evaluation_input)
-            print("Evaluation Result:\n", evaluation_result)
+            evaluation_result_plain = evaluation_model.generate(evaluation_input_plain)
+            evaluation_result_rag = evaluation_model.generate(evaluation_input_rag)
+
+            
+            #evaluations_plain.append(evaluation_result_plain)
+    
+            
+            plain_f.write(evaluation_input_plain+"\n"+evaluation_result_plain+"\n\n\n",)
+            
+            rag_f.write(evaluation_input_rag+"\n"+evaluation_result_rag+"\n\n\n",)
+        
             
     elif args.test:
         # Just one test of the 4 -- Maybe we can drop it
@@ -260,7 +284,7 @@ def main():
         print(llm.generate(args.prompt))      
         
         end = datetime.now()
-        delta = end - start
+        delta = (end - start).total_seconds()
         print(f"time: {delta} seconds")
 
         

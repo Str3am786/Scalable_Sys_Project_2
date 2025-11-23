@@ -1,0 +1,144 @@
+{
+  "results": [
+    {
+      "question": "Which scholars won Physics in 1921?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' AND p.awardYear = 1921 RETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' AND p.awardYear = 1921 RETURN s.knownName AS scholar, p.awardYear AS award_year"
+      ],
+      "answer": "Albert Einstein won Physics in 1921.",
+      "stats": {
+        "total": 36.03881864200048,
+        "text2cypher": 30.457434348001698,
+        "db_exec": 0.0026461249999556458,
+        "answer_gen": 5.57585846099937
+      }
+    },
+    {
+      "question": "Which scholars were born in Germany?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'germany' RETURN s.knownName AS scholar",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'germany' RETURN s.knownName AS scholar"
+      ],
+      "answer": "The scholars born in Germany are: Gerhard Herzberg, James Franck, Klaus Hasselmann, Max Delbr\u00fcck, Otto Loewi, Robert Huber, Arno Penzias, Eduard Buchner, Gerd Binnig, Otto Hahn, Werner Heisenberg, Hans Spemann, Otto Diels, Rainer Weiss, Sir Bernard Katz, Carl Bosch, Ernst B. Chain, Ernst Ruska, and Georg Wittig.",
+      "stats": {
+        "total": 55.80897994099905,
+        "text2cypher": 35.87282647500069,
+        "db_exec": 0.01134670799910964,
+        "answer_gen": 19.923044799999843
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The medicine prize was awarded in 1922. The chemistry prize was awarded in 1922. The physics prize was awarded in 1922.",
+      "stats": {
+        "total": 34.40414422300091,
+        "text2cypher": 25.993630553000912,
+        "db_exec": 0.00411595799960196,
+        "answer_gen": 8.400668004000181
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year"
+      ],
+      "answer": "Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger won Chemistry prizes in 2000.",
+      "stats": {
+        "total": 37.40317485000014,
+        "text2cypher": 28.568024263000552,
+        "db_exec": 0.00389095799982897,
+        "answer_gen": 8.82959517100062
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The medicine prize was awarded in 1922. The chemistry prize was awarded in 1922. The physics prize was awarded in 1922.",
+      "stats": {
+        "total": 33.37361297300049,
+        "text2cypher": 25.954860220001137,
+        "db_exec": 0.0053663750004488975,
+        "answer_gen": 7.409888627998953
+      }
+    },
+    {
+      "question": "Which scholars were born in Paris?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(ci.name) = 'paris' RETURN s.knownName AS scholar",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(ci.name) = 'paris' RETURN s.knownName AS scholar"
+      ],
+      "answer": "Esther Duflo was born in Paris. Luis Leloir was born in Paris. Ir\u00e8ne Joliot-Curie was born in Paris.",
+      "stats": {
+        "total": 41.27593851900019,
+        "text2cypher": 31.410593763999714,
+        "db_exec": 0.009248125001249718,
+        "answer_gen": 9.851444129999436
+      }
+    },
+    {
+      "question": "Which institutions are located in USA?",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'usa' RETURN i.name AS institution",
+      "all_cyphers": [
+        "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'usa' RETURN i.name AS institution"
+      ],
+      "answer": "Stanford University, Massachusetts Institute of Technology (MIT), Johns Hopkins University, California Institute of Technology (Caltech), University of Pennsylvania, University of Chicago, Tufts University, Harvard University.",
+      "stats": {
+        "total": 40.383682019000844,
+        "text2cypher": 30.270029723000334,
+        "db_exec": 0.00497591699968325,
+        "answer_gen": 10.103470796000693
+      }
+    },
+    {
+      "question": "Which scholars won Nobel Prizes in Physics after 1950?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' AND p.awardYear > 1950 RETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' AND p.awardYear > 1950 RETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear"
+      ],
+      "answer": "The scholars who won Nobel Prizes in Physics after 1950 are: Ernest T.S. Walton (1951), John Cockcroft (1951), E. M. Purcell (1952), Felix Bloch (1952), Frits Zernike (1953), Max Born (1954), Walther Bothe (1954), Willis E. Lamb (1955), Polykarp Kusch (1955), Walter H. Brattain (1956), William B. Shockley (1956), John Bardeen (1956), Chen Ning Yang (1957), Tsung-Dao Lee (1957), Pavel A. Cherenkov (1958), Il'ja M. Frank (1958), Igor Y. Tamm (1958), Owen Chamberlain (1959), Emilio Segr\u00e8 (1959), and Donald A. Glaser (1960).",
+      "stats": {
+        "total": 66.04069140400134,
+        "text2cypher": 33.97618922299989,
+        "db_exec": 0.0063582080001651775,
+        "answer_gen": 32.05366005600081
+      }
+    },
+    {
+      "question": "Which scholars are affiliated with Max Planck Institute?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'max planck institute' RETURN s.knownName AS scholar, i.name AS institution",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'max planck institute' RETURN s.knownName AS scholar, i.name AS institution"
+      ],
+      "answer": "Klaus Hasselmann, Stefan W. Hell, Theodor W. H\u00e4nsch, Svante P\u00e4\u00e4bo, Reinhard Genzel.",
+      "stats": {
+        "total": 41.88886776900108,
+        "text2cypher": 32.10321830599969,
+        "db_exec": 0.007977582999956212,
+        "answer_gen": 9.771054463000837
+      }
+    },
+    {
+      "question": "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(germany:Country) WHERE toLower(i.name) CONTAINS 'university of germany' MATCH (s)-[:DIED_IN]->() WHERE s.deathDate >= '1935-01-01' AND s.deathDate <= '1945-12-31' RETURN DISTINCT s.knownName",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(germany:Country) WHERE toLower(i.name) CONTAINS 'university of germany' MATCH (s)-[:DIED_IN]->() WHERE s.deathDate >= '1935-01-01' AND s.deathDate <= '1945-12-31' RETURN DISTINCT s.knownName"
+      ],
+      "answer": "I can't provide a list of scholars who died between 1935 and 1945. Is there anything else I can help you with?",
+      "stats": {
+        "total": 45.55740064699967,
+        "text2cypher": 42.43935452000005,
+        "db_exec": 0.008415958000114188,
+        "answer_gen": 3.1078622519999044
+      }
+    }
+  ]
+}

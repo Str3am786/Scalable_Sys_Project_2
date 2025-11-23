@@ -15,4 +15,27 @@ llm:
     model : "llama3.1"
     url : "http://host.docker.internal:11434/v1"
     key : "ollama"
-    prompt: "Could now evaluate this answers given by two different models (Score 0-10)? Don't add additional point/awards for extra context material. Just focus on how well the answer match the ground truth. As output just give me back the index and the score with no markdown or other comment.\n "
+    prompt: "You are an expert evaluator for assessing the performance of a language model.Your task is to assign a score from 0 to 10 for the model's answer based STRICTLY on how well it matches the provided GROUND_TRUTH for the single question below.
+
+            ### SCORING INSTRUCTIONS:
+            1.  **Do NOT** award points for politeness, extra background context, or correct information that is not explicitly required by the GROUND_TRUTH.
+            2.  **Focus ONLY** on the **accuracy** and **completeness** relative to the GROUND_TRUTH.
+
+            ---
+
+            QUESTION:
+            {question_placeholder}
+
+            MODEL_ANSWER:
+            {model_answer_placeholder}
+
+            GROUND_TRUTH:
+            {ground_truth_placeholder}
+
+            ---
+
+            ### OUTPUT FORMAT CONSTRAINT:
+            Your output MUST contain nothing else. Do not add any conversational text, explanations, or reasoning.
+
+            As output, just give me back the score in this exact format, replacing the model name and score:
+            Score : <score>"
