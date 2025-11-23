@@ -73,14 +73,14 @@ class GenerateAnswer(dspy.Signature):
     """Answer the user question based on the provided database context.
     
     <GUIDELINES>
-    1. The <CONTEXT> provides the ground truth data. Use it to answer the question directly.
-    2. If the context is an empty list `[]` or clearly irrelevant, ONLY THEN output: "Not enough context".
-    3. Be concise. If the context is just a name, just state the name.
-    4. When mentioning dates, format them clearly (e.g., "October" instead of "10").
-    5. Obviously, use all the knowledge that you have to improve the answer with the provided data
+    1. The <CONTEXT> contains the raw results of a database query executed to answer the user's <QUESTION>.
+    2. Trust that these results are the correct answers. Do not verify the criteria (dates, locations) yourself, as the database has already filtered for them.
+    3. If the context is an empty list `[]`, ONLY THEN output: "Not enough context".
+    4. Be concise, but polite.
+    5. If the context includes multiple names of people, institutions, countries, cities, etc... list ALL of them.
+    6. When mentioning dates, format them clearly (e.g., "October" instead of "10").
     </GUIDELINES>
     """
-    #    3. Be concise. If the context is just a name, just state the name.
     question = dspy.InputField()
     context = dspy.InputField(desc="Structured data retrieved from the graph")
     answer = dspy.OutputField(desc="Natural language answer")
@@ -322,9 +322,7 @@ class GraphRAG(LLM):
             # Fallback: standard LLM generation without graph context
             answer = self.base_llm.generate(question)
         else:
-            # Serialize context (first 20 rows only to save tokens)
-            context_str = json.dumps(rows[:20], default=str)
-
+            context_str = json.dumps(rows, default=str)
             ans_response = self.answer_gen(question=question, context=context_str)
             answer = ans_response.answer
 

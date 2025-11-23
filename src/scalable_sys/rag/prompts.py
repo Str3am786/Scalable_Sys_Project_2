@@ -200,6 +200,16 @@ EXEMPLARS: list[dict] = [
             "RETURN count(s) as chemistry_laureates"
         )
     },
+    {
+        "question": "Which scholars affiliated with an institution in France died between the years 1935 and 1945?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE (toLower(co.name) CONTAINS 'france' OR co.name = 'DE') "
+            "AND s.deathDate >= '1935-01-01' "
+            "AND s.deathDate <= '1945-12-31' "
+            "RETURN DISTINCT s.knownName AS Scholarname, i.name AS InstitutionName"
+        )
+    },
 
     # Limits (First, Last, Oldest)
     {

@@ -23,7 +23,7 @@ class LLMConfig:
     rag_cache_maxsize: int
     rag_cache_ttl_seconds: int
     
-    #evaluation model
+    # Evaluation / judge model
     evaluation_model : str
     evaluation_url : str
     evaluation_key : str
@@ -37,7 +37,12 @@ def load_config(yaml_path: str = "config.yaml") -> LLMConfig:
 
     rag_cfg = file_cfg.get("rag", {})
     evaluation = file_cfg.get("evaluation", {})
-    
+
+    # Base LLM from .env
+    base_url = os.getenv("LLM_BASE_URL", "http://localhost:11434/v1")
+    base_key = os.getenv("LLM_API_KEY", "ollama")
+    base_model = os.getenv("LLM_MODEL", "llama3.1")
+
     # Resolve DB path relative to project root
     raw_db_path = rag_cfg.get("db_path", "data/nobel.kuzu")
     db_path = Path(raw_db_path)
@@ -59,8 +64,11 @@ def load_config(yaml_path: str = "config.yaml") -> LLMConfig:
         rag_cache_maxsize=rag_cfg.get("cache_maxsize", 256),
         rag_cache_ttl_seconds=rag_cfg.get("cache_ttl_seconds", 0),
         
-        evaluation_model = evaluation.get("model", ""),
-        evaluation_url = evaluation.get("url", ""),
-        evaluation_key = evaluation.get("key", ""),
+        # Use different judge llm for evaluation if set, fallback to base llm
+        evaluation_model=os.getenv("EVAL_LLM_MODEL") or os.getenv("LLM_MODEL", "llama3.1"),
+        evaluation_url=os.getenv("EVAL_LLM_BASE_URL") or os.getenv("LLM_BASE_URL", "http://localhost:11434/v1"),
+        evaluation_key=os.getenv("EVAL_LLM_API_KEY") or os.getenv("LLM_API_KEY", "ollama"),
+
+        # Get LLM-as-a-judge prompt from yaml
         evaluation_prompt = evaluation.get("prompt", "")
     )

@@ -178,45 +178,45 @@ def main():
 
         evaluation_model, evaluation_script = get_evaluation_model()
         #print(evaluation_script)
-        compare = ["data/2025-11-23_17-20-35_rag_False_cache_False.json","data/2025-11-23_17-20-35_rag_True_cache_False.json"] 
-        #compare = []
-    
-        # for i in range(2):
-        #     for j in range(2):
-        #         rag = bool(i)
-        #         use_cache = bool(j)
-        #         llm = get_llm(use_cache=use_cache, rag = rag)
-        #         filename = f"{test_datetime}_rag_{rag}_cache_{use_cache}.json"
-        #         if j == 1:
-        #             compare.append(f"data/{filename}")
+        #compare = ["data/2025-11-23_17-20-35_rag_False_cache_False.json","data/2025-11-23_17-20-35_rag_True_cache_False.json"] 
+        compare = []
+
+        for i in range(2):
+            for j in range(2):
+                rag = bool(i)
+                use_cache = bool(j)
+                llm = get_llm(use_cache=use_cache, rag = rag)
+                filename = f"{test_datetime}_rag_{rag}_cache_{use_cache}.json"
+                if j == 1:
+                    compare.append(f"data/{filename}")
                 
-        #         for test in test_set:
+                for test in test_set:
                     
-        #             prompt = test["question"]
-        #             cypher = test["cypher"]
-        #             if rag:
-        #                 answer, stats, c , all_tested_cyphers = llm.generate(prompt)
+                    prompt = test["question"]
+                    cypher = test["cypher"]
+                    if rag:
+                        answer, stats, c , all_tested_cyphers = llm.generate(prompt)
                     
-        #                 result = {
-        #                     "question": prompt,
-        #                     "cypher": c,
-        #                     "all_cyphers" : all_tested_cyphers,
-        #                     "answer": answer,
-        #                     "stats": stats
-        #                 }
-        #             else:
-        #                 start = datetime.now()
-        #                 answer = llm.generate(prompt)
-        #                 end = datetime.now()
-        #                 delta = (end - start).total_seconds()
+                        result = {
+                            "question": prompt,
+                            "cypher": c,
+                            "all_cyphers" : all_tested_cyphers,
+                            "answer": answer,
+                            "stats": stats
+                        }
+                    else:
+                        start = datetime.now()
+                        answer = llm.generate(prompt)
+                        end = datetime.now()
+                        delta = (end - start).total_seconds()
                                         
-        #                 result = {
-        #                     "question": prompt,
-        #                     "answer": answer,
-        #                     "time": str(delta),
-        #                 }
+                        result = {
+                            "question": prompt,
+                            "answer": answer,
+                            "time": str(delta),
+                        }
                         
-        #             record_test(filename,result)
+                    record_test(filename,result)
             
         with open(compare[0], "r", encoding="utf-8") as f:
             data_plain = json.load(f)["results"]
