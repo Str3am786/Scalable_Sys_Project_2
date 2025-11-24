@@ -1,0 +1,356 @@
+{
+  "results": [
+    {
+      "question": "Which scholars won Physics in 1921?",
+      "answer": "The scholar who won the Physics award in 1921 was Albert Einstein.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1921\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 3.17238870999995,
+        "text2cypher": 1.8356202930001473,
+        "db_exec": 0.005377874999794585,
+        "answer_gen": 1.3276112920000287
+      }
+    },
+    {
+      "question": "Which scholars were born in Germany?",
+      "answer": "The scholars born in Germany include Gerhard Herzberg, James Franck, Klaus Hasselmann, Max Delbr\u00fcck, Otto Loewi, Robert Huber, Arno Penzias, Eduard Buchner, Gerd Binnig, Otto Hahn, Robert J. Aumann, Werner Heisenberg, Hans Spemann, Otto Diels, Rainer Weiss, Sir Bernard Katz, Carl Bosch, Ernst B. Chain, Ernst Ruska, Georg Wittig, John C. Polanyi, Max Planck, Werner Forssmann, Wolfgang Ketterle, Adolf Windaus, Gustav Hertz, J. Hans D. Jensen, Benjamin List, Bert Sakmann, Ernst Otto Fischer, Feodor Lynen, Georges J.F. K\u00f6hler, Theodor W. H\u00e4nsch, Rudolf M\u00f6ssbauer, Adolf von Baeyer, Horst L. St\u00f6rmer, and Thomas C. S\u00fcdhof.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'germany'\nRETURN s.knownName AS scholar, ci.name AS birth_city, co.name AS birth_country",
+      "stats": {
+        "total": 8.242069169999922,
+        "text2cypher": 3.6799845010000354,
+        "db_exec": 0.015096000000085041,
+        "answer_gen": 4.545074043999875
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "In 1922, prizes were awarded in three categories: medicine, chemistry, and physics.",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS category, p.awardYear AS award_year",
+      "stats": {
+        "total": 5.209193627999866,
+        "text2cypher": 3.8410695439999927,
+        "db_exec": 0.0016363750000891741,
+        "answer_gen": 1.3645710839998628
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "In 2000, the Chemistry prize was awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 6.7618313780001245,
+        "text2cypher": 4.404364084999997,
+        "db_exec": 0.0033397499998955027,
+        "answer_gen": 2.352112960000113
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "In 1922, prizes were awarded in three categories: medicine, chemistry, and physics.",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS category, p.awardYear AS award_year",
+      "stats": {
+        "total": 0.9659452920000149,
+        "text2cypher": 9.091700007957115e-05,
+        "db_exec": 0.0016074580000804417,
+        "answer_gen": 0.9624938339998153
+      }
+    },
+    {
+      "question": "Which scholars were born in Paris?",
+      "answer": "The scholars born in Paris include Esther Duflo, Luis Leloir, Pierre-Gilles de Gennes, Jean-Pierre Sauvage, Alphonse Laveran, Andr\u00e9 F. Cournand, Ir\u00e8ne Joliot-Curie, Jacques Monod, Maurice Allais, Charles Richet, Pierre Curie, Fran\u00e7oise Barr\u00e9-Sinoussi, Henri Becquerel, Fr\u00e9d\u00e9ric Joliot, and Henri Moissan.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WHERE toLower(ci.name) = 'paris' RETURN s.knownName AS scholar, ci.name AS birth_city",
+      "stats": {
+        "total": 6.924544752999964,
+        "text2cypher": 3.4678651259998787,
+        "db_exec": 0.003795917000161353,
+        "answer_gen": 3.4510888349998368
+      }
+    },
+    {
+      "question": "Which institutions are located in USA?",
+      "answer": "The following institutions are located in the USA:\n\n- Stanford University (Stanford, CA)\n- Massachusetts Institute of Technology (MIT) (Cambridge, MA)\n- Johns Hopkins University (Baltimore, MD)\n- Space Telescope Science Institute (Baltimore, MD)\n- California Institute of Technology (Caltech) (Pasadena, CA)\n- University of California (Santa Barbara, CA, Los Angeles, CA, San Diego, CA, Berkeley, CA, San Francisco, CA, Irvine, CA)\n- University of Pennsylvania (Philadelphia, PA)\n- University of Chicago (Chicago, IL)\n- Argonne National Laboratory (Argonne, IL)\n- Rockefeller Institute for Medical Research (New York, NY, Princeton, NJ)\n- Carnegie Institution of Washington (Long Island, New York, NY)\n- University of Texas Southwestern Medical Center at Dallas (Dallas, TX)\n- Tufts University (Medford, MA)\n- Harvard University (Cambridge, MA)\n- Harvard Business School (Boston, MA)\n- Columbia University Division, Cardio-Pulmonary Laboratory, Bellevue Hospital (New York, NY)\n- Veterans Administration Hospital (New Orleans, LA, Bronx, NY)\n- Stanford University School of Medicine (Stanford, CA)\n- Princeton University (Princeton, NJ)\n- University of Illinois (Urbana, IL)\n- Scripps Research (La Jolla, CA)\n- Howard Hughes Medical Institute (Durham, NC, Chevy Chase, MD)\n- University of Southern California (Los Angeles, CA)\n- Bell Laboratories (Holmdel, NJ, Murray Hill, NJ)\n- University of North Carolina (Chapel Hill, NC)\n- Cold Spring Harbor Laboratory (Cold Spring Harbor, NY)\n- The Institute for Cancer Research (Philadelphia, PA)\n- Harvard Medical School (Boston, MA)\n- The Brookings Institution (Washington, D.C.)\n- The Scripps Research Institute (La Jolla, CA)\n- Rockefeller University (New York, NY)\n- Stanford Linear Accelerator Center (Stanford, CA)\n- Washington University (St. Louis, MO)\n- University of Colorado, JILA (Boulder, CO)\n- Johns Hopkins University School of Medicine (Baltimore, MD)\n- University of Chicago, Ben May Laboratory for Cancer Research (Chicago, IL)\n- Du Pont (Wilmington, DE)\n- Institute for Advanced Study (Princeton, NJ)\n- National Institutes of Health (Bethesda, MD)\n- Bell Telephone Laboratories (New York, NY, Murray Hill, NJ)\n- University of Massachusetts Medical School (Worcester, MA)\n- Northwestern University (Evanston, IL)\n- University of California, Kavli Institute for Theoretical Physics (Santa Barbara, CA)\n- University of Washington (Seattle, WA)\n- National Institute of Standards and Technology (Boulder, CO, Gaithersburg, MD)\n- University of Colorado (Boulder, CO)\n- Cornell University (Ithaca, NY)\n- Columbia University (New York, NY)\n- Fred Hutchinson Cancer Research Center (Seattle, WA)\n- Vanderbilt University (Nashville, TN)\n- Saint Louis University (St. Louis, MO)\n- Mayo Clinic (Rochester, MN)\n- Arizona State University (Tempe, AZ)\n- Federal Reserve Bank of Minneapolis (Minneapolis, MN)\n- Purdue University (West Lafayette, IN)\n- Indiana University (Bloomington, IN)\n- Janelia Research Campus, Howard Hughes Medical Institute (Ashburn, VA)\n- University of Texas Medical School at Houston (Houston, TX)\n- Carnegie Mellon University (Pittsburgh, PA)\n- Western Reserve University (Cleveland, OH)\n- Massachusetts General Hospital (Boston, MA)\n- Jackson Laboratory (Bar Harbor, ME)\n- Yale University, School of Medicine (New Haven, CT)\n- Wellcome Research Laboratories (Research Triangle Park, NC)\n- University of Rochester (Rochester, NY)\n- University of Missouri (Columbia)\n- University of Michigan (Ann Arbor, MI)\n- University of Wisconsin (Madison, WI)\n- City University of New York (New York, NY)\n- The Medical Foundation of Buffalo (Buffalo, NY)\n- University of Texas (Austin, TX)\n- General Electric Company (Schenectady, NY)\n- Brown University (Providence, RI)\n- Texas Instruments (Dallas, TX)\n- Yale University (New Haven, CT)\n- Center for Study of Public Choice (Fairfax, VA)\n- Parker Institute for Cancer Immunotherapy (San Francisco, CA)\n- University of Texas MD Anderson Cancer Center (Houston, TX)\n- University of Maine (Maine, ME)\n- US Naval Research Laboratory (Washington, D.C.)\n- Virginia Commonwealth University (Richmond, VA)\n- NASA Goddard Space Flight Center (Greenbelt, MD)\n- J.F. Clauser & Assoc. (Walnut Creek, CA)\n- Research Division of Infectious Diseases, Children's Medical Center (Boston, MA)\n- Brigham and Women's Hospital (Boston, MA)\n- IBM Thomas J. Watson Research Center (Yorktown Heights, NY)\n- Fermi National Accelerator Laboratory (Batavia, IL)\n- University of Minnesota (Minneapolis, MN)\n- Binghamton University, State University of New York (New York, NY)\n- University of Utah (Salt Lake City, UT)\n- National Institute of Environmental Health Sciences (Research Triangle Park, NC)\n- Laboratories of the Division of Medicine and Public Health, Rockefeller Foundation (New York, NY)\n- Digital Pathways, Inc. (Mountain View, CA)\n- Brandeis University (Waltham, MA)\n- Long Term Capital Management (Greenwich, CT)\n- Marine Biological Laboratory (Woods Hole, MA)\n- Boston University Medical School (Massachusetts, MA)\n- Carnegie Institute of Technology (Pittsburgh, PA)\n- NYU Stern School of Business (New York, NY)\n- Duke University School of Medicine (Durham, NC)\n- St. Jude Children's Research Hospital (Memphis, TN)\n- Massachusetts Institute of Technology (MIT), Center for Cancer Research (Cambridge, MA)\n- Associated Universities Inc. (Washington, D.C.)\n- Rice University (Houston, TX)\n- New England Biolabs (Beverly, MA)\n- New York University (New York, NY)\n- SUNY Health Science Center (Brooklyn, NY)\n- Duke University Medical Center (Durham, NC)\n- The Salk Institute (San Diego, CA)\n- Lawrence Berkeley National Laboratory (Berkeley, CA)\n- Rutgers University (New Brunswick, NJ)\n- New York University, College of Medicine (New York, NY)\n- Harvard University, Lyman Laboratory (Cambridge, MA)\n- Gladstone Institutes (San Francisco, CA)\n- Vanderbilt University School of Medicine (Nashville, TN)\n- The Molecular Sciences Institute (Berkeley, CA)\n- University of Maryland, Department of Economics and School of Public Policy (College Park, MD)\n- George Mason University (Fairfax, VA)\n- Harvard University, Biological Laboratories (Cambridge, MA)\n- Semiconductor Laboratory of Beckman Instruments, Inc. (Mountain View, CA)\n- Drew University (Madison, NJ)\n- Dana-Farber Cancer Institute (Boston, MA)\n- Peter Brent Brigham Hospital (Boston, MA)\n- Enrico Fermi Institute, University of Chicago (Chicago, IL)",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'usa'\nRETURN i.name AS institution, ci.name AS city",
+      "stats": {
+        "total": 29.79778663800016,
+        "text2cypher": 1.2681328759999815,
+        "db_exec": 0.008166875000142682,
+        "answer_gen": 28.51806284600002
+      }
+    },
+    {
+      "question": "Which scholars won Nobel Prizes in Physics after 1950?",
+      "answer": "Here are some scholars who won Nobel Prizes in Physics after 1950:\n\n- Ernest T.S. Walton and John Cockcroft in 1951\n- E. M. Purcell and Felix Bloch in 1952\n- Frits Zernike in 1953\n- Max Born and Walther Bothe in 1954\n- Willis E. Lamb, Polykarp Kusch, Walter H. Brattain, William B. Shockley, and John Bardeen in 1955\n- Chen Ning Yang and Tsung-Dao Lee in 1957\n- Pavel A. Cherenkov, Il'ya M. Frank, and Igor Y. Tamm in 1958\n- Owen Chamberlain and Emilio Segr\u00e8 in 1959\n- Donald A. Glaser in 1960\n- Robert Hofstadter and Rudolf M\u00f6ssbauer in 1961\n- Lev Landau in 1962\n- J. Hans D. Jensen, Eugene Wigner, Maria Goeppert Mayer, Aleksandr M. Prokhorov, Charles H. Townes, Nicolay G. Basov, and Antony Hewish in 1963\n- Martin Ryle and Martinus J.G. Veltman in 1974\n- Philip W. Anderson, Sir Nevill F. Mott, and John H. Van Vleck in 1977\n- Robert Woodrow Wilson, Arno Penzias, Pyotr Kapitsa, Sheldon Glashow, Abdus Salam, Steven Weinberg, Val Fitch, James Cronin, Kai M. Siegbahn, Nicolaas Bloembergen, Arthur L. Schawlow, Kenneth G. Wilson, Subrahmanyan Chandrasekhar, William A. Fowler, Simon van der Meer, Carlo Rubbia, Klaus von Klitzing, Gerd Binnig, Ernst Ruska, Heinrich Rohrer, K. Alex M\u00fcller, J. Georg Bednorz, Jack Steinberger, Leon M. Lederman, Melvin Schwartz, Hans G. Dehmelt, Norman F. Ramsey, Wolfgang Paul, Richard E. Taylor, Henry W. Kendall, Jerome I. Friedman, Pierre-Gilles de Gennes, Georges Charpak, Joseph H. Taylor Jr., Russell A. Hulse, Bertram N. Brockhouse, Clifford G. Shull, Frederick Reines, Martin L. Perl, David M. Lee, Robert C. Richardson, Douglas D. Osheroff, Claude Cohen-Tannoudji, Steven Chu, William D. Phillips, Daniel C. Tsui, Robert B. Laughlin, Horst L. St\u00f6rmer, Martinus J.G. Veltman, Gerardus 't Hooft, Jack Kilby, Zhores Alferov, George A. Akerlof, Herbert Kroemer, A. Michael Spence, Joseph E. Stiglitz, Carl Wieman, Wolfgang Ketterle, Eric Cornell, Masatoshi Koshiba, Raymond Davis Jr., Riccardo Giacconi, Anthony J. Leggett, Vitaly L. Ginzburg, Alexei Abrikosov, David J. Gross, H. David Politzer, Frank Wilczek, John L. Hall, Theodor W. H\u00e4nsch, Roy J. Glauber, George F. Smoot, John C. Mather, Albert Fert, Peter Gr\u00fcnberg, Makoto Kobayashi, Toshihide Maskawa, Yoichiro Nambu, Charles K. Kao, Willard S. Boyle, George E. Smith, Andre Geim, Konstantin Novoselov, Adam G. Riess, Saul Perlmutter, Brian P. Schmidt, Serge Haroche, David J. Wineland, Peter Higgs, Fran\u00e7oise Englert, Hiroshi Amano, Isamu Akasaki, Shuji Nakamura, Arthur B. McDonald, Takaaki Kajita, David J. Thouless, F. Duncan M. Haldane, J. Michael Kosterlitz, Barry C. Barish, Rainer Weiss, Kip S. Thorne, G\u00e9rard Mourou, Arthur Ashkin, Donna Strickland, James Peebles, Michel Mayor, Didier Queloz, Andrea Ghez, Roger Penrose, Reinhard Genzel, Klaus Hasselmann, Giorgio Parisi, Syukuro Manabe, Anton Zeilinger, Alain Aspect, John Clauser\n\nThis list includes just a few examples; there are many more scholars who have won the Nobel Prize in Physics after 1950.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear > 1950\nRETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear",
+      "stats": {
+        "total": 26.55184688700001,
+        "text2cypher": 4.4526800430001,
+        "db_exec": 0.0048064999998587155,
+        "answer_gen": 22.092022885999995
+      }
+    },
+    {
+      "question": "Which scholars are affiliated with Max Planck Institute?",
+      "answer": "The scholars affiliated with Max Planck Institute are Klaus Hasselmann, Stefan W. Hell, Theodor W. H\u00e4nsch, Svante P\u00e4\u00e4bo, and Reinhard Genzel.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'max planck institute' RETURN s.knownName AS scholar_name",
+      "stats": {
+        "total": 4.463182667999945,
+        "text2cypher": 2.606467835000103,
+        "db_exec": 0.005894999999782158,
+        "answer_gen": 1.8476497500000733
+      }
+    },
+    {
+      "question": "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?",
+      "answer": "The scholars affiliated with institutions in Germany who died between 1935 and 1945 are Walther Nernst (affiliated with Berlin University), Richard Willst\u00e4tter (affiliated with Friedrich-Wilhelms-Universit\u00e4t and Kaiser-Wilhelm-Institut), and Hans Spemann (affiliated with University of Freiburg im Breisgau).",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) \nWHERE toLower(co.name) CONTAINS 'germany' \nAND s.deathDate >= '1935-01-01' AND s.deathDate <= '1945-12-31'\nRETURN DISTINCT s.knownName AS ScholarName, i.name AS InstitutionName",
+      "stats": {
+        "total": 7.498858544000086,
+        "text2cypher": 5.387205835000032,
+        "db_exec": 0.010249582999904305,
+        "answer_gen": 2.0996459180000784
+      }
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Physics in 1933?",
+      "answer": "The Nobel Prize in Physics in 1933 was awarded to Paul A.M. Dirac and Erwin Schr\u00f6dinger.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1933\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 4.835322543999837,
+        "text2cypher": 3.394261917999984,
+        "db_exec": 0.0034624170000370214,
+        "answer_gen": 1.4353394170000229
+      }
+    },
+    {
+      "question": "Who are the female laureates in Physics?",
+      "answer": "The female laureates in Physics are Andrea Ghez, Donna Strickland, Maria Goeppert Mayer, and Marie Curie.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND toLower(p.category) = 'physics'\nRETURN s.knownName AS laureate, p.awardYear AS year",
+      "stats": {
+        "total": 4.853962335999995,
+        "text2cypher": 3.475421876999917,
+        "db_exec": 0.005689625000059095,
+        "answer_gen": 1.371216583999967
+      }
+    },
+    {
+      "question": "Which scholars born in Italy won a Nobel Prize in Chemistry?",
+      "answer": "Several Italian-born scholars have won the Nobel Prize in Chemistry. Here are some notable examples:\n\n1. **Giulio Natta** (1989) - He was awarded the Nobel Prize in Chemistry for his work on the stereochemistry of polymerization reactions and the discovery of certain types of polymers.\n\n2. **Enrico Fermi** (1938) - Although he is more famous for his contributions to nuclear physics, Enrico Fermi also made significant contributions to chemistry, particularly in the field of nuclear chemistry. He was awarded the Nobel Prize in Physics, but his work had profound implications for chemistry.\n\n3. **Mario Molina** (1995) - While not born in Italy, Mario Molina was born in Mexico City to an Italian father. He shared the Nobel Prize in Chemistry with F. Sherwood Rowland for their work on the role of chlorofluorocarbons in depleting the ozone layer.\n\n4. **Rudolf Marcus** (1992) - Rudolf Marcus was born in Italy but later moved to Canada. He was awarded the Nobel Prize in Chemistry for his work on the theory of electron transfer reactions in chemical systems.\n\n5. **Riccardo Giacconi** (2002) - Riccardo Giacconi was born in Italy but later became a U.S. citizen. He shared the Nobel Prize in Physics, but his work has significant implications for chemistry as well.\n\nThese are just a few examples, and there may be other Italian-born chemists who have won the Nobel Prize in Chemistry or related fields.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'italy'\nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 12.00663079800006,
+        "text2cypher": 4.911117211000146,
+        "db_exec": 0.005614707999939128,
+        "answer_gen": 7.088247211999942
+      }
+    },
+    {
+      "question": "Which Physics laureates were affiliated with an institution in Denmark?",
+      "answer": "The Physics laureates affiliated with an institution in Denmark are Niels Bohr from Copenhagen University and Aage N. Bohr from the Niels Bohr Institute. \n\nAdditionally, Ben R. Mottelson, though not explicitly mentioned as being from Denmark, was also affiliated with Nordita which is located in Denmark.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(d:Country)\nWHERE toLower(d.name) = 'denmark'\nRETURN s.knownName AS ScholarName, p.awardYear AS AwardYear, i.name AS InstitutionName",
+      "stats": {
+        "total": 6.953233462000071,
+        "text2cypher": 4.574368294000124,
+        "db_exec": 0.007724957999926119,
+        "answer_gen": 2.3688169600000037
+      }
+    },
+    {
+      "question": "Who won the Nobel Prize in Literature in 1954?",
+      "answer": "The Nobel Prize in Literature for 1954 was awarded to Ernest Miller Hemingway \"for his mastery of the art of narrative, most recently demonstrated in The Old Man and the Sea.\"",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'literature' AND p.awardYear = 1954 \nRETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year",
+      "stats": {
+        "total": 6.576668836999943,
+        "text2cypher": 4.982306084999891,
+        "db_exec": 0.0025262920000841405,
+        "answer_gen": 1.5902983759999643
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Stanford University won a prize in 2001?",
+      "answer": "In 2001, several scholars affiliated with Stanford University were awarded prestigious prizes. One notable example is:\n\n- **Vinton Gray Cerf** and **Louis Pouzin** were awarded the ACM A.M. Turing Award in 2001. Cerf is often referred to as one of the \"fathers of the Internet\" for his work on the TCP/IP protocols, which form the foundation of modern internet communication. Pouzin was a French computer scientist who played a key role in the development of the CYCLADES network, an early packet switching network that influenced the design of the internet.\n\nStanford University has a long history of producing Nobel laureates and recipients of other prestigious awards, but these two individuals were specifically recognized in 2001 for their contributions to computer science and networking.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution {name: 'Stanford University'})-[:WON]->(p:Prize)\nWHERE p.awardYear = 2001\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 10.693264297000042,
+        "text2cypher": 5.815733335999994,
+        "db_exec": 0.0015381670000351733,
+        "answer_gen": 4.873752168999999
+      }
+    },
+    {
+      "question": "Which scholars won the Nobel Peace Prize between 1990 and 1992?",
+      "answer": "Between 1990 and 1992, several scholars were awarded the Nobel Peace Prize, but it's important to note that the Nobel Peace Prize can also be awarded to organizations or individuals who have made significant contributions to peace. Here are some of the notable recipients during this period:\n\n1. **1990: Mikhail Sergeyevich Gorbachev** - He was awarded the Nobel Peace Prize \"for his leading role in the peace process that ended the Cold War.\"\n\n2. **1991: Aung San Suu Kyi** - Although she is not a scholar in the traditional sense, she was awarded the Nobel Peace Prize \"for her non-violent struggle for democracy and human rights.\"\n\n3. **1992: Nelson Mandela and F.W. de Klerk** - They were jointly awarded the Nobel Peace Prize \"for their efforts to bring about peaceful termination of the apartheid regime, and for their work for the peaceful coexistence of the races in South Africa.\"\n\nThese awards reflect significant global events and movements towards peace and democracy during the early 1990s.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'peace' AND p.awardYear >= 1990 AND p.awardYear <= 1992\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 9.435685045000128,
+        "text2cypher": 4.9253168769998865,
+        "db_exec": 0.002009792000080779,
+        "answer_gen": 4.506419751000067
+      }
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Economics in 2019?",
+      "answer": "The Nobel Prize in Economics in 2019 was awarded to Esther Duflo, Abhijit Banerjee, and Michael Kremer.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics' AND p.awardYear = 2019\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 5.601661335999779,
+        "text2cypher": 3.648255543999994,
+        "db_exec": 0.00258691700014424,
+        "answer_gen": 1.9486095839997688
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Harvard University won the Medicine prize?",
+      "answer": "None of the scholars affiliated with Harvard University won the Medicine prize according to the provided context. However, George R. Minot and William P. Murphy were awarded the prize in 1934 for their work related to blood diseases, which is part of the medical field.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) \nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(i.name) = 'harvard university' AND toLower(p.category) = 'medicine'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 7.058069878999959,
+        "text2cypher": 4.526239501999953,
+        "db_exec": 0.004712250000011409,
+        "answer_gen": 2.5233035850001215
+      }
+    },
+    {
+      "question": "Who won the Nobel Prize in Physics in 2020?",
+      "answer": "The Nobel Prize in Physics in 2020 was awarded to Andrea Ghez, Roger Penrose, and Reinhard Genzel.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 2020\nRETURN s.knownName AS winner, p.awardYear AS award_year",
+      "stats": {
+        "total": 6.75074596200011,
+        "text2cypher": 3.6672313770000073,
+        "db_exec": 0.0019855410000673146,
+        "answer_gen": 3.0798048770002424
+      }
+    },
+    {
+      "question": "Which scholars born in New York City won a Physics prize?",
+      "answer": "To provide an accurate answer, I would need to specify which physics prize you are referring to, as there are several prestigious prizes in physics, such as the Nobel Prize in Physics, the Wolf Prize in Physics, and others. However, I can give you some examples of notable physicists who were born in New York City and have won significant prizes.\n\n1. **Chen Ning Yang** - Born in Shaoxing, China, but moved to New York City with his family when he was 6 years old. He won the Nobel Prize in Physics in 1957 for his work on the parity non-conservation in weak interactions.\n\n2. **Richard Feynman** - Although Feynman was born in Queens, New York, he did not win a Nobel Prize in Physics. He is famous for his contributions to quantum electrodynamics and the development of the path integral formulation of quantum mechanics.\n\n3. **Subrahmanyan Chandrasekhar** - Born in Madras (now Chennai), India, but spent much of his career in the United States, including time at Columbia University in New York City. He won the Nobel Prize in Physics in 1983 for his theoretical studies of the physical processes of importance to the structure and evolution of the stars.\n\n4. **James Watson** - While primarily known for his work in molecular biology, James Watson was born in Chicago but spent significant time in New York City during his career. He shared the Nobel Prize in Physiology or Medicine in 1962 for the discovery of the molecular structure of DNA.\n\nIf you are specifically interested in a particular physics prize or if you have another physicist in mind, please let me know, and I can provide more detailed information.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City {name: 'new york'})-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 11.938283962999776,
+        "text2cypher": 4.9621127099999285,
+        "db_exec": 0.0014238750000004075,
+        "answer_gen": 6.973047918999782
+      }
+    },
+    {
+      "question": "Which female scholars won the Nobel Prize in Medicine?",
+      "answer": "The female scholars who won the Nobel Prize in Medicine are Fran\u00e7oise Barr\u00e9-Sinoussi, Tu Youyou, Barbara McClintock, May-Britt Moser, Gerty Cori, Rita Levi-Montalcini, Linda B. Buck, Carol W. Greider, Gertrude B. Elion, Christiane N\u00fcsslein-Volhard, Rosalyn Yalow, and Elizabeth H. Blackburn.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND toLower(p.category) = 'medicine'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 8.283504044999972,
+        "text2cypher": 4.6265009190001365,
+        "db_exec": 0.0029960409997329407,
+        "answer_gen": 3.652947210000093
+      }
+    },
+    {
+      "question": "Which scholars affiliated with an institution in France won the Economics prize?",
+      "answer": "Two scholars affiliated with institutions in France won the Economics prize. Maurice Allais won in 1988 and Jean Tirole won in 2014.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) \nWHERE toLower(co.name) CONTAINS 'france'\nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics'\nRETURN s.knownName AS ScholarName, p.awardYear AS AwardYear",
+      "stats": {
+        "total": 7.005217712000103,
+        "text2cypher": 5.603472293999857,
+        "db_exec": 0.008407250000345812,
+        "answer_gen": 1.3916960429996834
+      }
+    },
+    {
+      "question": "Which scholars won a prize with a 1/3 share portion?",
+      "answer": "Not enough context.",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize)\nWHERE toLower(r.portion) = '1/3'\nRETURN s.knownName",
+      "stats": {
+        "total": 5.149759545000052,
+        "text2cypher": 3.1762789180002073,
+        "db_exec": 0.003957624999657128,
+        "answer_gen": 1.9677869180000016
+      }
+    },
+    {
+      "question": "Which institutions in Japan have been affiliated with Physics laureates?",
+      "answer": "The institutions in Japan that have been affiliated with Physics laureates include Kyoto Sangyo University, Meijo University, University of Tokyo, Nagoya University, High Energy Accelerator Research Organization (KEK), Yukawa Institute for Theoretical Physics (YITP) at Kyoto University, Tokyo University of Education, and Kyoto University.",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(c:Country) WHERE toLower(c.name) = 'japan'\nMATCH (s:Scholar)-[:AFFILIATED_WITH]->(i)\nMATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nRETURN DISTINCT i.name AS institution",
+      "stats": {
+        "total": 7.2529853359997105,
+        "text2cypher": 4.5374342520003665,
+        "db_exec": 0.013046415999724559,
+        "answer_gen": 2.7007150839999667
+      }
+    },
+    {
+      "question": "Who won the Nobel Prize in Chemistry in 2022?",
+      "answer": "The Nobel Prize in Chemistry in 2022 was awarded to Carolyn Bertozzi, K. Barry Sharpless, and Morten Meldal.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2022\nRETURN s.knownName AS winner, p.awardYear AS award_year",
+      "stats": {
+        "total": 6.941288920000261,
+        "text2cypher": 4.197804794000149,
+        "db_exec": 0.0030086659999142285,
+        "answer_gen": 2.7385627930002556
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Columbia University won the Economics prize?",
+      "answer": "Several scholars affiliated with Columbia University have won the Nobel Memorial Prize in Economic Sciences (commonly referred to as the Nobel Economics Prize). Here are some notable examples:\n\n1. **Paul Krugman** - He was awarded the Nobel Memorial Prize in Economic Sciences in 2008 \"for his analysis of trade patterns and location of economic activity.\"\n\n2. **James Heckman** - He received the Nobel Memorial Prize in Economic Sciences in 2000 \"for his development of theory and methods for analyzing selective samples.\"\n\n3. **Robert J. Shiller** - He was awarded the Nobel Memorial Prize in Economic Sciences in 2013 \"for his empirical analysis of asset prices.\"\n\n4. **Eli Berman** - He shared the Nobel Memorial Prize in Economic Sciences in 2021 \"for his contributions to understanding economic challenges related to violence.\" While he is currently at the University of California, San Diego, he was previously affiliated with Columbia University.\n\nThese scholars have made significant contributions to various fields within economics, including trade theory, econometrics, asset pricing, and the economics of violence.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution {name: 'Columbia University'})-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'economics'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 10.580490754999573,
+        "text2cypher": 5.051587876999747,
+        "db_exec": 0.003586459000416653,
+        "answer_gen": 5.519942460999573
+      }
+    },
+    {
+      "question": "Which scholars born in Italy won the Physics prize?",
+      "answer": "Two scholars born in Italy won the Physics prize: Giorgio Parisi and Enrico Fermi.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(i:Country {name: 'Italy'})\nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 6.371577836000142,
+        "text2cypher": 4.214390834999904,
+        "db_exec": 0.00800287499987462,
+        "answer_gen": 2.136653751000267
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Yale University won a prize in Chemistry?",
+      "answer": "Several scholars affiliated with Yale University have won the Nobel Prize in Chemistry. Here are a few notable examples:\n\n1. **Roger D. Kornberg** - He was awarded the Nobel Prize in Chemistry in 2006 for his studies of the molecular basis of eukaryotic transcription. His work involved the detailed study of how genetic information is copied from DNA to RNA.\n\n2. **Rudolph A. Marcus** - While not directly affiliated with Yale at the time of his prize, Rudolph A. Marcus, who received the Nobel Prize in Chemistry in 1992, has strong ties to Yale. He spent part of his career there and his work on electron transfer reactions in chemical and biological systems was recognized.\n\n3. **Paul D. Boyer** - He shared the Nobel Prize in Chemistry in 1997 for his work on the enzymatic mechanism of ATP synthase. Boyer's research focused on the biochemistry of energy transduction, particularly the mechanism of ATP synthesis.\n\n4. **Thomas Cech** - He was awarded the Nobel Prize in Chemistry in 1989 for his discovery that RNA can have biological catalytic functions (ribozymes). Thomas Cech was a professor at the University of Colorado Boulder at the time of his prize but had earlier conducted significant research at Yale.\n\nThese are just a few examples, and Yale University has a long history of producing Nobel laureates across various fields, including chemistry.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution {name: 'Yale University'})<-[:WON]-(p:Prize) \nWHERE toLower(p.category) = 'chemistry'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 11.358739588999924,
+        "text2cypher": 4.578998336000041,
+        "db_exec": 0.0019832909997603565,
+        "answer_gen": 6.775963961999878
+      }
+    },
+    {
+      "question": "How many scholars won the Nobel Prize in Economics?",
+      "answer": "89 scholars won the Nobel Prize in Economics.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics'\nRETURN count(s) as economics_laureates",
+      "stats": {
+        "total": 4.909604503000082,
+        "text2cypher": 3.537750502000108,
+        "db_exec": 0.002018958000007842,
+        "answer_gen": 1.3669092509999246
+      }
+    },
+    {
+      "question": "Who are the scholars affiliated with the University of Chicago who won the Economics prize?",
+      "answer": "The scholars affiliated with the University of Chicago who won the Economics prize are Robert E. Lucas Jr., Douglas Diamond, James J. Heckman, Robert W. Fogel, Roger B. Myerson, Eugene F. Fama, Lars Peter Hansen, Gary Becker, George J. Stigler, Merton H. Miller, Milton Friedman, Richard H. Thaler, Ronald H. Coase, and Theodore W. Schultz.",
+      "cypher": "MATCH (scholar:Scholar)-[:AFFILIATED_WITH]->(institution:Institution {name: 'University of Chicago'}) \nMATCH (scholar)-[:WON]->(prize:Prize)\nWHERE toLower(prize.category) = 'economics'\nRETURN scholar.knownName AS scholar, prize.awardYear AS award_year",
+      "stats": {
+        "total": 7.155492754000079,
+        "text2cypher": 4.451147835000029,
+        "db_exec": 0.006051708000086364,
+        "answer_gen": 2.6964740020002864
+      }
+    },
+    {
+      "question": "Which scholars born in the Netherlands won the Physics prize?",
+      "answer": "Several scholars born in the Netherlands have won the Nobel Prize in Physics. Here are a few notable examples:\n\n1. **Heike Kamerlingh Onnes** - Born in 1853 in Groningen, Netherlands, Kamerlingh Onnes is best known for his work on low-temperature physics and the liquefaction of helium. He discovered superconductivity in 1911 when he found that certain metals have zero electrical resistance at very low temperatures.\n\n2. **Frits Zernike** - Born in 1888 in Amsterdam, Netherlands, Zernike was awarded the Nobel Prize in Physics in 1953 for his invention of the phase-contrast microscope, which allows the examination of transparent objects without the need to stain them or alter their state.\n\n3. **Leo Esaki** - Although not born in the Netherlands, Leo Esaki, who was born in Japan but spent significant time in the Netherlands during his education, shared the Nobel Prize in Physics in 1973 with Ivar Giaever and Brian Josephson for their theoretical predictions about tunneling effects in semiconductor devices and superconductors.\n\n4. **Gerrit Thomas Koren Wijngaarden** - Born in 1920 in Utrecht, Netherlands, Wijngaarden contributed significantly to the field of plasma physics and was involved in the development of tokamak devices for controlled nuclear fusion research.\n\nThese are just a few examples, and there may be other Dutch-born physicists who have also received the Nobel Prize in Physics. If you're looking for more specific information or a comprehensive list, it would be helpful to consult a detailed historical record of Nobel laureates.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)<-[:IS_CITY_IN]-(n:Country {name: 'Netherlands'})\nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 11.117349963999914,
+        "text2cypher": 3.8270382519999657,
+        "db_exec": 0.003189417000157846,
+        "answer_gen": 7.285611961999621
+      }
+    }
+  ]
+}

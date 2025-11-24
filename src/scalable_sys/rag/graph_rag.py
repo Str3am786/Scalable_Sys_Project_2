@@ -16,6 +16,8 @@ from .prompts import (
     postprocess_cypher,
     select_exemplars,
 )
+
+
 # =========================================================================
 #  PART 1: DSPy Signatures
 # =========================================================================
@@ -43,11 +45,12 @@ class Text2Cypher(dspy.Signature):
 
     4. **Formatting**:
        - Return only the specific properties needed (e.g., `return s.knownName, p.awardYear`).
+       - **Dates**: Always enclose dates in single quotes (e.g., s.deathDate >= '1935-01-01').
        - Do NOT return whole nodes/maps unless necessary.
     </SCHEMA_RULES>
     """
 
-    graph_schema = dspy.InputField(desc="The graph schema definition")
+    graph_schema = dspy.InputField(desc="The detailed schema definition of Nodes, Relationships, and Properties")
     exemplars = dspy.InputField(desc="Correct Q&A examples to learn from")
     question = dspy.InputField(desc="The user's question")
 
@@ -70,15 +73,15 @@ class RepairCypher(dspy.Signature):
 
 
 class GenerateAnswer(dspy.Signature):
-    """Answer the user question based on the provided database context.
+    """Answer the user question based on the provided database context that is 100% factually accurate for the user's question.
     
     <GUIDELINES>
-    1. The <CONTEXT> contains the raw results of a database query executed to answer the user's <QUESTION>.
-    2. Trust that these results are the correct answers. Do not verify the criteria (dates, locations) yourself, as the database has already filtered for them.
-    3. If the context is an empty list `[]`, ONLY THEN output: "Not enough context".
-    4. Be concise, but polite.
-    5. If the context includes multiple names of people, institutions, countries, cities, etc... list ALL of them.
-    6. When mentioning dates, format them clearly (e.g., "October" instead of "10").
+    1. The <CONTEXT> provides the ground truth data for the user's question. Trust it fully and use it to answer the question directly.
+    2. If the context is an empty list `[]` or clearly irrelevant, ONLY THEN output: "Not enough context".
+    3. Be concise and friendly.
+    4. If the context includes a long list of names, institutions, countries, cities, etc... state ALL of them.
+    5. When mentioning dates, format them clearly (e.g., "October" instead of "10").
+    6. Use any additional knowledge that you may have to add valuable information to the answer, without distorting the ground truth given as context
     </GUIDELINES>
     """
     question = dspy.InputField()
@@ -220,29 +223,54 @@ class GraphRAG(LLM):
             print("NO SULLA CARTA CACHEEEE")
             self._generate_cypher = self._generate_cypher_no_cache
 
-    def _get_schema_str(self):
-        """Extracts a concise schema representation for the prompt."""
+    def _get_schema_str(self) -> str:
+        """
+        Dynamically builds a Rich Schema by querying the database for valid values.
+        Combines STATIC rules with DYNAMIC data.
+        """
         try:
-            # Get Nodes
-            nodes_df = self.conn.execute("CALL SHOW_TABLES() WHERE type = 'NODE' RETURN *;").get_as_df()
-            nodes_list = nodes_df['name'].tolist()
-
-            # Get Edges
-            rels_df = self.conn.execute("CALL SHOW_TABLES() WHERE type = 'REL' RETURN *;").get_as_df()
-            rels_list = rels_df['name'].tolist()
-
-            # Get detailed properties
-            schema_details = {"nodes": {}, "relationships": rels_list}
-
-            for node in nodes_list:
-                props = self.conn.execute(f"CALL TABLE_INFO('{node}') RETURN name, type;").get_as_df()
-                # Convert to list of tuples (name, type)
-                schema_details["nodes"][node] = list(zip(props['name'], props['type']))
-                
-            return json.dumps(schema_details, indent=2)
+            # Get all prize categories
+            categories_df = self.conn.execute("MATCH (p:Prize) RETURN DISTINCT p.category").get_as_df()
+            valid_categories = sorted(categories_df.iloc[:, 0].tolist())
+            
+            # Get 5 example countries
+            countries_df = self.conn.execute("MATCH (c:Country) RETURN DISTINCT c.name LIMIT 5").get_as_df()
+            valid_countries_sample = sorted(countries_df.iloc[:, 0].tolist())
+            
         except Exception as e:
-            print(f"Warning: Could not auto-load schema: {e}")
-            return "Schema unavailable"
+            print(f"Schema generation warning: {e}")
+            valid_categories = ["(Error fetching categories)"]
+            valid_countries_sample = []
+
+        # Inject fetched values into this static template
+        schema_template = f"""
+            <GRAPH_SCHEMA>
+            <NODES>
+                - (:Scholar)
+                    Properties: {{knownName: STRING, gender: STRING, birthDate: DATE, deathDate: DATE}}
+                    Note: 'gender' is usually 'male' or 'female'.
+                - (:Prize)
+                    Properties: {{category: STRING, awardYear: INTEGER, sortOrder: INTEGER}}
+                    Allowed Categories: {json.dumps(valid_categories)}
+                - (:Institution)
+                    Properties: {{name: STRING}}
+                - (:City)
+                    Properties: {{name: STRING}}
+                - (:Country)
+                    Properties: {{name: STRING}}
+                    Examples: {json.dumps(valid_countries_sample)}...
+            </NODES>
+
+            <RELATIONSHIPS>
+                - (:Scholar)-[:WON]->(:Prize)
+                - (:Scholar)-[:BORN_IN]->(:City)
+                - (:Scholar)-[:AFFILIATED_WITH]->(:Institution)
+                - (:Institution)-[:IS_LOCATED_IN]->(:City)
+                - (:City)-[:IS_CITY_IN]->(:Country)
+            </RELATIONSHIPS>
+            </GRAPH_SCHEMA>
+        """
+        return schema_template
 
     def _make_cached_generator(self, maxsize, ttl):
         @ttl_lru_cache(maxsize=maxsize, ttl_seconds=ttl)

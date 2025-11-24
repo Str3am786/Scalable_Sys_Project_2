@@ -1,16 +1,30 @@
 services:
-  app:
+  # Base Configuration
+  base_app: &base_app
     build: .
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
     tty: true
-
     env_file:
       - .env
-    
     volumes:
       - ./data:/app/data
-    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--prompt", "Which scholars won Nobel Prizes in Physics?", "--rag", "--complete-test"]
-    # command: ["python", "-m", "src.scalable_sys.test", "--prompt", "Which scholars won Nobel Prizes in Physics?","--rag","--complete-test"]
-    # command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?"]
+
+  # Main App (Run with: docker compose up app)
+  app:
+    <<: *base_app
+    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars affiliated with an institution in France won the Economics prize?"]
+
+  # Full Validation Pipeline (Run with: docker compose up validate)
+  validate:
+    <<: *base_app
+    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--complete-test"]
+
+  # Judge Only (Run with: docker compose up judge)
+  judge:
+    <<: *base_app
+    command: >
+      python -m src.scalable_sys.evaluation.evaluate_pipeline 
+      --judge-only 
+      --plain-file ${PLAIN_FILE} 
+      --rag-file ${RAG_FILE}

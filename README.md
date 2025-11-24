@@ -36,18 +36,34 @@ python src/scalable_sys/rag/build_db.py
 ```
 
 ### 3. Run the Project (Docker)
-Build and run the application container. It automatically connects to your host's Ollama instance.
+Build and run the application container. It connects to the LLMs configured via the .env vile. You can launch specific services depending on your needs:
 
+**Main Application**
+Run the standard RAG pipeline with the default prompt configured in your compose file:
 ```bash
-docker-compose up --build
-```
+docker compose up app
 
 Note: The default prompt is configured in docker-compose.yml. To ask a different question, edit the command line in that file or run:
 
 ```bash
 # Run a custom query
-docker-compose run app python -m src.scalable_sys.app --prompt "List all female Physics laureates."
+docker compose run app python -m src.scalable_sys.app --prompt "List all female Physics laureates."
 ```
+
+**Validation Pipeline**
+Run the full test suite to benchmark the pipeline against the our curated test set:
+
+```bash
+docker compose up validate
+```
+
+**LLM Judge**
+Run the judge service to compare two specific output files (Plain LLM vs GraphRAG). You must pass the file paths as environment variables:
+
+```bash
+PLAIN_FILE="results/plain_output.json" RAG_FILE="results/rag_output.json" docker compose up judge
+```
+
 
 ### Project Structure
 

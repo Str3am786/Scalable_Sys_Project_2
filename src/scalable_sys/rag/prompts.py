@@ -56,7 +56,7 @@ EVALUATION_PROMPT = (
 EXEMPLARS: list[dict] = [
     # Basic Retrieval
     {
-        "question": "Which scholars won the Nobel Prize in Physics?",
+        "question": "Which scholars have won the Nobel Prize in Physics?",
         "cypher": (
             "MATCH (s:Scholar)-[:WON]->(p:Prize) "
             "WHERE toLower(p.category) = 'physics' "
@@ -67,10 +67,10 @@ EXEMPLARS: list[dict] = [
 
     # Filtering (Ranges & Specific Dates)
     {
-        "question": "Who won the Nobel Prize in Physics in 2001?",
+        "question": "Who won the Nobel Prize in Physics in 2003?",
         "cypher": (
             "MATCH (s:Scholar)-[:WON]->(p:Prize) "
-            "WHERE toLower(p.category) = 'physics' AND p.awardYear = 2001 "
+            "WHERE toLower(p.category) = 'physics' AND p.awardYear = 2003 "
             "RETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year"
         ),
     },
@@ -201,12 +201,11 @@ EXEMPLARS: list[dict] = [
         )
     },
     {
-        "question": "Which scholars affiliated with an institution in France died between the years 1935 and 1945?",
+        "question": "Which scholars affiliated with an institution in France died between the years 1945 and 1955?",
         "cypher": (
             "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) "
-            "WHERE (toLower(co.name) CONTAINS 'france' OR co.name = 'DE') "
-            "AND s.deathDate >= '1935-01-01' "
-            "AND s.deathDate <= '1945-12-31' "
+            "WHERE toLower(co.name) CONTAINS 'france' "
+            "AND s.deathDate >= '1945-01-01' AND s.deathDate <= '1955-12-31' "
             "RETURN DISTINCT s.knownName AS Scholarname, i.name AS InstitutionName"
         )
     },
@@ -229,7 +228,16 @@ EXEMPLARS: list[dict] = [
             "RETURN s.knownName, p.awardYear "
             "ORDER BY p.awardYear DESC LIMIT 5"
         )
-    }
+    },
+    # Shared nobel
+    {
+        "question": "Which scholars won a prize with a 1/3 share portion?",
+        "cypher": (
+            "MATCH (s:Scholar)-[r:WON]->(p:Prize) "
+            "WHERE r.portion = '1/3' "
+            "RETURN s.knownName"
+        ),
+    },
 ]
 
 EXEMPLAR_QUESTIONS: List[str] = [ex["question"] for ex in EXEMPLARS]

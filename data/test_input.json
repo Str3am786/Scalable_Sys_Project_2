@@ -446,8 +446,444 @@
       "Scholarname": "Carl Bosch",
       "InstitutionName": "University of Heidelberg"
     }]
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Physics in 1933?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND p.awardYear = 1933 RETURN s.knownName",
+      "expected": [
+        "Erwin Schrödinger",
+        "Paul A.M. Dirac"
+      ]
+    },
+    {
+      "question": "Who are the female laureates in Physics?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND s.gender = 'female' RETURN s.knownName",
+      "expected": [
+        "Marie Curie",
+        "Maria Goeppert Mayer",
+        "Donna Strickland",
+        "Andrea Ghez"
+      ]
+    },
+    {
+      "question": "Which scholars born in Italy won a Nobel Prize in Chemistry?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'italy' MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' RETURN s.knownName",
+      "expected": [
+        "Giulio Natta"
+      ]
+    },
+    {
+      "question": "Which Physics laureates were affiliated with an institution in Denmark?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'denmark' RETURN DISTINCT s.knownName",
+      "expected": [
+        "Niels Bohr",
+        "Aage N. Bohr",
+        "Ben R. Mottelson"
+      ]
+    },
+    {
+      "question": "Who won the Nobel Prize in Literature in 1954?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Literature' AND p.awardYear = 1954 RETURN s.knownName",
+      "expected": [
+        "Ernest Hemingway"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Stanford University won a prize in 2001?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear = 2001 MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE i.name CONTAINS 'Stanford University' RETURN s.knownName",
+      "expected": [
+        "A. Michael Spence"
+      ]
+    },
+    {
+      "question": "Which scholars won the Nobel Peace Prize between 1990 and 1992?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Peace' AND p.awardYear >= 1990 AND p.awardYear <= 1992 RETURN s.knownName",
+      "expected": [
+        "Mikhail Gorbachev",
+        "Aung San Suu Kyi",
+        "Rigoberta Menchú Tum"
+      ]
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Economics in 2019?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'economics' AND p.awardYear = 2019 RETURN s.knownName",
+      "expected": [
+        "Abhijit Banerjee",
+        "Esther Duflo",
+        "Michael Kremer"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Harvard University won the Medicine prize?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'medicine' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'harvard university' RETURN DISTINCT s.knownName",
+      "expected": [
+        "George R. Minot",
+        "William P. Murphy",
+        "Fritz Lipmann",
+        "John F. Enders",
+        "Frederick C. Robbins",
+        "Thomas H. Weller",
+        "Georg von Békésy",
+        "Konrad Bloch",
+        "George Wald",
+        "Baruj Benacerraf",
+        "David H. Hubel",
+        "Torsten N. Wiesel",
+        "Joseph E. Murray",
+        "Linda B. Buck",
+        "Jack W. Szostak",
+        "William G. Kaelin Jr"
+      ]
+    },
+    {
+      "question": "Who won the Nobel Prize in Physics in 2020?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'physics' AND p.awardYear = 2020 RETURN s.knownName",
+      "expected": [
+        "Roger Penrose",
+        "Reinhard Genzel",
+        "Andrea Ghez"
+      ]
+    },
+    {
+      "question": "Which scholars born in New York City won a Physics prize?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) IN ['new york, ny', 'new york'] MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'physics' RETURN s.knownName",
+      "expected": [
+        "Carl D. Anderson",
+        "Robert Hofstadter",
+        "Julian Schwinger",
+        "Richard P. Feynman",
+        "Murray Gell-Mann",
+        "Leon N. Cooper",
+        "Burton Richter",
+        "Sheldon Glashow",
+        "Steven Weinberg",
+        "Melvin Schwartz",
+        "Leon M. Lederman",
+        "Russell A. Hulse",
+        "Martin L. Perl",
+        "David J. Gross",
+        "H. David Politzer",
+        "Roy J. Glauber",
+        "Arthur Ashkin",
+        "Andrea Ghez"
+      ]
+    },
+    {
+      "question": "Which female scholars won the Nobel Prize in Medicine?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'medicine' AND s.gender = 'female' RETURN s.knownName",
+      "expected": [
+        "Gerty Cori",
+        "Rosalyn Yalow",
+        "Barbara McClintock",
+        "Rita Levi-Montalcini",
+        "Gertrude B. Elion",
+        "Christiane Nüsslein-Volhard",
+        "Linda B. Buck",
+        "Françoise Barré-Sinoussi",
+        "Elizabeth H. Blackburn",
+        "Carol W. Greider",
+        "May-Britt Moser",
+        "Tu Youyou"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with an institution in France won the Economics prize?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'economics' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'france' RETURN DISTINCT s.knownName",
+      "expected": [
+        "Maurice Allais",
+        "Jean Tirole",
+        "Esther Duflo"
+      ]
+    },
+    {
+      "question": "Which scholars won a prize with a 1/3 share portion?",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE r.portion = '1/3' RETURN s.knownName",
+      "expected": [
+        "A. Michael Spence",
+        "Aage N. Bohr",
+        "Aaron Ciechanover",
+        "Abdus Salam",
+        "Abhijit Banerjee",
+        "Ada E. Yonath",
+        "Akira Suzuki",
+        "Akira Yoshino",
+        "Alain Aspect",
+        "Alan Heeger",
+        "Alan Hodgkin",
+        "Alan MacDiarmid",
+        "Albert Claude",
+        "Alexei Abrikosov",
+        "Alfred D. Hershey",
+        "André F. Cournand",
+        "André Lwoff",
+        "Andrew Huxley",
+        "Anthony J. Leggett",
+        "Anton Zeilinger",
+        "Arieh Warshel",
+        "Avram Hershko",
+        "Aziz Sancar",
+        "Baruj Benacerraf",
+        "Ben Bernanke",
+        "Ben R. Mottelson",
+        "Bernard L. Feringa",
+        "Carl Wieman",
+        "Carol W. Greider",
+        "Carolyn Bertozzi",
+        "César Milstein",
+        "Charles J. Pedersen",
+        "Charles M. Rice",
+        "Christian de Duve",
+        "Christiane Nüsslein-Volhard",
+        "Christopher A. Pissarides",
+        "Claude Cohen-Tannoudji",
+        "Dale T. Mortensen",
+        "Daniel C. Tsui",
+        "Daniel Kahneman",
+        "Daniel Nathans",
+        "David Baltimore",
+        "David J. Gross",
+        "David M. Lee",
+        "Dickinson W. Richards",
+        "Donald J. Cram",
+        "Douglas D. Osheroff",
+        "Douglas Diamond",
+        "Dudley R. Herschbach",
+        "Ei-ichi Negishi",
+        "Elizabeth H. Blackburn",
+        "Eric Cornell",
+        "Eric F. Wieschaus",
+        "Eric Kandel",
+        "Eric S. Maskin",
+        "Esther Duflo",
+        "Eugene F. Fama",
+        "Ferid Murad",
+        "Françoise Barré-Sinoussi",
+        "François Jacob",
+        "George A. Akerlof",
+        "George E. Palade",
+        "George H. Hitchings",
+        "George P. Smith",
+        "George R. Minot",
+        "George Wald",
+        "Georges J.F. Köhler",
+        "Gertrude B. Elion",
+        "Gregg L. Semenza",
+        "H. David Politzer",
+        "H. Gobind Khorana",
+        "H. Robert Horvitz",
+        "Hamilton O. Smith",
+        "Harold E. Varmus",
+        "Harvey J. Alter",
+        "Hideki Shirakawa",
+        "Hiroshi Amano",
+        "Horst L. Störmer",
+        "Howard M. Temin",
+        "H. Robert Horvitz",
+        "Jack Steinberger",
+        "Jack W. Szostak",
+        "Jacques Dubochet",
+        "Jacques Monod",
+        "James Rainwater",
+        "Jean Dausset",
+        "Jean-Marie Lehn",
+        "Jean-Pierre Sauvage",
+        "Jerome I. Friedman",
+        "Joachim Frank",
+        "Johann Deisenhofer",
+        "John C. Harsanyi",
+        "John C. Polanyi",
+        "John Clauser",
+        "John E. Sulston",
+        "John F. Nash Jr.",
+        "Joseph E. Stiglitz",
+        "Julian Schwinger",
+        "Keffer Hartline",
+        "Konrad Lorenz",
+        "Lars Peter Hansen",
+        "Leon M. Lederman",
+        "Leon N. Cooper",
+        "Louis J. Ignarro",
+        "M. Stanley Whittingham",
+        "Marshall W. Nirenberg",
+        "Martin Chalfie",
+        "Martin Henderson",
+        "Martin Karplus",
+        "Martin Sir J. Evans",
+        "Maurice Wilkins",
+        "Max Delbrück",
+        "Melvin Schwartz",
+        "Merton H. Miller",
+        "Michael Houghton",
+        "Michael Kremer",
+        "Michael Levitt",
+        "Michael Rosbash",
+        "Michael W. Young",
+        "Morten Meldal",
+        "Myron Scholes",
+        "Niels K. Jerne",
+        "Nikolaas Tinbergen",
+        "Oliver Smithies",
+        "Osamu Shimomura",
+        "Paul Greengard",
+        "Paul J. Crutzen",
+        "Pavel A. Cherenkov",
+        "Philip Dybvig",
+        "Philip H. Hench",
+        "Philip S. Hench",
+        "Philip W. Anderson",
+        "Ralph M. Steinman",
+        "Randy W. Schekman",
+        "Reinhard Selten",
+        "Renato Dulbecco",
+        "Richard E. Smalley",
+        "Richard E. Taylor",
+        "Richard F. Heck",
+        "Richard H. Thaler",
+        "Richard Henderson",
+        "Richard J. Roberts",
+        "Richard R. Schrock",
+        "Robert B. Laughlin",
+        "Robert C. Richardson",
+        "Robert F. Curl Jr.",
+        "Robert F. Furchgott",
+        "Robert Huber",
+        "Robert J. Shiller",
+        "Robert Schrieffer",
+        "Robert W. Holley",
+        "Roger B. Myerson",
+        "Roger Y. Tsien",
+        "Salvador E. Luria",
+        "Sheldon Glashow",
+        "Shuji Nakamura",
+        "Sin-Itiro Tomonaga",
+        "Sir Bernard Katz",
+        "Sir Frank Macfarlane Burnet",
+        "Sir James W. Black",
+        "Sir John Eccles",
+        "Sir Martin J. Evans",
+        "Sir Paul Nurse",
+        "Sir Peter J. Ratcliffe",
+        "Stefan W. Hell",
+        "Steven Chu",
+        "Steven Weinberg",
+        "Sune K. Bergström",
+        "Sydney Brenner",
+        "Thomas A. Steitz",
+        "Thomas C. Südhof",
+        "Tim Hunt",
+        "Tomas Lindahl",
+        "Ulf von Euler",
+        "Venkatraman Ramakrishnan",
+        "Vitaly L. Ginzburg",
+        "Walter H. Brattain",
+        "Werner Arber",
+        "Werner Forssmann",
+        "William D. Phillips",
+        "William E. Moerner",
+        "William F. Sharpe",
+        "William G. Kaelin Jr",
+        "William P. Murphy",
+        "Wolfgang Ketterle",
+        "Yuan T. Lee",
+        "Yves Chauvin"
+      ]
+    },
+    {
+      "question": "Which institutions in Japan have been affiliated with Physics laureates?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'physics' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'japan' RETURN DISTINCT i.name",
+      "expected": [
+        "Kyoto University",
+        "Tokyo University of Education",
+        "University of Tsukuba",
+        "University of Tokyo",
+        "High Energy Accelerator Research Organization (KEK)",
+        "Kyoto Sangyo University",
+        "Yukawa Institute for Theoretical Physics (YITP), Kyoto University",
+        "Meijo University",
+        "Nagoya University"
+      ]
+    },
+    {
+      "question": "Who won the Nobel Prize in Chemistry in 2022?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'chemistry' AND p.awardYear = 2022 RETURN s.knownName",
+      "expected": [
+        "Carolyn Bertozzi",
+        "Morten Meldal",
+        "K. Barry Sharpless"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Columbia University won the Economics prize?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'economics' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'columbia university' RETURN s.knownName",
+      "expected": [
+        "William Vickrey",
+        "Robert Mundell",
+        "Joseph E. Stiglitz",
+        "Edmund S. Phelps"
+      ]
+    },
+    {
+      "question": "Which scholars born in Italy won the Physics prize?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'italy' MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'physics' RETURN s.knownName",
+      "expected": [
+        "Guglielmo Marconi",
+        "Enrico Fermi",
+        "Emilio Segrè",
+        "Riccardo Giacconi",
+        "Giorgio Parisi"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Yale University won a prize in Chemistry?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'chemistry' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'yale university' RETURN s.knownName",
+      "expected": [
+        "Lars Onsager",
+        "Sidney Altman",
+        "John B. Fenn",
+        "Thomas A. Steitz"
+      ]
+    },
+    {
+      "question": "How many scholars won the Nobel Prize in Economics?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'economics' RETURN count(s)",
+      "expected": [
+        92
+      ]
+    },
+    {
+      "question": "Who are the scholars affiliated with the University of Chicago who won the Economics prize?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'economics' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'university of chicago' RETURN s.knownName",
+      "expected": [
+        "Milton Friedman",
+        "Theodore W. Schultz",
+        "George J. Stigler",
+        "Merton H. Miller",
+        "Ronald H. Coase",
+        "Gary Becker",
+        "Robert W. Fogel",
+        "Robert E. Lucas Jr.",
+        "James J. Heckman",
+        "Roger B. Myerson",
+        "Eugene F. Fama",
+        "Lars Peter Hansen",
+        "Richard H. Thaler",
+        "Douglas Diamond"
+      ]
+    },
+    {
+      "question": "Which scholars born in the Netherlands won the Physics prize?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'the netherlands' MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'physics' RETURN s.knownName",
+      "expected": [
+        "Pieter Zeeman",
+        "Johannes Diderik van der Waals",
+        "Heike Kamerlingh Onnes",
+        "Peter Debye",
+        "Frits Zernike",
+        "Nicolaas Bloembergen",
+        "Simon van der Meer",
+        "Gerardus 't Hooft",
+        "Martinus J.G. Veltman"
+      ]
     }
-
-  
   ]
 }
