@@ -1,0 +1,186 @@
+{
+  "results": [
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 18.71,
+        "text2cypher": 14.56,
+        "db_exec": 0.0,
+        "answer_gen": 4.14
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year"
+      ],
+      "answer": "The Chemistry prizes in 2000 were awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 20.08,
+        "text2cypher": 15.56,
+        "db_exec": 0.0,
+        "answer_gen": 4.52
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.76,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.76
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 1.89,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.88
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year"
+      ],
+      "answer": "The Chemistry prizes in 2000 were awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 2.98,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.98
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.66,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.66
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 1.87,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.87
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "all_cyphers": [
+        "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000 RETURN s.knownName AS scholar, p.awardYear AS award_year"
+      ],
+      "answer": "The Chemistry prizes in 2000 were awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 2.97,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.96
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.66,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.65
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 1.93,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.93
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 1.97,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.96
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 1.97,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.96
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear",
+      "all_cyphers": [
+        "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.prize_id AS id, p.awardYear AS year ORDER BY p.awardYear"
+      ],
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.01,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.0
+      }
+    }
+  ]
+}

@@ -11,14 +11,17 @@ from datetime import datetime
 import json
 from typing import List, Dict, Any
 import os
-from .rag.prompts import EVALUATION_PROMPT
 
+TEST = {
+    
+    "0": { "rag" : False,"cache": False},
+    "1": { "rag" : False,"cache": True},
+    "2": { "rag" : True,"cache": False},
+    "3": { "rag" : True,"cache": True},
+}
 
 def make_evaluation_model(cfg):
     """Evaluation model and prompt."""
-    
-
-
     return LlamaServer(
         base_url=cfg.evaluation_url,
         api_key=cfg.evaluation_key,
@@ -27,14 +30,12 @@ def make_evaluation_model(cfg):
     
 
 def get_evaluation_model():
-    
     cfg = load_config()
     evaluation_llm = make_evaluation_model(cfg)
     return evaluation_llm
 
 def record_test(filename : str, result)-> None:
 
-    filename = f"./data/{filename}"
     if not os.path.exists(filename):
         with open(filename, "w", encoding="utf-8") as f:
             json.dump({"results": [result]}, f, indent=2)
@@ -78,8 +79,6 @@ def load_test_set(path: str = "./data/test_input.json") -> List[Dict[str, Any]]:
 
     return cleaned_tests
 
-
-
 def _make_prediction_llm(cfg):
     """Plain LLM factory independent of RAG."""
 
@@ -106,7 +105,6 @@ def get_llm(use_cache: bool = False, rag: bool = False):
     
     if rag:
         # Instantiate the DSPy-based GraphRAG pipeline
-        print("GRAPH")
         llm = GraphRAG(
             llm=base_llm,
             db_path=cfg.rag_db_path,
@@ -119,27 +117,122 @@ def get_llm(use_cache: bool = False, rag: bool = False):
         )
 
     else:
-        print("BASE")
         llm = base_llm
 
     if use_cache and rag!=True:
         # Optionally cache whole-LLM completions
-        print("BASEEE")
         llm = CachedLLM(
             inner=llm,
             maxsize=256,
             ttl_seconds=0,
         )
 
-    return llm
+    return llm, cfg.rag_cache_maxsize, cfg.rag_cache_ttl_seconds
 
+
+def test(rag: bool, cache: bool,input_file : str= "./data/test_input.json", out_folder : str = "results") -> str:
+    
+    test_set = load_test_set(input_file)
+    test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    llm = get_llm(use_cache=cache, rag = rag)
+    
+    filepath = f"./{out_folder}/{test_datetime}_rag_{rag}_with_cache_{cache}.json"
+    counter = 1
+    
+    for test in test_set:
+        
+        print(f"Starting test for question n° {counter}")
+        counter += 1
+        prompt = test["question"]
+        if rag:
+            answer, stats, c , all_tested_cyphers = llm.generate(prompt)
+            result = {
+                "question": prompt,
+                "cypher": c,
+                "all_cyphers" : all_tested_cyphers,
+                "answer": answer,
+                "stats": stats
+            }
+        else:
+            start = datetime.now()
+            answer = llm.generate(prompt)
+            end = datetime.now()
+            delta = (end - start).total_seconds()  
+            
+            result = {
+                "question": prompt,
+                "answer": answer,
+                "time": round(delta,2),
+            }
+            
+        record_test(filepath,result)
+        
+    return filepath
+
+
+def cache_test(input_file : str= "./data/test_input.json", out_folder : str = "results") -> str:
+    
+    test_set = load_test_set(input_file)
+    test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    llm ,cache_maxsize,cache_ttl_seconds= get_llm(use_cache=True, rag = True)
+    
+    print(f"CACHE PARAMETERS: Size = {cache_maxsize}, Time to Live = {cache_ttl_seconds}")
+    
+    filepath = f"./{out_folder}/{test_datetime}_cache_test.json"
+    counter = 1
+    
+    for test in test_set:
+        
+        print(f"Starting test for question n° {counter}")
+        counter += 1
+        prompt = test["question"]
+        answer, stats, c , all_tested_cyphers = llm.generate(prompt)
+        result = {
+            "question": prompt,
+            "answer": answer,
+            "stats": stats
+        }            
+        record_test(filepath,result)
+                
+    return filepath
+
+def evaluate_test(filepath : str) -> str:
+    
+    evaluation_model, evaluation_script = get_evaluation_model()
+
+    # read test results
+    with open(filepath, "r", encoding="utf-8") as f:
+        data_test = json.load(f)["results"]
+    # read ground truth data    
+    with open("data/test_input.json", "r", encoding="utf-8") as f:
+        data_true = json.load(f)["tests"]
+        
+    output_filepath =  open("./results/accuracy.txt","a")
+        
+    for i in range(len(data_true)):
+        print(f"Evaluating response n° {i}")
+        question =  data_true[i]["question"]
+        true_answer = data_true[i]["expected"]
+        test_answer = data_test[i]["answer"]
+                                
+        evaluation_input_prompt = (
+            evaluation_script
+            + "\nQUESTION:\n" + json.dumps(question)
+            + "\nMODEL_ANSWER:\n" + json.dumps(test_answer)
+            + "\nGROUND_TRUTH:\n" + json.dumps(true_answer)
+        )
+        # Generate evaluation (assuming evaluation_model is already defined)
+        evaluation_results = evaluation_model.generate(evaluation_input_prompt)
+        output_filepath.write(evaluation_input_prompt+"\n"+evaluation_results+"\n\n\n",)
+    
+    return "./results/accuracy.txt"
 
 def main():
-    print("START")
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--prompt", required=True, help="User question or prompt")
-    
     parser.add_argument(
         "--rag",
         action= "store_true",
@@ -159,135 +252,61 @@ def main():
     )
     
     parser.add_argument(
-        "--test",
-        action= "store_true",
-        help="Launch Single Test"
+        "--single-test",
+        type=str,
+        choices=["0", "1", "2", "3"],
+        help="Select which test to run"
     )
-
+    
+    parser.add_argument(
+        "--caching-test",
+        action="store_true",
+        help="Disable outer LLM cache (Text2Cypher cache still controlled via config.yaml).",
+    )
     args = parser.parse_args()
-    
-    
     use_cache = not args.no_cache
-    print("RAG: ",args.rag)
     
     if args.complete_test:
-        print("TEST COMPLETO")
         
-        test_set = load_test_set()
-        test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        test_filpaths = [] 
+        print("------------Starting Complete Test---------------------")
+        for i in range(len(TEST)):
+            # Test all possible combination
+            print(f"Test {i}: RAG = {TEST[str(i)]["rag"]}, CACHE = {TEST[str(i)]["cache"]}")
+            test_filepath = test(**TEST[str(i)])
+            test_filpaths.append(test_filepath)
+            print(f"Conlcluded Test {i}. You can find the result in {test_filepath}") 
+        
+        print("------------Starting Evaluation of Tests Answers---------------------")
+        evaluation_res_plain = evaluate_test(test_filpaths[0])
+        print(f"Conlclude Evaluation of Test without RAG. You can find the result in {evaluation_res_plain}") 
 
-        evaluation_model, evaluation_script = get_evaluation_model()
-        #print(evaluation_script)
-        #compare = ["data/2025-11-23_17-20-35_rag_False_cache_False.json","data/2025-11-23_17-20-35_rag_True_cache_False.json"] 
-        compare = []
+        evaluation_res_rag = evaluate_test(test_filepath[1])
+        print(f"Conlclude Evaluation of Test with RAG. You can find the result in {evaluation_res_rag}") 
 
-        for i in range(2):
-            for j in range(2):
-                rag = bool(i)
-                use_cache = bool(j)
-                llm = get_llm(use_cache=use_cache, rag = rag)
-                filename = f"{test_datetime}_rag_{rag}_cache_{use_cache}.json"
-                if j == 1:
-                    compare.append(f"data/{filename}")
-                
-                for test in test_set:
-                    
-                    prompt = test["question"]
-                    cypher = test["cypher"]
-                    if rag:
-                        answer, stats, c , all_tested_cyphers = llm.generate(prompt)
-                    
-                        result = {
-                            "question": prompt,
-                            "cypher": c,
-                            "all_cyphers" : all_tested_cyphers,
-                            "answer": answer,
-                            "stats": stats
-                        }
-                    else:
-                        start = datetime.now()
-                        answer = llm.generate(prompt)
-                        end = datetime.now()
-                        delta = (end - start).total_seconds()
-                                        
-                        result = {
-                            "question": prompt,
-                            "answer": answer,
-                            "time": str(delta),
-                        }
-                        
-                    record_test(filename,result)
-            
-        with open(compare[0], "r", encoding="utf-8") as f:
-            data_plain = json.load(f)["results"]
+    elif args.single_test:
         
-        with open(compare[1], "r", encoding="utf-8") as f:
-            data_rag = json.load(f)["results"]
-            print(data_rag)
-                
-        with open("data/test_input.json", "r", encoding="utf-8") as f:
-            data_true = json.load(f)["tests"]
+        print("------------Starting Single Test---------------------")
+        print(f"Test {args.single_test}: RAG = {TEST[args.single_test]["rag"]}, CACHE = {TEST[args.single_test]["cache"]}")
+        test_filepath = test(**TEST[str(args.single_test)])
+        print(f"Conlcluded Test {args.single_test}. You can find the result in {test_filepath}") 
         
-        evaluations_rag = []
-        evaluations_plain = []
+        print("------------Starting Evaluation of Tests Answers---------------------")
+        evaluation_res_test = evaluate_test(test_filepath)
+        print(f"Conlcluded Evaluation of Test {args.single_test}. You can find the result in {evaluation_res_test}") 
         
-        plain_f =  open("data/accuracy_plain.txt","a")
-        rag_f =  open("data/accuracy_rag.txt","a")
+    elif args.caching_test: 
         
-        for i in range(len(data_true)):
-            
-            question =  data_true[i]["question"]
-            true_answer = data_true[i]["expected"]
-            rag_answer = data_rag[i]["answer"]
-            plain_answer = data_plain[i]["answer"]
-            
-            evaluation_input_plain = (
-                evaluation_script
-                + "\nQUESTION:\n" + json.dumps(question)
-                + "\nMODEL_ANSWER:\n" + json.dumps(plain_answer)
-                + "\nGROUND_TRUTH:\n" + json.dumps(true_answer)
-            )
-                        
-            evaluation_input_rag = (
-                evaluation_script
-                + "\nQUESTION:\n" + json.dumps(question)
-                + "\nMODEL_ANSWER:\n" + json.dumps(rag_answer)
-                + "\nGROUND_TRUTH:\n" + json.dumps(true_answer)
-            )
-                        
-            # Generate evaluation (assuming evaluation_model is already defined)
-            evaluation_result_plain = evaluation_model.generate(evaluation_input_plain)
-            evaluation_result_rag = evaluation_model.generate(evaluation_input_rag)
-
-            
-            #evaluations_plain.append(evaluation_result_plain)
-    
-            
-            plain_f.write(evaluation_input_plain+"\n"+evaluation_result_plain+"\n\n\n",)
-            
-            rag_f.write(evaluation_input_rag+"\n"+evaluation_result_rag+"\n\n\n",)
+        print("------------Starting Cache Test---------------------")
+        test_filepath = cache_test(input_file="./data/test_cache.json")
+        print(f"Conlcluded Test. You can find the result in {test_filepath}") 
         
-            
-    elif args.test:
-        # Just one test of the 4 -- Maybe we can drop it
-        print("Partial")
         
-        #llm = get_llm(use_cache=use_cache, rag = args.rag)
-        print(llm.generate(args.prompt))      
-    
     else:
 
-        print(f"Cache: {use_cache}")
-        llm = get_llm(use_cache=use_cache, rag = args.rag)
-        start = datetime.now()
-        
+        llm = get_llm(use_cache=use_cache, rag = args.rag)        
         print(llm.generate(args.prompt))      
-        
-        end = datetime.now()
-        delta = (end - start).total_seconds()
-        print(f"time: {delta} seconds")
 
-        
     # For benchmarking, toggle config.llm.backend between:
     #   - "server" (plain LLM baseline)
     #   - "rag"    (Graph-RAG backend)

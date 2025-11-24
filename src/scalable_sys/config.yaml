@@ -8,8 +8,8 @@ llm:
     use_postprocess: true
     # Caching Strategy
     cache_text2cypher: true
-    cache_maxsize: 256
-    cache_ttl_seconds: 0
+    cache_maxsize: 1
+    cache_ttl_seconds: 100
 
   evaluation:
     prompt: "You are an expert evaluator for assessing the performance of a language model.Your task is to assign a score from 0 to 10 for the model's answer based STRICTLY on how well it matches the provided GROUND_TRUTH for the single question below.

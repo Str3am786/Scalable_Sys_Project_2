@@ -28,3 +28,8 @@ services:
       --judge-only 
       --plain-file ${PLAIN_FILE} 
       --rag-file ${RAG_FILE}
+      - ./results/:/app/results
+
+    # command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--prompt", "Which scholars won Nobel Prizes in Physics?", "--rag", "--complete-test"]
+    # command: ["python", "-m", "src.scalable_sys.test", "--prompt", "Which scholars won Nobel Prizes in Physics?","--rag","--caching-test"]
+    # command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?"]

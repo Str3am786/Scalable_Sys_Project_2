@@ -1,0 +1,74 @@
+{
+  "tests": [    
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' AND p.awardYear = 2000 RETURN s.knownName",
+      "expected": ["Hideki Shirakawa","Alan MacDiarmid","Alan Heeger"]
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+        {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' AND p.awardYear = 2000 RETURN s.knownName",
+      "expected": ["Hideki Shirakawa","Alan MacDiarmid","Alan Heeger"]
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+        {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' AND p.awardYear = 2000 RETURN s.knownName",
+      "expected": ["Hideki Shirakawa","Alan MacDiarmid","Alan Heeger"]
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+        {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+        {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+        {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    },
+        {
+      "question": "Which prizes were awarded in 1922?",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
+      "expected": ["Physics", "Medicine","Chemistry"]
+    }
+    
+    
+    
+    
+  
+  ]
+}
