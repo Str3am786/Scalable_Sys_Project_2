@@ -1,0 +1,134 @@
+{
+  "results": [
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 12.49,
+        "text2cypher": 7.77,
+        "db_exec": 0.0,
+        "answer_gen": 4.72
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The Chemistry prizes in 2000 were awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 21.85,
+        "text2cypher": 16.76,
+        "db_exec": 0.0,
+        "answer_gen": 5.09
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 20.13,
+        "text2cypher": 15.2,
+        "db_exec": 0.0,
+        "answer_gen": 4.93
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 1.95,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.94
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The Chemistry prizes in 2000 were awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 23.63,
+        "text2cypher": 18.02,
+        "db_exec": 0.0,
+        "answer_gen": 5.61
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 22.68,
+        "text2cypher": 17.54,
+        "db_exec": 0.0,
+        "answer_gen": 5.13
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.41,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.41
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The Chemistry prizes in 2000 were awarded to Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 26.09,
+        "text2cypher": 20.33,
+        "db_exec": 0.0,
+        "answer_gen": 5.76
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 24.14,
+        "text2cypher": 18.78,
+        "db_exec": 0.0,
+        "answer_gen": 5.36
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.6,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.6
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.34,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.33
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.42,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.41
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were the medicine prize, the chemistry prize, and the physics prize.",
+      "stats": {
+        "total": 2.35,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 2.35
+      }
+    }
+  ]
+}

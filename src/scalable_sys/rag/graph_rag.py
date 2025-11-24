@@ -212,12 +212,10 @@ class GraphRAG(LLM):
 
         # Setup Caching
         if cache_text2cypher:
-            print("CACHEEEE")
             self._generate_cypher = self._make_cached_generator(
                 maxsize=cache_maxsize, ttl=cache_ttl_seconds
             )
         else:
-            print("NO SULLA CARTA CACHEEEE")
             self._generate_cypher = self._generate_cypher_no_cache
 
     def _get_schema_str(self):
@@ -329,10 +327,10 @@ class GraphRAG(LLM):
         t4 = time.perf_counter()
 
         stats = {
-            "total": t4 - t0,
-            "text2cypher": t2 - t1,
-            "db_exec": t3 - t2,
-            "answer_gen": t4 - t3
+            "total": round(t4 - t0,2),
+            "text2cypher": round(t2 - t1,2),
+            "db_exec": round(t3 - t2,2),
+            "answer_gen": round(t4 - t3,2)
         }
 
         print("\n=== Timing Stats ===")
