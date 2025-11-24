@@ -12,8 +12,12 @@ from src.scalable_sys.rag.graph_rag import GraphRAG
 
 from src.scalable_sys.evaluation.analyze_results import generate_comparison_table
 
+def get_project_root() -> str:
+    """Returns the absolute path to the project root."""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.abspath(os.path.join(current_dir, "../../../"))
+
 def make_evaluation_model(cfg):
-    """Evaluation model and prompt."""
     return LlamaServer(
         base_url=cfg.evaluation_url,
         api_key=cfg.evaluation_key,
@@ -25,52 +29,57 @@ def get_evaluation_model():
     evaluation_llm = make_evaluation_model(cfg)
     return evaluation_llm
 
-def record_test(filename : str, result) -> None:
-    os.makedirs("./data", exist_ok=True)
-    
-    filepath = f"./data/{filename}"
+def record_test(filepath: str, result) -> None:
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
     if not os.path.exists(filepath):
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump({"results": [result]}, f, indent=2)
         return
-
     with open(filepath, "r", encoding="utf-8") as f:
         try:
             data = json.load(f)
         except json.JSONDecodeError:
             data = {"results": []}
-
     data["results"].append(result)
-
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 
-def load_test_set(path: str = "./data/test_input.json") -> List[Dict[str, Any]]:
+def record_evaluation(filepath: str, result: Dict[str, Any]) -> None:
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    data = {"evaluations": []}
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = json.load(f)
+                if isinstance(content, dict):
+                    data = content
+                    if "evaluations" not in data:
+                        data["evaluations"] = []
+        except json.JSONDecodeError:
+            pass
+    data["evaluations"].append(result)
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+def load_test_set(path: str) -> List[Dict[str, Any]]:
     if not os.path.exists(path):
         raise FileNotFoundError(f"Test set not found at {path}")
-
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
-
     if "tests" not in data or not isinstance(data["tests"], list):
         raise ValueError("JSON must contain a top-level 'tests' array")
-
     cleaned_tests = []
     for i, entry in enumerate(data["tests"]):
-        # Basic validation
         if "question" not in entry:
             continue 
-            
         cleaned_tests.append({
             "question": entry["question"],
             "cypher": entry.get("cypher", ""),
             "expected": entry.get("expected", [])
         })
-
     return cleaned_tests
 
 def _make_prediction_llm(cfg):
-    """Plain LLM factory independent of RAG."""
     if cfg.backend in ("server", "rag"):
         return LlamaServer(
             base_url=cfg.server_base_url,
@@ -81,10 +90,8 @@ def _make_prediction_llm(cfg):
         raise ValueError(f"Unknown backend: {cfg.backend}")
 
 def get_llm(use_cache: bool = False, rag: bool = False):
-    """Top-level LLM factory."""
     cfg = load_config()
     base_llm = _make_prediction_llm(cfg)
-    
     if rag:
         print(f"Initializing GraphRAG (Cache={use_cache})")
         llm = GraphRAG(
@@ -100,19 +107,12 @@ def get_llm(use_cache: bool = False, rag: bool = False):
     else:
         print("Initializing Base LLM")
         llm = base_llm
-
-    # Outer cache for the Plain LLM or the RAG answer generation
     if use_cache and not rag:
         print("Enabling Outer Cache")
-        llm = CachedLLM(
-            inner=llm,
-            maxsize=256,
-            ttl_seconds=0,
-        )
+        llm = CachedLLM(inner=llm, maxsize=256, ttl_seconds=0)
     return llm
 
 def extract_score(text: str) -> int:
-    """Helper to extract score from model output text like 'Score : 8'"""
     try:
         match = re.search(r'Score\s*:\s*(\d+)', text, re.IGNORECASE)
         if match:
@@ -123,57 +123,58 @@ def extract_score(text: str) -> int:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--prompt", required=False, help="User question or prompt for single test")
-    parser.add_argument("--rag", action="store_true", help="Use RAG pipeline for single test")
+    parser.add_argument("--prompt", required=False, help="User question for single test")
+    parser.add_argument("--rag", action="store_true", help="Use RAG pipeline")
     parser.add_argument("--no-cache", action="store_true", help="Disable caching")
-    parser.add_argument("--complete-test", action="store_true", help="Run full evaluation suite")
-    parser.add_argument("--judge-only", action="store_true", help="Skip generation and run evaluation on existing files")
-    parser.add_argument("--plain-file", type=str, help="Path to existing plain LLM results JSON")
-    parser.add_argument("--rag-file", type=str, help="Path to existing RAG results JSON")
+    parser.add_argument("--complete-test", action="store_true", help="Run full suite")
+    parser.add_argument("--judge-only", action="store_true", help="Run evaluation on existing files")
+    parser.add_argument("--plain-file", type=str, help="Path to existing plain LLM results")
+    parser.add_argument("--rag-file", type=str, help="Path to existing RAG results")
     parser.add_argument("--test", action="store_true", help="Run single prompt test")
 
     args = parser.parse_args()
-    
     use_cache = not args.no_cache
     
-    # Either we run the complete test OR we run just the judge
+    PROJECT_ROOT = get_project_root()
+    TEST_INPUT_PATH = os.path.join(PROJECT_ROOT, "data", "test_input.json")
+    
     if args.complete_test or args.judge_only:
         print("=== STARTING EVALUATION PIPELINE ===")
         
-        # We always need the test set for Ground Truth
-        test_set = load_test_set()
-        
-        # We always need the evaluation model
+        cfg = load_config() 
+
+        test_set = load_test_set(TEST_INPUT_PATH)
         evaluation_model, evaluation_script = get_evaluation_model()
-        
+
+        DIR_RAW = os.path.join(PROJECT_ROOT, "results", "rag_eval", "raw")
+        DIR_GRADED = os.path.join(PROJECT_ROOT, "results", "rag_eval", "graded")
+        DIR_SUMMARY = os.path.join(PROJECT_ROOT, "results", "summary")
+
         if args.judge_only:
-            # validate only with input files
             if not args.plain_file or not args.rag_file:
                 print("Error: --judge-only requires --plain-file and --rag-file")
                 return
             
             print(f"\n[Mode: Judge Only] Loading existing results...")
-            file_plain = args.plain_file
-            file_rag = args.rag_file
+            file_plain_raw = args.plain_file
+            file_rag_raw = args.rag_file
             
-            # Use existing timestamp from filename or current time for the summary report name
-            test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S_JUDGE_ONLY")
-
+            test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S_JUDGE")
         else:
-            # Generate new filenames
             test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            file_plain = f"data/{test_datetime}_plain.json"
-            file_rag = f"data/{test_datetime}_rag.json"
+            
+            # Save RAW answers to results/rag_eval/raw/
+            file_plain_raw = os.path.join(DIR_RAW, f"{test_datetime}_plain.json")
+            file_rag_raw = os.path.join(DIR_RAW, f"{test_datetime}_rag.json")
             
             # --- Running Plain LLM Baseline ---
-            print("\n--- Running Plain LLM Baseline ---")
+            print(f"\n--- Running Plain LLM Baseline -> {file_plain_raw} ---")
             llm_plain = get_llm(use_cache=True, rag=False)
             for t in test_set:
                 start = datetime.now()
                 ans = llm_plain.generate(t["question"])
                 delta = (datetime.now() - start).total_seconds()
-                
-                record_test(file_plain.replace("data/", ""), {
+                record_test(file_plain_raw, {
                     "question": t["question"],
                     "answer": ans,
                     "time": str(delta)
@@ -181,89 +182,102 @@ def main():
                 print(f"Processed: {t['question'][:30]}...")
 
             # --- Running GraphRAG Pipeline ---
-            print("\n--- Running GraphRAG Pipeline ---")
+            print(f"\n--- Running GraphRAG Pipeline -> {file_rag_raw} ---")
             llm_rag = get_llm(use_cache=True, rag=True)
             for t in test_set:
-                ans, stats, cypher, all_cyphers = llm_rag.generate(t["question"])
-                
-                record_test(file_rag.replace("data/", ""), {
+                ans, stats, cypher, all_cyphers, context = llm_rag.generate(t["question"])
+                record_test(file_rag_raw, {
                     "question": t["question"],
                     "answer": ans,
                     "cypher": cypher,
-                    "stats": stats
+                    "stats": stats,
+                    "context": context
                 })
-                print(f"Processed: {t['question'][:30]}...")
+                print(f"Processed: {t['question']}...")
 
-        # --- LLM-as-a-Judge Evaluation ---
         print("\n--- LLM-as-a-Judge Evaluation ---")
         
-        # Read back results
-        with open(file_plain, "r", encoding="utf-8") as f:
+        with open(file_plain_raw, "r", encoding="utf-8") as f:
             results_plain = json.load(f)["results"]
-        with open(file_rag, "r", encoding="utf-8") as f:
+        with open(file_rag_raw, "r", encoding="utf-8") as f:
             results_rag = json.load(f)["results"]
             
         plain_scores = {}
         rag_scores = {}
         
-        path_log_plain = "data/accuracy_plain.txt"
-        path_log_rag = "data/accuracy_rag.txt"
+        # Save GRADED answers to results/rag_eval/graded/
+        file_plain_graded = os.path.join(DIR_GRADED, f"{test_datetime}_plain_graded.json")
+        file_rag_graded = os.path.join(DIR_GRADED, f"{test_datetime}_rag_graded.json")
 
-        # Safety check for index alignment
         if len(results_plain) != len(test_set) or len(results_rag) != len(test_set):
-            print("Warning: Result file length matches test set length.")
+            print("Warning: Result file length mismatch.")
 
         for i in range(len(test_set)):
-            # Use Ground Truth from original test_set, but Answers from loaded files
             question = test_set[i]["question"]
             ground_truth = test_set[i]["expected"]
-            
             try:
                 ans_p = results_plain[i]["answer"]
                 ans_r = results_rag[i]["answer"]
+
+                cypher_r = results_rag[i].get("cypher", "")
+                context_r = results_rag[i].get("context", [])
+
             except IndexError:
-                print(f"Skipping index {i}: Result missing in JSON files.")
                 continue
             
-            # Construct Prompts
             prompt_p = f"{evaluation_script}\nQUESTION:\n{json.dumps(question)}\nMODEL_ANSWER:\n{json.dumps(ans_p)}\nGROUND_TRUTH:\n{json.dumps(ground_truth)}"
             prompt_r = f"{evaluation_script}\nQUESTION:\n{json.dumps(question)}\nMODEL_ANSWER:\n{json.dumps(ans_r)}\nGROUND_TRUTH:\n{json.dumps(ground_truth)}"
             
-            # Generate Scores
             print(f"Evaluating Question {i+1}/{len(test_set)}...")
             eval_p = evaluation_model.generate(prompt_p)
             eval_r = evaluation_model.generate(prompt_r)
             
-            plain_scores[question] = extract_score(eval_p)
-            rag_scores[question] = extract_score(eval_r)
+            score_p = extract_score(eval_p)
+            score_r = extract_score(eval_r)
             
-            # Append to text logs
-            with open(path_log_plain, "a", encoding="utf-8") as f:
-                f.write(f"{prompt_p}\n{eval_p}\n\n\n")
-            with open(path_log_rag, "a", encoding="utf-8") as f:
-                f.write(f"{prompt_r}\n{eval_r}\n\n\n")
+            plain_scores[question] = score_p
+            rag_scores[question] = score_r
+            
+            record_evaluation(file_plain_graded, {
+                "question": question,
+                "model_answer": ans_p,
+                "ground_truth": ground_truth,
+                "judge_output": eval_p,
+                "score": score_p
+            })
+            record_evaluation(file_rag_graded, {
+                "question": question,
+                "model_answer": ans_r,
+                "generated_cypher": cypher_r,
+                "fetched_context": context_r,
+                "ground_truth": ground_truth,
+                "judge_output": eval_r,
+                "score": score_r
+            })
 
-        # --- Generating Report ---
         print("\n--- Generating Report ---")
-        report_md, stats = generate_comparison_table(plain_scores, rag_scores)
+        report_md, stats = generate_comparison_table(
+            plain_scores, 
+            rag_scores,
+            base_model=cfg.server_model,
+            judge_model=cfg.evaluation_model
+        )
         
-        summary_path = f"data/summary_{test_datetime}.md"
+        summary_path = os.path.join(DIR_SUMMARY, f"{test_datetime}_summary.md")
+        os.makedirs(os.path.dirname(summary_path), exist_ok=True)
+        
         with open(summary_path, "w", encoding="utf-8") as f:
             f.write(report_md)
             
         print(f"Report saved to {summary_path}")
-        print(f"Plain Average: {stats['plain_avg']:.2f} (Accuracy: {stats['plain_pct']:.1f}%)")
-        print(f"RAG Average:   {stats['rag_avg']:.2f} (Accuracy: {stats['rag_pct']:.1f}%)")
-
+        print(f"Plain Average: {stats['plain_avg']:.2f}")
+        print(f"RAG Average:   {stats['rag_avg']:.2f}")
     else:
-        # Single Prompt Mode
         if not args.prompt:
-            print("Error: --prompt is required for single test mode, or use --complete-test / --judge-only")
+            print("Error: --prompt required for single test")
             return
-
         llm = get_llm(use_cache=use_cache, rag=args.rag)
         start = datetime.now()
-        
         if args.rag:
             answer, stats, cypher, _ = llm.generate(args.prompt)
             print(f"\nAnswer: {answer}")
@@ -272,7 +286,6 @@ def main():
         else:
             answer = llm.generate(args.prompt)
             print(f"\nAnswer: {answer}")
-            
         print(f"Time: {(datetime.now() - start).total_seconds()}s")
 
 if __name__ == "__main__":

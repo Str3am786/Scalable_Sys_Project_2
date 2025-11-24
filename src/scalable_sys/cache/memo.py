@@ -1,9 +1,11 @@
-# src/scalable_sys/cache/memo.py
 import time
 import functools
 from collections import OrderedDict
 import logging
 from datetime import datetime
+import os
+
+os.makedirs("./results", exist_ok=True)
 
 logging.basicConfig(
     filename="./results/cache_log.txt",

@@ -8,15 +8,16 @@ services:
     env_file:
       - .env
     volumes:
+      - ./results:/app/results
       - ./data:/app/data
 
   # Main App (Run with: docker compose up app)
   app:
     <<: *base_app
-    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars affiliated with an institution in France won the Economics prize?"]
+    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars won Chemistry in 2010?"]
 
-  # Full Validation Pipeline (Run with: docker compose up validate)
-  validate:
+  # Full Validation Pipeline (Run with: docker compose up eval)
+  eval:
     <<: *base_app
     command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--complete-test"]
 
@@ -28,8 +29,3 @@ services:
       --judge-only 
       --plain-file ${PLAIN_FILE} 
       --rag-file ${RAG_FILE}
-      - ./results/:/app/results
-
-    # command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--prompt", "Which scholars won Nobel Prizes in Physics?", "--rag", "--complete-test"]
-    # command: ["python", "-m", "src.scalable_sys.test", "--prompt", "Which scholars won Nobel Prizes in Physics?","--rag","--caching-test"]
-    # command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?"]

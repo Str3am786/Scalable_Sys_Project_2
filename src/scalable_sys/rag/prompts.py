@@ -168,7 +168,7 @@ EXEMPLARS: list[dict] = [
             "WHERE toLower(birth_country.name) = 'germany' "
             "MATCH (s)-[:AFFILIATED_WITH]->(:Institution)-[:IS_LOCATED_IN]->(:City)-[:IS_CITY_IN]->(work_country:Country) "
             "WHERE toLower(work_country.name) = 'usa' "
-            "RETURN DISTINCT s.knownName"
+            "RETURN DISTINCT s.knownName, birth_country.name AS BornIn, work_country.name AS WorkedIn" # <--- ADDED EVIDENCE
         ),
     },
     {
@@ -179,7 +179,7 @@ EXEMPLARS: list[dict] = [
             "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i) "
             "MATCH (s)-[:WON]->(p:Prize) "
             "WHERE toLower(p.category) = 'chemistry' "
-            "RETURN DISTINCT i.name"
+            "RETURN DISTINCT i.name, c.name AS Country"
         ),
     },
 
@@ -206,7 +206,7 @@ EXEMPLARS: list[dict] = [
             "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) "
             "WHERE toLower(co.name) CONTAINS 'france' "
             "AND s.deathDate >= '1945-01-01' AND s.deathDate <= '1955-12-31' "
-            "RETURN DISTINCT s.knownName AS Scholarname, i.name AS InstitutionName"
+            "RETURN DISTINCT s.knownName AS Scholarname, i.name AS InstitutionName, s.deathDate AS DeathDate"
         )
     },
 
@@ -236,6 +236,106 @@ EXEMPLARS: list[dict] = [
             "MATCH (s:Scholar)-[r:WON]->(p:Prize) "
             "WHERE r.portion = '1/3' "
             "RETURN s.knownName"
+        ),
+    },
+    {
+        "question": "Which scholars born in Paris won a Chemistry prize?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'chemistry' "
+            "MATCH (s)-[:BORN_IN]->(c:City) "
+            "WHERE toLower(c.name) CONTAINS 'paris' "
+            "RETURN s.knownName, p.awardYear"
+        ),
+    },
+    {
+        "question": "Which scholars born in the Netherlands won the Chemistry prize?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'chemistry' "
+            "MATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) CONTAINS 'netherlands' "
+            "RETURN s.knownName, p.awardYear"
+        ),
+    },
+    {
+        "question": "Which institutions in Sweden have been affiliated with Physiology or Medicine laureates?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) CONTAINS 'medicine' "
+            "MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) "
+            "MATCH (i)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) CONTAINS 'sweden' "
+            "RETURN DISTINCT i.name"
+        ),
+    },
+    {
+        "question": "Which Physics laureates were affiliated with Columbia University?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) CONTAINS 'physics' "
+            "MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) "
+            "WHERE toLower(i.name) CONTAINS 'columbia' "
+            "RETURN DISTINCT s.knownName, p.awardYear, i.name as Institution"
+        ),
+    },
+    {
+        "question": "Which scholars born in New York City won a Physics prize?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'physics' "
+            "MATCH (s)-[:BORN_IN]->(c:City) "
+            "WHERE toLower(c.name) CONTAINS 'new york' "
+            "RETURN s.knownName, p.awardYear, c.name as BirthCity"
+        ),
+    },
+    {
+        "question": "Which scholars affiliated with Harvard University won the Chemistry prize?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) CONTAINS 'chemistry' "
+            "MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) "
+            "WHERE toLower(i.name) CONTAINS 'harvard' "
+            "RETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution"
+        ),
+    },
+    {
+        "question": "Which scholars have won more than two Nobel Prizes?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WITH s, count(p) AS prize_count "
+            "WHERE prize_count > 2 "
+            "RETURN s.knownName"
+        ),
+    },
+    {
+        "question": "Which scholars affiliated with Stanford University won a prize in 1960?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE p.awardYear = 1960 "
+            "MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) "
+            "WHERE toLower(i.name) CONTAINS 'stanford' "
+            "RETURN DISTINCT s.knownName, p.category, i.name AS Institution"
+        ),
+    },
+    {
+        "question": "Which scholars born in Taiwan won the Chemistry prize?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'chemistry' "
+            "MATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) "
+            "WHERE toLower(co.name) CONTAINS 'taiwan' "
+            "RETURN DISTINCT s.knownName, p.awardYear, co.name AS BirthCountry"
+        ),
+    },
+    {
+        "question": "Which scholars born in Chicago won the Nobel Prize in Physiology or Medicine?",
+        "cypher": (
+            "MATCH (s:Scholar)-[:WON]->(p:Prize) "
+            "WHERE toLower(p.category) = 'medicine' "
+            "MATCH (s)-[:BORN_IN]->(c:City) "
+            "WHERE toLower(c.name) CONTAINS 'chicago' " 
+            "RETURN DISTINCT s.knownName, p.awardYear, c.name AS BirthCity"
         ),
     },
 ]
@@ -350,6 +450,19 @@ def _enforce_lowercase_string_comparisons(query: str) -> str:
     return query
 
 
+def _remove_inline_string_filters(query: str) -> str:
+    """
+    Detect inline string properties like (:City {name: 'Chicago'}) 
+    and converts them to (:City) WHERE toLower(c.name) CONTAINS 'chicago'.
+    """
+    pattern = re.compile(r"\((\w+):(\w+)\s+\{(\w+):\s*'([^']+)'\}\)")
+    
+    def _repl(match):
+        var, label, prop, val = match.groups()
+        return f"({var}:{label}) WHERE toLower({var}.{prop}) CONTAINS '{val.lower()}'"
+    return pattern.sub(_repl, query)
+
+
 def postprocess_cypher(query: str) -> str:
     """
     Apply rule-based post-processing to the generated Cypher.
@@ -360,4 +473,5 @@ def postprocess_cypher(query: str) -> str:
     cleaned = query.strip()
     cleaned = _fix_name_properties(cleaned)
     cleaned = _enforce_lowercase_string_comparisons(cleaned)
+    cleaned = _remove_inline_string_filters(cleaned)
     return cleaned

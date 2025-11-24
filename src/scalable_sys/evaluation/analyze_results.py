@@ -1,56 +1,56 @@
-import re
 import json
 import argparse
+import os
 from typing import List, Dict, Any, Tuple
 from statistics import mean
-import os
 
-def parse_evaluation_file(filepath: str) -> Dict[str, int]:
+def get_project_root() -> str:
+    """Returns the absolute path to the project root."""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.abspath(os.path.join(current_dir, "../../../"))
+
+def load_evaluation_json(filepath: str) -> Dict[str, Dict[str, Any]]:
     """
-    Parses a raw evaluation text file.
-    Returns a dictionary mapping {Question: Score}.
+    Parses the evaluation JSON file into a rich dictionary.
+    Returns: {Question: {'score': int, 'cypher': str, 'answer': str}}
     """
     if not os.path.exists(filepath):
         print(f"Warning: File {filepath} not found.")
         return {}
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        results = {}
+        entries = data.get("evaluations", [])
+        for entry in entries:
+            q = entry.get("question")
+            s = entry.get("score")
+            if q is not None and s is not None:
+                results[q] = {
+                    "score": int(s),
+                    "cypher": entry.get("generated_cypher", "N/A"),
+                    "answer": entry.get("model_answer", "")
+                }
+        return results
+    except json.JSONDecodeError:
+        print(f"Error: Failed to decode JSON from {filepath}")
+        return {}
+    except Exception as e:
+        print(f"Error reading {filepath}: {e}")
+        return {}
 
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    blocks = content.split("\n\n\n")
+def generate_comparison_table(
+    plain_data: Dict[str, Any],  # Fixed Variable Name
+    rag_data: Dict[str, Any],    # Fixed Variable Name
+    base_model: str = "Unknown",
+    judge_model: str = "Unknown"
+) -> Tuple[str, Dict[str, float]]:
     
-    results = {}
+    all_questions = sorted(list(set(plain_data.keys()) | set(rag_data.keys())))
     
-    # Regex to find the Question and the Score
-    question_pattern = re.compile(r'QUESTION:\s*\n(".*?")', re.DOTALL)
-    score_pattern = re.compile(r'Score\s*:\s*(\d+)', re.IGNORECASE)
+    if not all_questions:
+        return "No results found.", {"count": 0, "plain_avg": 0, "rag_avg": 0, "plain_pct": 0, "rag_pct": 0}
 
-    for block in blocks:
-        if not block.strip():
-            continue
-            
-        q_match = question_pattern.search(block)
-        s_match = score_pattern.search(block)
-        
-        if q_match and s_match:
-            try:
-                question_text = json.loads(q_match.group(1))
-                score = int(s_match.group(1))
-                results[question_text] = score
-            except Exception as e:
-                # print(f"Error parsing block: {e}")
-                continue
-
-    return results
-
-def generate_comparison_table(plain_scores: Dict[str, int], rag_scores: Dict[str, int]) -> Tuple[str, Dict[str, float]]:
-    """
-    Generates a Markdown table and calculates percentage statistics.
-    """
-    
-    all_questions = sorted(list(set(plain_scores.keys()) | set(rag_scores.keys())))
-    
-    # Header
     md_table = "| ID | Question | Plain LLM Score | RAG Score | Difference |\n"
     md_table += "|---|---|:---:|:---:|:---:|\n"
     
@@ -58,14 +58,27 @@ def generate_comparison_table(plain_scores: Dict[str, int], rag_scores: Dict[str
     rag_values = []
     
     for idx, q in enumerate(all_questions):
-        p_score = plain_scores.get(q, 0) # Default to 0 if missing for safety
-        r_score = rag_scores.get(q, 0)
-        
+        # Handle both Integer scores (from pipeline) and Dictionary objects (from file load)
+        p_obj = plain_data.get(q, 0)
+        r_obj = rag_data.get(q, 0)
+
+        if isinstance(p_obj, dict):
+            p_score = p_obj.get("score", 0)
+        else:
+            p_score = p_obj
+
+        if isinstance(r_obj, dict):
+            r_score = r_obj.get("score", 0)
+        else:
+            r_score = r_obj
+
+        if not isinstance(p_score, (int, float)): p_score = 0
+        if not isinstance(r_score, (int, float)): r_score = 0
+
         plain_values.append(p_score)
         rag_values.append(r_score)
         
         diff = r_score - p_score
-        
         diff_str = "="
         if diff > 0:
             diff_str = f"+{diff} (RAG)"
@@ -73,15 +86,13 @@ def generate_comparison_table(plain_scores: Dict[str, int], rag_scores: Dict[str
             diff_str = f"{diff} (Plain)"
         
         q_display = (q[:75] + '..') if len(q) > 75 else q
+        q_display = q_display.replace("|", "&#124;")
         md_table += f"| {idx+1} | {q_display} | {p_score} | {r_score} | {diff_str} |\n"
 
-    # --- PERCENTAGE CALCULATION ---
     total_questions = len(plain_values)
     max_possible_points = total_questions * 10
-    
     plain_sum = sum(plain_values)
     rag_sum = sum(rag_values)
-    
     plain_pct = (plain_sum / max_possible_points * 100) if max_possible_points > 0 else 0
     rag_pct = (rag_sum / max_possible_points * 100) if max_possible_points > 0 else 0
 
@@ -94,6 +105,8 @@ def generate_comparison_table(plain_scores: Dict[str, int], rag_scores: Dict[str
     }
     
     summary = "\n### Summary Statistics\n\n"
+    summary += f"- **Base Model**: {base_model}\n"
+    summary += f"- **Judge Model**: {judge_model}\n"
     summary += f"- **Total Questions**: {stats['count']}\n"
     summary += f"- **Plain LLM Accuracy**: {stats['plain_pct']:.1f}% ({plain_sum}/{max_possible_points})\n"
     summary += f"- **RAG Accuracy**: {stats['rag_pct']:.1f}% ({rag_sum}/{max_possible_points})\n"
@@ -106,26 +119,40 @@ def generate_comparison_table(plain_scores: Dict[str, int], rag_scores: Dict[str
     return full_report, stats
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate summary table from accuracy logs.")
-    parser.add_argument("--plain", default="data/accuracy_plain.txt", help="Path to plain LLM logs")
-    parser.add_argument("--rag", default="data/accuracy_rag.txt", help="Path to RAG logs")
-    parser.add_argument("--output", default="data/evaluation_summary.md", help="Output markdown file")
+    PROJECT_ROOT = get_project_root()
+
+    default_plain = os.path.join(PROJECT_ROOT, "results/rag_eval/graded/latest_plain_graded.json")
+    default_rag = os.path.join(PROJECT_ROOT, "results/rag_eval/graded/latest_rag_graded.json")
+    default_output = os.path.join(PROJECT_ROOT, "results/summary/evaluation_summary.md")
+
+    parser = argparse.ArgumentParser(description="Generate summary table from evaluation JSONs.")
+    parser.add_argument("--plain", default=default_plain, help="Path to plain LLM evaluation JSON")
+    parser.add_argument("--rag", default=default_rag, help="Path to RAG evaluation JSON")
+    parser.add_argument("--output", default=default_output, help="Output markdown file")
+
+    parser.add_argument("--base-model", default="Unknown", help="Name of base model")
+    parser.add_argument("--judge-model", default="Unknown", help="Name of judge model")
     
     args = parser.parse_args()
     
     print(f"Reading plain logs from: {args.plain}")
-    plain_data = parse_evaluation_file(args.plain)
-    
+    plain_data = load_evaluation_json(args.plain)
     print(f"Reading RAG logs from: {args.rag}")
-    rag_data = parse_evaluation_file(args.rag)
+    rag_data = load_evaluation_json(args.rag)
     
     if not plain_data and not rag_data:
         print("No data found. Exiting.")
         return
 
     print("Generating report...")
-    report, stats = generate_comparison_table(plain_data, rag_data)
+    report, stats = generate_comparison_table(
+        plain_data, 
+        rag_data, 
+        base_model=args.base_model, 
+        judge_model=args.judge_model
+    )
     
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "w", encoding="utf-8") as f:
         f.write(report)
         
@@ -135,6 +162,19 @@ def main():
     print(f"Plain Accuracy:  {stats['plain_pct']:.1f}%")
     print(f"RAG Accuracy:    {stats['rag_pct']:.1f}%")
     print("-" * 30)
+
+    # === DEBUG OUTPUT ===
+    print("\n=== LOW SCORING RAG ANSWERS (DEBUG) ===")
+    for q, val in rag_data.items():
+        # Handle simple vs rich dict
+        score = val.get("score", 0) if isinstance(val, dict) else val
+        cypher = val.get("cypher", "N/A") if isinstance(val, dict) else "N/A"
+        
+        if isinstance(score, int) and score < 10:
+            print(f"Q: {q}")
+            print(f"Score: {score}")
+            print(f"Cypher: {cypher}")
+            print("-" * 30)
 
 if __name__ == "__main__":
     main()

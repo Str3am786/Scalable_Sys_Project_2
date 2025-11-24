@@ -1,0 +1,2804 @@
+{
+  "results": [
+    {
+      "question": "Which scholars won Physics in 1921?",
+      "answer": "Albert Einstein won the Physics Nobel Prize in 1921.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1921\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Albert Einstein",
+          "award_year": 1921
+        }
+      ]
+    },
+    {
+      "question": "Which scholars were born in Germany?",
+      "answer": "The scholars born in Germany are:\n- Gerhard Herzberg\n- James Franck\n- Klaus Hasselmann\n- Max Delbr\u00fcck\n- Otto Loewi\n- Robert Huber\n- Arno Penzias\n- Eduard Buchner\n- Gerd Binnig\n- Otto Hahn\n- Robert J. Aumann\n- Werner Heisenberg\n- Hans Spemann\n- Otto Diels\n- Rainer Weiss\n- Sir Bernard Katz\n- Carl Bosch\n- Ernst B. Chain\n- Ernst Ruska\n- Georg Wittig\n- John C. Polanyi\n- Max Planck\n- Werner Forssmann\n- Wolfgang Ketterle\n- Adolf Windaus\n- Gustav Hertz\n- J. Hans D. Jensen\n- Benjamin List\n- Bert Sakmann\n- Ernst Otto Fischer\n- Feodor Lynen\n- Georges J.F. K\u00f6hler\n- Theodor W. H\u00e4nsch\n- Rudolf M\u00f6ssbauer\n- Adolf von Baeyer\n- Horst L. St\u00f6rmer\n- Thomas C. S\u00fcdhof",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'germany'\nRETURN s.knownName AS scholar, ci.name AS birth_city, co.name AS birth_country",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Gerhard Herzberg",
+          "birth_city": "Hamburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "James Franck",
+          "birth_city": "Hamburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Klaus Hasselmann",
+          "birth_city": "Hamburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Max Delbr\u00fcck",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Otto Loewi",
+          "birth_city": "Frankfurt-on-the-Main",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Robert Huber",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Arno Penzias",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Eduard Buchner",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Gerd Binnig",
+          "birth_city": "Frankfurt-on-the-Main",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Otto Hahn",
+          "birth_city": "Frankfurt-on-the-Main",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Robert J. Aumann",
+          "birth_city": "Frankfurt-on-the-Main",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Werner Heisenberg",
+          "birth_city": "W\u00fcrzburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Hans Spemann",
+          "birth_city": "Stuttgart",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Otto Diels",
+          "birth_city": "Hamburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Rainer Weiss",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Sir Bernard Katz",
+          "birth_city": "Leipzig",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Carl Bosch",
+          "birth_city": "Cologne",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Ernst B. Chain",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Ernst Ruska",
+          "birth_city": "Heidelberg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Georg Wittig",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "John C. Polanyi",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Max Planck",
+          "birth_city": "Kiel",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Werner Forssmann",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Wolfgang Ketterle",
+          "birth_city": "Heidelberg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Adolf Windaus",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Gustav Hertz",
+          "birth_city": "Hamburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "J. Hans D. Jensen",
+          "birth_city": "Hamburg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Benjamin List",
+          "birth_city": "Frankfurt-on-the-Main",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Bert Sakmann",
+          "birth_city": "Stuttgart",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Ernst Otto Fischer",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Feodor Lynen",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Georges J.F. K\u00f6hler",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Theodor W. H\u00e4nsch",
+          "birth_city": "Heidelberg",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Rudolf M\u00f6ssbauer",
+          "birth_city": "Munich",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Adolf von Baeyer",
+          "birth_city": "Berlin",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Horst L. St\u00f6rmer",
+          "birth_city": "Frankfurt-on-the-Main",
+          "birth_country": "Germany"
+        },
+        {
+          "scholar": "Thomas C. S\u00fcdhof",
+          "birth_city": "G\u00f6ttingen",
+          "birth_country": "Germany"
+        }
+      ]
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS category, p.awardYear AS year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "category": "medicine",
+          "year": 1922
+        },
+        {
+          "category": "chemistry",
+          "year": 1922
+        },
+        {
+          "category": "physics",
+          "year": 1922
+        }
+      ]
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The scholars who won Chemistry prizes in 2000 are Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize {awardYear: 2000}) WHERE toLower(p.category) = 'chemistry' RETURN s.knownName, p.awardYear",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Hideki Shirakawa",
+          "p.awardYear": 2000
+        },
+        {
+          "s.knownName": "Alan MacDiarmid",
+          "p.awardYear": 2000
+        },
+        {
+          "s.knownName": "Alan Heeger",
+          "p.awardYear": 2000
+        }
+      ]
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS prize_category, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "prize_category": "medicine",
+          "award_year": 1922
+        },
+        {
+          "prize_category": "chemistry",
+          "award_year": 1922
+        },
+        {
+          "prize_category": "physics",
+          "award_year": 1922
+        }
+      ]
+    },
+    {
+      "question": "Which scholars were born in Paris?",
+      "answer": "The scholars born in Paris are Esther Duflo, Luis Leloir, Pierre-Gilles de Gennes, Jean-Pierre Sauvage, Alphonse Laveran, Andr\u00e9 F. Cournand, Ir\u00e8ne Joliot-Curie, Jacques Monod, Maurice Allais, Charles Richet, Pierre Curie, Fran\u00e7oise Barr\u00e9-Sinoussi, Henri Becquerel, Fr\u00e9d\u00e9ric Joliot, and Henri Moissan.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)\nWHERE toLower(c.name) = 'paris'\nRETURN s.knownName",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Esther Duflo"
+        },
+        {
+          "s.knownName": "Luis Leloir"
+        },
+        {
+          "s.knownName": "Pierre-Gilles de Gennes"
+        },
+        {
+          "s.knownName": "Jean-Pierre Sauvage"
+        },
+        {
+          "s.knownName": "Alphonse Laveran"
+        },
+        {
+          "s.knownName": "Andr\u00e9 F. Cournand"
+        },
+        {
+          "s.knownName": "Ir\u00e8ne Joliot-Curie"
+        },
+        {
+          "s.knownName": "Jacques Monod"
+        },
+        {
+          "s.knownName": "Maurice Allais"
+        },
+        {
+          "s.knownName": "Charles Richet"
+        },
+        {
+          "s.knownName": "Pierre Curie"
+        },
+        {
+          "s.knownName": "Fran\u00e7oise Barr\u00e9-Sinoussi"
+        },
+        {
+          "s.knownName": "Henri Becquerel"
+        },
+        {
+          "s.knownName": "Fr\u00e9d\u00e9ric Joliot"
+        },
+        {
+          "s.knownName": "Henri Moissan"
+        }
+      ]
+    },
+    {
+      "question": "Which institutions are located in USA?",
+      "answer": "The institutions located in the USA include:\n\n- Stanford University, Stanford, CA\n- Massachusetts Institute of Technology (MIT), Cambridge, MA\n- Johns Hopkins University, Baltimore, MD\n- Space Telescope Science Institute, Baltimore, MD\n- California Institute of Technology (Caltech), Pasadena, CA\n- University of California, Santa Barbara, CA\n- University of California, Los Angeles, CA\n- University of California, San Diego, CA\n- University of California, Berkeley, CA\n- University of California, San Francisco, CA\n- University of California, Irvine, CA\n- University of Pennsylvania, Philadelphia, PA\n- University of Chicago, Chicago, IL\n- Argonne National Laboratory, Argonne, IL\n- Rockefeller Institute for Medical Research, New York, NY\n- Rockefeller Institute for Medical Research, Princeton, NJ\n- Carnegie Institution of Washington, Long Island, New York, NY\n- University of Texas Southwestern Medical Center at Dallas, Dallas, TX\n- Tufts University, Medford, MA\n- Harvard University, Cambridge, MA\n- Harvard Business School, Boston, MA\n- Columbia University Division, Cardio-Pulmonary Laboratory, Bellevue Hospital, New York, NY\n- Veterans Administration Hospital, New Orleans, LA\n- Veterans Administration Hospital, Bronx, NY\n- Stanford University School of Medicine, Stanford, CA\n- Princeton University, Princeton, NJ\n- University of Illinois, Urbana, IL\n- Scripps Research, La Jolla, CA\n- Howard Hughes Medical Institute, Durham, NC\n- Howard Hughes Medical Institute, Chevy Chase, MD\n- University of Southern California, Los Angeles, CA\n- Bell Laboratories, Holmdel, NJ\n- Bell Laboratories, Murray Hill, NJ\n- University of North Carolina, Chapel Hill, NC\n- Cold Spring Harbor Laboratory, Cold Spring Harbor, NY\n- The Institute for Cancer Research, Philadelphia, PA\n- Harvard Medical School, Boston, MA\n- The Brookings Institution, Washington, D.C.\n- The Scripps Research Institute, La Jolla, CA\n- Rockefeller University, New York, NY\n- Stanford Linear Accelerator Center, Stanford, CA\n- Washington University, St. Louis, MO\n- University of Colorado, JILA, Boulder, CO\n- Johns Hopkins University School of Medicine, Baltimore, MD\n- University of Chicago, Ben May Laboratory for Cancer Research, Chicago, IL\n- Du Pont, Wilmington, DE\n- Institute for Advanced Study, Princeton, NJ\n- National Institutes of Health, Bethesda, MD\n- Bell Telephone Laboratories, New York, NY\n- Bell Telephone Laboratories, Murray Hill, NJ\n- University of Massachusetts Medical School, Worcester, MA\n- Northwestern University, Evanston, IL\n- University of California, Kavli Institute for Theoretical Physics, Santa Barbara, CA\n- University of Washington, Seattle, WA\n- National Institute of Standards and Technology, Boulder, CO\n- National Institute of Standards and Technology, Gaithersburg, MD\n- University of Colorado, Boulder, CO\n- Cornell University, Ithaca, NY\n- Columbia University, New York, NY\n- Fred Hutchinson Cancer Research Center, Seattle, WA\n- Vanderbilt University, Nashville, TN\n- Saint Louis University, St. Louis, MO\n- Mayo Clinic, Rochester, MN\n- Arizona State University, Tempe, AZ\n- Federal Reserve Bank of Minneapolis, Minneapolis, MN\n- Purdue University, West Lafayette, IN\n- Indiana University, Bloomington, IN\n- Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA\n- University of Texas Medical School at Houston, Houston, TX\n- Carnegie Mellon University, Pittsburgh, PA\n- Western Reserve University, Cleveland, OH\n- Massachusetts General Hospital, Boston, MA\n- Jackson Laboratory, Bar Harbor, ME\n- Yale University, School of Medicine, New Haven, CT\n- Wellcome Research Laboratories, Research Triangle Park, NC\n- University of Rochester, Rochester, NY\n- University of Missouri, Columbia\n- University of Michigan, Ann Arbor, MI\n- University of Wisconsin, Madison, WI\n- University of California School of Medicine, San Francisco, CA\n- University of California School of Medicine, Los Angeles, CA\n- City University of New York, New York, NY\n- The Medical Foundation of Buffalo, Buffalo, NY\n- University of Texas, Austin, TX\n- General Electric Company, Schenectady, NY\n- Brown University, Providence, RI\n- Texas Instruments, Dallas, TX\n- Yale University, New Haven, CT\n- Center for Study of Public Choice, Fairfax, VA\n- Parker Institute for Cancer Immunotherapy, San Francisco, CA\n- University of Texas MD Anderson Cancer Center, Houston, TX\n- University of Maine, Maine, ME\n- US Naval Research Laboratory, Washington, D.C.\n- Virginia Commonwealth University, Richmond, VA\n- NASA Goddard Space Flight Center, Greenbelt, MD\n- J.F. Clauser & Assoc., Walnut Creek, CA\n- Research Division of Infectious Diseases, Children's Medical Center, Boston, MA\n- Brigham and Women's Hospital, Boston, MA\n- IBM Thomas J. Watson Research Center, Yorktown Heights, NY\n- Fermi National Accelerator Laboratory, Batavia, IL\n- University of Minnesota, Minneapolis, MN\n- Binghamton University, State University of New York, New York, NY\n- University of Utah, Salt Lake City, UT\n- National Institute of Environmental Health Sciences, Research Triangle Park, NC\n- Laboratories of the Division of Medicine and Public Health, Rockefeller Foundation, New York, NY\n- Digital Pathways, Inc., Mountain View, CA\n- Brandeis University, Waltham, MA\n- Long Term Capital Management, Greenwich, CT\n- Marine Biological Laboratory (MBL), Woods Hole, MA\n- Boston University Medical School, Massachusetts, MA\n- Carnegie Institute of Technology, Pittsburgh, PA\n- NYU Stern School of Business, New York, NY\n- Duke University School of Medicine, Durham, NC\n- St. Jude Children's Research Hospital, Memphis, TN\n- Massachusetts Institute of Technology (MIT), Center for Cancer Research, Cambridge, MA\n- Associated Universities Inc., Washington, D.C.\n- Rice University, Houston, TX\n- New England Biolabs, Beverly, MA\n- New York University, New York, NY\n- SUNY Health Science Center, Brooklyn, NY\n- Duke University Medical Center, Durham, NC\n- The Salk Institute, San Diego, CA\n- Lawrence Berkeley National Laboratory, Berkeley, CA\n- Rutgers University, New Brunswick, NJ\n- New York University, College of Medicine, New York, NY\n- Harvard University, Lyman Laboratory, Cambridge, MA\n- Gladstone Institutes, San Francisco, CA\n- Vanderbilt University School of Medicine, Nashville, TN\n- The Molecular Sciences Institute, Berkeley, CA\n- University of Maryland, Department of Economics and School of Public Policy, College Park, MD\n- George Mason University, Fairfax, VA\n- Harvard University, Biological Laboratories, Cambridge, MA\n- Semiconductor Laboratory of Beckman Instruments, Inc., Mountain View, CA\n- Drew University, Madison, NJ\n- Dana-Farber Cancer Institute, Boston, MA\n- Peter Brent Brigham Hospital, Boston, MA\n- Enrico Fermi Institute, University of Chicago, Chicago, IL",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'usa'\nRETURN i.name AS institution, ci.name AS city",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "institution": "Stanford University",
+          "city": "Stanford, CA"
+        },
+        {
+          "institution": "Massachusetts Institute of Technology (MIT)",
+          "city": "Cambridge, MA"
+        },
+        {
+          "institution": "Johns Hopkins University",
+          "city": "Baltimore, MD"
+        },
+        {
+          "institution": "Space Telescope Science Institute",
+          "city": "Baltimore, MD"
+        },
+        {
+          "institution": "California Institute of Technology (Caltech)",
+          "city": "Pasadena, CA"
+        },
+        {
+          "institution": "University of California",
+          "city": "Santa Barbara, CA"
+        },
+        {
+          "institution": "University of California",
+          "city": "Los Angeles, CA"
+        },
+        {
+          "institution": "University of California",
+          "city": "San Diego, CA"
+        },
+        {
+          "institution": "University of California",
+          "city": "Berkeley, CA"
+        },
+        {
+          "institution": "University of California",
+          "city": "San Francisco, CA"
+        },
+        {
+          "institution": "University of California",
+          "city": "Irvine, CA"
+        },
+        {
+          "institution": "University of Pennsylvania",
+          "city": "Philadelphia, PA"
+        },
+        {
+          "institution": "University of Chicago",
+          "city": "Chicago, IL"
+        },
+        {
+          "institution": "Argonne National Laboratory",
+          "city": "Argonne, IL"
+        },
+        {
+          "institution": "Rockefeller Institute for Medical Research",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Rockefeller Institute for Medical Research",
+          "city": "Princeton, NJ"
+        },
+        {
+          "institution": "Carnegie Institution of Washington",
+          "city": "Long Island, New York, NY"
+        },
+        {
+          "institution": "University of Texas Southwestern Medical Center at Dallas",
+          "city": "Dallas, TX"
+        },
+        {
+          "institution": "Tufts University",
+          "city": "Medford, MA"
+        },
+        {
+          "institution": "Harvard University",
+          "city": "Cambridge, MA"
+        },
+        {
+          "institution": "Harvard Business School",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "Columbia University Division, Cardio-Pulmonary Laboratory, Bellevue Hospital",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Veterans Administration Hospital",
+          "city": "New Orleans, LA"
+        },
+        {
+          "institution": "Veterans Administration Hospital",
+          "city": "Bronx, NY"
+        },
+        {
+          "institution": "Stanford University School of Medicine",
+          "city": "Stanford, CA"
+        },
+        {
+          "institution": "Princeton University",
+          "city": "Princeton, NJ"
+        },
+        {
+          "institution": "University of Illinois",
+          "city": "Urbana, IL"
+        },
+        {
+          "institution": "Scripps Research",
+          "city": "La Jolla, CA"
+        },
+        {
+          "institution": "Howard Hughes Medical Institute",
+          "city": "Durham, NC"
+        },
+        {
+          "institution": "Howard Hughes Medical Institute",
+          "city": "Chevy Chase, MD"
+        },
+        {
+          "institution": "University of Southern California",
+          "city": "Los Angeles, CA"
+        },
+        {
+          "institution": "Bell Laboratories",
+          "city": "Holmdel, NJ"
+        },
+        {
+          "institution": "Bell Laboratories",
+          "city": "Murray Hill, NJ"
+        },
+        {
+          "institution": "University of North Carolina",
+          "city": "Chapel Hill, NC"
+        },
+        {
+          "institution": "Cold Spring Harbor Laboratory",
+          "city": "Cold Spring Harbor, NY"
+        },
+        {
+          "institution": "The Institute for Cancer Research",
+          "city": "Philadelphia, PA"
+        },
+        {
+          "institution": "Harvard Medical School",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "The Brookings Institution",
+          "city": "Washington, D.C."
+        },
+        {
+          "institution": "The Scripps Research Institute",
+          "city": "La Jolla, CA"
+        },
+        {
+          "institution": "Rockefeller University",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Stanford Linear Accelerator Center",
+          "city": "Stanford, CA"
+        },
+        {
+          "institution": "Washington University",
+          "city": "St. Louis, MO"
+        },
+        {
+          "institution": "University of Colorado, JILA",
+          "city": "Boulder, CO"
+        },
+        {
+          "institution": "Johns Hopkins University School of Medicine",
+          "city": "Baltimore, MD"
+        },
+        {
+          "institution": "University of Chicago, Ben May Laboratory for Cancer Research",
+          "city": "Chicago, IL"
+        },
+        {
+          "institution": "Du Pont",
+          "city": "Wilmington, DE"
+        },
+        {
+          "institution": "Institute for Advanced Study",
+          "city": "Princeton, NJ"
+        },
+        {
+          "institution": "National Institutes of Health",
+          "city": "Bethesda, MD"
+        },
+        {
+          "institution": "Bell Telephone Laboratories",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Bell Telephone Laboratories",
+          "city": "Murray Hill, NJ"
+        },
+        {
+          "institution": "University of Massachusetts Medical School",
+          "city": "Worcester, MA"
+        },
+        {
+          "institution": "Northwestern University",
+          "city": "Evanston, IL"
+        },
+        {
+          "institution": "University of California, Kavli Institute for Theoretical Physics",
+          "city": "Santa Barbara, CA"
+        },
+        {
+          "institution": "University of Washington",
+          "city": "Seattle, WA"
+        },
+        {
+          "institution": "National Institute of Standards and Technology",
+          "city": "Boulder, CO"
+        },
+        {
+          "institution": "National Institute of Standards and Technology",
+          "city": "Gaithersburg, MD"
+        },
+        {
+          "institution": "University of Colorado",
+          "city": "Boulder, CO"
+        },
+        {
+          "institution": "Cornell University",
+          "city": "Ithaca, NY"
+        },
+        {
+          "institution": "Columbia University",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Fred Hutchinson Cancer Research Center",
+          "city": "Seattle, WA"
+        },
+        {
+          "institution": "Vanderbilt University",
+          "city": "Nashville, TN"
+        },
+        {
+          "institution": "Saint Louis University",
+          "city": "St. Louis, MO"
+        },
+        {
+          "institution": "Mayo Clinic",
+          "city": "Rochester, MN"
+        },
+        {
+          "institution": "Arizona State University",
+          "city": "Tempe, AZ"
+        },
+        {
+          "institution": "Federal Reserve Bank of Minneapolis",
+          "city": "Minneapolis, MN"
+        },
+        {
+          "institution": "Purdue University",
+          "city": "West Lafayette, IN"
+        },
+        {
+          "institution": "Indiana University",
+          "city": "Bloomington, IN"
+        },
+        {
+          "institution": "Janelia Research Campus, Howard Hughes Medical Institute",
+          "city": "Ashburn, VA"
+        },
+        {
+          "institution": "University of Texas Medical School at Houston",
+          "city": "Houston, TX"
+        },
+        {
+          "institution": "Carnegie Mellon University",
+          "city": "Pittsburgh, PA"
+        },
+        {
+          "institution": "Western Reserve University",
+          "city": "Cleveland, OH"
+        },
+        {
+          "institution": "Massachusetts General Hospital",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "Jackson Laboratory",
+          "city": "Bar Harbor, ME"
+        },
+        {
+          "institution": "Yale University, School of Medicine",
+          "city": "New Haven, CT"
+        },
+        {
+          "institution": "Wellcome Research Laboratories",
+          "city": "Research Triangle Park, NC"
+        },
+        {
+          "institution": "University of Rochester",
+          "city": "Rochester, NY"
+        },
+        {
+          "institution": "University of Missouri",
+          "city": "Columbia"
+        },
+        {
+          "institution": "University of Michigan",
+          "city": "Ann Arbor, MI"
+        },
+        {
+          "institution": "University of Wisconsin",
+          "city": "Madison, WI"
+        },
+        {
+          "institution": "University of California School of Medicine",
+          "city": "San Francisco, CA"
+        },
+        {
+          "institution": "University of California School of Medicine",
+          "city": "Los Angeles, CA"
+        },
+        {
+          "institution": "City University of New York",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "The Medical Foundation of Buffalo",
+          "city": "Buffalo, NY"
+        },
+        {
+          "institution": "University of Texas",
+          "city": "Austin, TX"
+        },
+        {
+          "institution": "General Electric Company",
+          "city": "Schenectady, NY"
+        },
+        {
+          "institution": "Brown University",
+          "city": "Providence, RI"
+        },
+        {
+          "institution": "Texas Instruments",
+          "city": "Dallas, TX"
+        },
+        {
+          "institution": "Yale University",
+          "city": "New Haven, CT"
+        },
+        {
+          "institution": "Center for Study of Public Choice",
+          "city": "Fairfax, VA"
+        },
+        {
+          "institution": "Parker Institute for Cancer Immunotherapy",
+          "city": "San Francisco, CA"
+        },
+        {
+          "institution": "University of Texas MD Anderson Cancer Center",
+          "city": "Houston, TX"
+        },
+        {
+          "institution": "University of Maine",
+          "city": "Maine, ME"
+        },
+        {
+          "institution": "US Naval Research Laboratory",
+          "city": "Washington, D.C."
+        },
+        {
+          "institution": "Virginia Commonwealth University",
+          "city": "Richmond, VA"
+        },
+        {
+          "institution": "NASA Goddard Space Flight Center",
+          "city": "Greenbelt, MD"
+        },
+        {
+          "institution": "J.F. Clauser & Assoc.",
+          "city": "Walnut Creek, CA"
+        },
+        {
+          "institution": "Research Division of Infectious Diseases, Children's Medical Center",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "Brigham and Women's Hospital",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "IBM Thomas J. Watson Research Center",
+          "city": "Yorktown Heights, NY"
+        },
+        {
+          "institution": "Fermi National Accelerator Laboratory",
+          "city": "Batavia, IL"
+        },
+        {
+          "institution": "University of Minnesota",
+          "city": "Minneapolis, MN"
+        },
+        {
+          "institution": "Binghamton University, State University of New York",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "University of Utah",
+          "city": "Salt Lake City, UT"
+        },
+        {
+          "institution": "National Institute of Environmental Health Sciences",
+          "city": "Research Triangle Park, NC"
+        },
+        {
+          "institution": "Laboratories of the Division of Medicine and Public Health, Rockefeller Foundation",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Digital Pathways, Inc.",
+          "city": "Mountain View, CA"
+        },
+        {
+          "institution": "Brandeis University",
+          "city": "Waltham, MA"
+        },
+        {
+          "institution": "Long Term Capital Management",
+          "city": "Greenwich, CT"
+        },
+        {
+          "institution": "Marine Biological Laboratory (MBL)",
+          "city": "Woods Hole, MA"
+        },
+        {
+          "institution": "Boston University Medical School",
+          "city": "Massachusetts, MA"
+        },
+        {
+          "institution": "Carnegie Institute of Technology",
+          "city": "Pittsburgh, PA"
+        },
+        {
+          "institution": "NYU Stern School of Business",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Duke University School of Medicine",
+          "city": "Durham, NC"
+        },
+        {
+          "institution": "St. Jude Children's Research Hospital",
+          "city": "Memphis, TN"
+        },
+        {
+          "institution": "Massachusetts Institute of Technology (MIT), Center for Cancer Research",
+          "city": "Cambridge, MA"
+        },
+        {
+          "institution": "Associated Universities Inc.",
+          "city": "Washington, D.C."
+        },
+        {
+          "institution": "Rice University",
+          "city": "Houston, TX"
+        },
+        {
+          "institution": "New England Biolabs",
+          "city": "Beverly, MA"
+        },
+        {
+          "institution": "New York University",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "SUNY Health Science Center",
+          "city": "Brooklyn, NY"
+        },
+        {
+          "institution": "Duke University Medical Center",
+          "city": "Durham, NC"
+        },
+        {
+          "institution": "The Salk Institute",
+          "city": "San Diego, CA"
+        },
+        {
+          "institution": "Lawrence Berkeley National Laboratory",
+          "city": "Berkeley, CA"
+        },
+        {
+          "institution": "Rutgers University",
+          "city": "New Brunswick, NJ"
+        },
+        {
+          "institution": "New York University, College of Medicine",
+          "city": "New York, NY"
+        },
+        {
+          "institution": "Harvard University, Lyman Laboratory",
+          "city": "Cambridge, MA"
+        },
+        {
+          "institution": "Gladstone Institutes",
+          "city": "San Francisco, CA"
+        },
+        {
+          "institution": "Vanderbilt University School of Medicine",
+          "city": "Nashville, TN"
+        },
+        {
+          "institution": "The Molecular Sciences Institute",
+          "city": "Berkeley, CA"
+        },
+        {
+          "institution": "University of Maryland, Department of Economics and School of Public Policy",
+          "city": "College Park, MD"
+        },
+        {
+          "institution": "George Mason University",
+          "city": "Fairfax, VA"
+        },
+        {
+          "institution": "Harvard University, Biological Laboratories",
+          "city": "Cambridge, MA"
+        },
+        {
+          "institution": "Semiconductor Laboratory of Beckman Instruments, Inc.",
+          "city": "Mountain View, CA"
+        },
+        {
+          "institution": "Drew University",
+          "city": "Madison, NJ"
+        },
+        {
+          "institution": "Dana-Farber Cancer Institute",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "Peter Brent Brigham Hospital",
+          "city": "Boston, MA"
+        },
+        {
+          "institution": "Enrico Fermi Institute, University of Chicago",
+          "city": "Chicago, IL"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars won Nobel Prizes in Physics after 1990?",
+      "answer": "Pierre-Gilles de Gennes won the Nobel Prize in Physics in 1991, Georges Charpak in 1992, Joseph H. Taylor Jr. and Russell A. Hulse in 1993, Bertram N. Brockhouse and Clifford G. Shull in 1994, Frederick Reines and Martin L. Perl in 1995, David M. Lee, Robert C. Richardson, and Douglas D. Osheroff in 1996, Claude Cohen-Tannoudji, Steven Chu, and William D. Phillips in 1997, Daniel C. Tsui, Robert B. Laughlin, and Horst L. St\u00f6rmer in 1998, Martinus J.G. Veltman and Gerardus 't Hooft in 1999, Jack Kilby, Zhores Alferov, George A. Akerlof, Herbert Kroemer, A. Michael Spence, and Joseph E. Stiglitz in 2000, Carl Wieman, Wolfgang Ketterle, and Eric Cornell in 2001, Masatoshi Koshiba and Raymond Davis Jr. in 2002, Riccardo Giacconi in 2002, Anthony J. Leggett in 2003, Vitaly L. Ginzburg, Alexei Abrikosov, and David J. Gross in 2003, H. David Politzer, Frank Wilczek, and David J. Gross in 2004, John L. Hall and Theodor W. H\u00e4nsch in 2005, Roy J. Glauber in 2005, George F. Smoot and John C. Mather in 2006, Albert Fert and Peter Gr\u00fcnberg in 2007, Makoto Kobayashi, Toshihide Maskawa, and Yoichiro Nambu in 2008, Charles K. Kao, Willard S. Boyle, and George E. Smith in 2009, Andre Geim and Konstantin Novoselov in 2010, Adam G. Riess, Saul Perlmutter, and Brian P. Schmidt in 2011, Serge Haroche and David J. Wineland in 2012, Peter Higgs and Fran\u00e7oise Englert in 2013, Hiroshi Amano, Isamu Akasaki, and Shuji Nakamura in 2014, Arthur B. McDonald and Takaaki Kajita in 2015, David J. Thouless, F. Duncan M. Haldane, and J. Michael Kosterlitz in 2016, Barry C. Barish, Rainer Weiss, and Kip S. Thorne in 2017, G\u00e9rard Mourou, Arthur Ashkin, and Donna Strickland in 2018, James Peebles in 2019, Michel Mayor and Didier Queloz in 2019, Andrea Ghez in 2020, Roger Penrose in 2020, Reinhard Genzel in 2020, Klaus Hasselmann in 2021, Giorgio Parisi in 2021, Syukuro Manabe in 2021, Anton Zeilinger, Alain Aspect, and John Clauser in 2022.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear > 1990\nRETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Pierre-Gilles de Gennes",
+          "award_year": 1991
+        },
+        {
+          "scholar": "Georges Charpak",
+          "award_year": 1992
+        },
+        {
+          "scholar": "Joseph H. Taylor Jr.",
+          "award_year": 1993
+        },
+        {
+          "scholar": "Russell A. Hulse",
+          "award_year": 1993
+        },
+        {
+          "scholar": "Bertram N. Brockhouse",
+          "award_year": 1994
+        },
+        {
+          "scholar": "Clifford G. Shull",
+          "award_year": 1994
+        },
+        {
+          "scholar": "Frederick Reines",
+          "award_year": 1995
+        },
+        {
+          "scholar": "Martin L. Perl",
+          "award_year": 1995
+        },
+        {
+          "scholar": "David M. Lee",
+          "award_year": 1996
+        },
+        {
+          "scholar": "Robert C. Richardson",
+          "award_year": 1996
+        },
+        {
+          "scholar": "Douglas D. Osheroff",
+          "award_year": 1996
+        },
+        {
+          "scholar": "Claude Cohen-Tannoudji",
+          "award_year": 1997
+        },
+        {
+          "scholar": "Steven Chu",
+          "award_year": 1997
+        },
+        {
+          "scholar": "William D. Phillips",
+          "award_year": 1997
+        },
+        {
+          "scholar": "Daniel C. Tsui",
+          "award_year": 1998
+        },
+        {
+          "scholar": "Robert B. Laughlin",
+          "award_year": 1998
+        },
+        {
+          "scholar": "Horst L. St\u00f6rmer",
+          "award_year": 1998
+        },
+        {
+          "scholar": "Martinus J.G. Veltman",
+          "award_year": 1999
+        },
+        {
+          "scholar": "Gerardus 't Hooft",
+          "award_year": 1999
+        },
+        {
+          "scholar": "Jack Kilby",
+          "award_year": 2000
+        },
+        {
+          "scholar": "Zhores Alferov",
+          "award_year": 2000
+        },
+        {
+          "scholar": "George A. Akerlof",
+          "award_year": 2000
+        },
+        {
+          "scholar": "Herbert Kroemer",
+          "award_year": 2000
+        },
+        {
+          "scholar": "A. Michael Spence",
+          "award_year": 2000
+        },
+        {
+          "scholar": "Joseph E. Stiglitz",
+          "award_year": 2000
+        },
+        {
+          "scholar": "Carl Wieman",
+          "award_year": 2001
+        },
+        {
+          "scholar": "Wolfgang Ketterle",
+          "award_year": 2001
+        },
+        {
+          "scholar": "Eric Cornell",
+          "award_year": 2001
+        },
+        {
+          "scholar": "Masatoshi Koshiba",
+          "award_year": 2002
+        },
+        {
+          "scholar": "Raymond Davis Jr.",
+          "award_year": 2002
+        },
+        {
+          "scholar": "Riccardo Giacconi",
+          "award_year": 2002
+        },
+        {
+          "scholar": "Anthony J. Leggett",
+          "award_year": 2003
+        },
+        {
+          "scholar": "Vitaly L. Ginzburg",
+          "award_year": 2003
+        },
+        {
+          "scholar": "Alexei Abrikosov",
+          "award_year": 2003
+        },
+        {
+          "scholar": "David J. Gross",
+          "award_year": 2004
+        },
+        {
+          "scholar": "H. David Politzer",
+          "award_year": 2004
+        },
+        {
+          "scholar": "Frank Wilczek",
+          "award_year": 2004
+        },
+        {
+          "scholar": "John L. Hall",
+          "award_year": 2005
+        },
+        {
+          "scholar": "Theodor W. H\u00e4nsch",
+          "award_year": 2005
+        },
+        {
+          "scholar": "Roy J. Glauber",
+          "award_year": 2005
+        },
+        {
+          "scholar": "George F. Smoot",
+          "award_year": 2006
+        },
+        {
+          "scholar": "John C. Mather",
+          "award_year": 2006
+        },
+        {
+          "scholar": "Albert Fert",
+          "award_year": 2007
+        },
+        {
+          "scholar": "Peter Gr\u00fcnberg",
+          "award_year": 2007
+        },
+        {
+          "scholar": "Makoto Kobayashi",
+          "award_year": 2008
+        },
+        {
+          "scholar": "Toshihide Maskawa",
+          "award_year": 2008
+        },
+        {
+          "scholar": "Yoichiro Nambu",
+          "award_year": 2008
+        },
+        {
+          "scholar": "Charles K. Kao",
+          "award_year": 2009
+        },
+        {
+          "scholar": "Willard S. Boyle",
+          "award_year": 2009
+        },
+        {
+          "scholar": "George E. Smith",
+          "award_year": 2009
+        },
+        {
+          "scholar": "Andre Geim",
+          "award_year": 2010
+        },
+        {
+          "scholar": "Konstantin Novoselov",
+          "award_year": 2010
+        },
+        {
+          "scholar": "Adam G. Riess",
+          "award_year": 2011
+        },
+        {
+          "scholar": "Saul Perlmutter",
+          "award_year": 2011
+        },
+        {
+          "scholar": "Brian P. Schmidt",
+          "award_year": 2011
+        },
+        {
+          "scholar": "Serge Haroche",
+          "award_year": 2012
+        },
+        {
+          "scholar": "David J. Wineland",
+          "award_year": 2012
+        },
+        {
+          "scholar": "Peter Higgs",
+          "award_year": 2013
+        },
+        {
+          "scholar": "Fran\u00e7ois Englert",
+          "award_year": 2013
+        },
+        {
+          "scholar": "Hiroshi Amano",
+          "award_year": 2014
+        },
+        {
+          "scholar": "Isamu Akasaki",
+          "award_year": 2014
+        },
+        {
+          "scholar": "Shuji Nakamura",
+          "award_year": 2014
+        },
+        {
+          "scholar": "Arthur B. McDonald",
+          "award_year": 2015
+        },
+        {
+          "scholar": "Takaaki Kajita",
+          "award_year": 2015
+        },
+        {
+          "scholar": "David J. Thouless",
+          "award_year": 2016
+        },
+        {
+          "scholar": "F. Duncan M. Haldane",
+          "award_year": 2016
+        },
+        {
+          "scholar": "J. Michael Kosterlitz",
+          "award_year": 2016
+        },
+        {
+          "scholar": "Barry C. Barish",
+          "award_year": 2017
+        },
+        {
+          "scholar": "Rainer Weiss",
+          "award_year": 2017
+        },
+        {
+          "scholar": "Kip S. Thorne",
+          "award_year": 2017
+        },
+        {
+          "scholar": "G\u00e9rard Mourou",
+          "award_year": 2018
+        },
+        {
+          "scholar": "Arthur Ashkin",
+          "award_year": 2018
+        },
+        {
+          "scholar": "Donna Strickland",
+          "award_year": 2018
+        },
+        {
+          "scholar": "James Peebles",
+          "award_year": 2019
+        },
+        {
+          "scholar": "Michel Mayor",
+          "award_year": 2019
+        },
+        {
+          "scholar": "Didier Queloz",
+          "award_year": 2019
+        },
+        {
+          "scholar": "Andrea Ghez",
+          "award_year": 2020
+        },
+        {
+          "scholar": "Roger Penrose",
+          "award_year": 2020
+        },
+        {
+          "scholar": "Reinhard Genzel",
+          "award_year": 2020
+        },
+        {
+          "scholar": "Klaus Hasselmann",
+          "award_year": 2021
+        },
+        {
+          "scholar": "Giorgio Parisi",
+          "award_year": 2021
+        },
+        {
+          "scholar": "Syukuro Manabe",
+          "award_year": 2021
+        },
+        {
+          "scholar": "Anton Zeilinger",
+          "award_year": 2022
+        },
+        {
+          "scholar": "Alain Aspect",
+          "award_year": 2022
+        },
+        {
+          "scholar": "John Clauser",
+          "award_year": 2022
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?",
+      "answer": "The scholars affiliated with an institution in Germany who died between 1935 and 1945 are:\n\n1. Carl Bosch, who died on 1940-04-26 at I.G. Farbenindustrie A.G. and University of Heidelberg.\n2. Hans Fischer, who died on 1945-03-31 at Technische Hochschule (Institute of Technology).\n3. Richard Willst\u00e4tter, who died on 1942-08-03 at Friedrich-Wilhelms-Universit\u00e4t and Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie.\n4. Walther Nernst, who died on 1941-11-18 at Berlin University.\n5. Hans Spemann, who died on 1941-09-12 at University of Freiburg im Breisgau.\n6. Richard Willst\u00e4tter (repeated), who died on 1942-08-03 at Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'germany' AND s.deathDate >= '1935-01-01' AND s.deathDate <= '1945-12-31'\nRETURN DISTINCT s.knownName AS ScholarName, i.name AS InstitutionName, s.deathDate AS DeathDate",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "ScholarName": "Carl Bosch",
+          "InstitutionName": "I.G. Farbenindustrie A.G.",
+          "DeathDate": "1940-04-26"
+        },
+        {
+          "ScholarName": "Carl Bosch",
+          "InstitutionName": "University of Heidelberg",
+          "DeathDate": "1940-04-26"
+        },
+        {
+          "ScholarName": "Hans Fischer",
+          "InstitutionName": "Technische Hochschule (Institute of Technology)",
+          "DeathDate": "1945-03-31"
+        },
+        {
+          "ScholarName": "Richard Willst\u00e4tter",
+          "InstitutionName": "Friedrich-Wilhelms-Universit\u00e4t",
+          "DeathDate": "1942-08-03"
+        },
+        {
+          "ScholarName": "Walther Nernst",
+          "InstitutionName": "Berlin University",
+          "DeathDate": "1941-11-18"
+        },
+        {
+          "ScholarName": "Hans Spemann",
+          "InstitutionName": "University of Freiburg im Breisgau",
+          "DeathDate": "1941-09-12"
+        },
+        {
+          "ScholarName": "Richard Willst\u00e4tter",
+          "InstitutionName": "Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie",
+          "DeathDate": "1942-08-03"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Physics in 1933?",
+      "answer": "The scholars who won the Nobel Prize in Physics in 1933 are Paul A.M. Dirac and Erwin Schr\u00f6dinger.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1933\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Paul A.M. Dirac",
+          "award_year": 1933
+        },
+        {
+          "scholar": "Erwin Schr\u00f6dinger",
+          "award_year": 1933
+        }
+      ]
+    },
+    {
+      "question": "Who are the female laureates in Physics?",
+      "answer": "The female laureates in Physics are Maria Goeppert Mayer, Donna Strickland, Andrea Ghez, and Marie Curie.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND toLower(s.gender) = 'female'\nRETURN s.knownName AS laureate, p.category AS category, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "laureate": "Maria Goeppert Mayer",
+          "category": "physics",
+          "award_year": 1963
+        },
+        {
+          "laureate": "Donna Strickland",
+          "category": "physics",
+          "award_year": 2018
+        },
+        {
+          "laureate": "Andrea Ghez",
+          "category": "physics",
+          "award_year": 2020
+        },
+        {
+          "laureate": "Marie Curie",
+          "category": "physics",
+          "award_year": 1903
+        }
+      ]
+    },
+    {
+      "question": "Which scholars born in France won a Nobel Prize in Chemistry?",
+      "answer": "The scholars born in France who won a Nobel Prize in Chemistry are Fr\u00e9d\u00e9ric Joliot in 1935, Henri Moissan in 1906, Ir\u00e8ne Joliot-Curie in 1935, Jean-Pierre Sauvage in 2016, and Luis Leloir in 1970.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'chemistry' AND p.awardYear IS NOT NULL\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'france'\nRETURN s.knownName, p.awardYear, co.name AS BirthCountry",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Fr\u00e9d\u00e9ric Joliot",
+          "p.awardYear": 1935,
+          "BirthCountry": "France"
+        },
+        {
+          "s.knownName": "Henri Moissan",
+          "p.awardYear": 1906,
+          "BirthCountry": "France"
+        },
+        {
+          "s.knownName": "Ir\u00e8ne Joliot-Curie",
+          "p.awardYear": 1935,
+          "BirthCountry": "France"
+        },
+        {
+          "s.knownName": "Jean-Pierre Sauvage",
+          "p.awardYear": 2016,
+          "BirthCountry": "France"
+        },
+        {
+          "s.knownName": "Luis Leloir",
+          "p.awardYear": 1970,
+          "BirthCountry": "France"
+        }
+      ]
+    },
+    {
+      "question": "Which Physics laureates were affiliated with an institution in Denmark?",
+      "answer": "The Physics laureates affiliated with an institution in Denmark are Ben R. Mottelson, Niels Bohr, and Aage N. Bohr.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(d:Country)\nWHERE toLower(d.name) = 'denmark'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS InstitutionName",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Ben R. Mottelson",
+          "p.awardYear": 1975,
+          "InstitutionName": "Nordita"
+        },
+        {
+          "s.knownName": "Niels Bohr",
+          "p.awardYear": 1922,
+          "InstitutionName": "Copenhagen University"
+        },
+        {
+          "s.knownName": "Aage N. Bohr",
+          "p.awardYear": 1975,
+          "InstitutionName": "Niels Bohr Institute"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Stanford University won a prize in 1996?",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON {portion: '*' }]->(p:Prize)\nWHERE toLower(i.name) CONTAINS 'stanford' AND p.awardYear = 1996\nRETURN DISTINCT s.knownName AS scholar, p.category AS prize_category, i.name AS institution",
+      "stats": {
+        "total": 0
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Economics in 2019?",
+      "answer": "The scholars who won the Nobel Prize in Economics in 2019 are Esther Duflo, Abhijit Banerjee, and Michael Kremer.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics' AND p.awardYear = 2019\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Esther Duflo",
+          "award_year": 2019
+        },
+        {
+          "scholar": "Abhijit Banerjee",
+          "award_year": 2019
+        },
+        {
+          "scholar": "Michael Kremer",
+          "award_year": 2019
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Harvard University won the Medicine prize?",
+      "answer": "The scholars affiliated with Harvard University who won the Medicine prize are George R. Minot, William P. Murphy, Konrad Bloch, George Wald, and James Watson.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON]->(p:Prize)\nWHERE toLower(i.name) CONTAINS 'harvard' AND toLower(p.category) CONTAINS 'medicine'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "George R. Minot",
+          "p.awardYear": 1934,
+          "Institution": "Harvard University"
+        },
+        {
+          "s.knownName": "Konrad Bloch",
+          "p.awardYear": 1964,
+          "Institution": "Harvard University"
+        },
+        {
+          "s.knownName": "Fritz Lipmann",
+          "p.awardYear": 1953,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "John F. Enders",
+          "p.awardYear": 1954,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "Georg von B\u00e9k\u00e9sy",
+          "p.awardYear": 1961,
+          "Institution": "Harvard University"
+        },
+        {
+          "s.knownName": "William P. Murphy",
+          "p.awardYear": 1934,
+          "Institution": "Harvard University"
+        },
+        {
+          "s.knownName": "Jack W. Szostak",
+          "p.awardYear": 2009,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "Baruj Benacerraf",
+          "p.awardYear": 1980,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "Torsten N. Wiesel",
+          "p.awardYear": 1981,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "George Wald",
+          "p.awardYear": 1967,
+          "Institution": "Harvard University"
+        },
+        {
+          "s.knownName": "David H. Hubel",
+          "p.awardYear": 1981,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "William G. Kaelin Jr",
+          "p.awardYear": 2019,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "James Watson",
+          "p.awardYear": 1962,
+          "Institution": "Harvard University"
+        }
+      ]
+    },
+    {
+      "question": "Who won the Nobel Prize in Physics in 2020?",
+      "answer": "The Nobel Prize in Physics in 2020 was won by Andrea Ghez, Roger Penrose, and Reinhard Genzel.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 2020\nRETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "winner": "Andrea Ghez",
+          "category": "physics",
+          "award_year": 2020
+        },
+        {
+          "winner": "Roger Penrose",
+          "category": "physics",
+          "award_year": 2020
+        },
+        {
+          "winner": "Reinhard Genzel",
+          "category": "physics",
+          "award_year": 2020
+        }
+      ]
+    },
+    {
+      "question": "Which scholars born in New York City won a Physics prize?",
+      "answer": "The scholars born in New York City who won a Physics prize are:\n\n- Andrea Ghez (2020)\n- Arthur Ashkin (2018)\n- Carl D. Anderson (1936)\n- Frank Wilczek (2004)\n- H. David Politzer (2004)\n- Julian Schwinger (1965)\n- Leon M. Lederman (1988)\n- Leon N. Cooper (1972)\n- Martin L. Perl (1995)\n- Melvin Schwartz (1988)\n- Murray Gell-Mann (1969)\n- Richard P. Feynman (1965)\n- Robert Hofstadter (1961)\n- Roy J. Glauber (2005)\n- Russell A. Hulse (1993)\n- Sheldon Glashow (1979)\n- Steven Weinberg (1979)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nMATCH (s)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'new york'\nRETURN s.knownName, p.awardYear, c.name AS BirthCity",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Andrea Ghez",
+          "p.awardYear": 2020,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Arthur Ashkin",
+          "p.awardYear": 2018,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Carl D. Anderson",
+          "p.awardYear": 1936,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Frank Wilczek",
+          "p.awardYear": 2004,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "H. David Politzer",
+          "p.awardYear": 2004,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Julian Schwinger",
+          "p.awardYear": 1965,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Leon M. Lederman",
+          "p.awardYear": 1988,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Leon N. Cooper",
+          "p.awardYear": 1972,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Martin L. Perl",
+          "p.awardYear": 1995,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Melvin Schwartz",
+          "p.awardYear": 1988,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Murray Gell-Mann",
+          "p.awardYear": 1969,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Richard P. Feynman",
+          "p.awardYear": 1965,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Robert Hofstadter",
+          "p.awardYear": 1961,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Roy J. Glauber",
+          "p.awardYear": 2005,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Russell A. Hulse",
+          "p.awardYear": 1993,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Sheldon Glashow",
+          "p.awardYear": 1979,
+          "BirthCity": "New York, NY"
+        },
+        {
+          "s.knownName": "Steven Weinberg",
+          "p.awardYear": 1979,
+          "BirthCity": "New York, NY"
+        }
+      ]
+    },
+    {
+      "question": "Which female scholars won the Nobel Prize in Medicine?",
+      "answer": "The female scholars who won the Nobel Prize in Medicine are Carol W. Greider in 2009, Rosalyn Yalow in 1977, Tu Youyou in 2015, Barbara McClintock in 1983, May-Britt Moser in 2014, Gerty Cori in 1947, Rita Levi-Montalcini in 1986, Linda B. Buck in 2004, Fran\u00e7oise Barr\u00e9-Sinoussi in 2008, Gertrude B. Elion in 1988, Elizabeth H. Blackburn in 2009, and Christiane N\u00fcsslein-Volhard in 1995.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND toLower(p.category) = 'medicine'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Carol W. Greider",
+          "award_year": 2009
+        },
+        {
+          "scholar": "Rosalyn Yalow",
+          "award_year": 1977
+        },
+        {
+          "scholar": "Tu Youyou",
+          "award_year": 2015
+        },
+        {
+          "scholar": "Barbara McClintock",
+          "award_year": 1983
+        },
+        {
+          "scholar": "May-Britt Moser",
+          "award_year": 2014
+        },
+        {
+          "scholar": "Gerty Cori",
+          "award_year": 1947
+        },
+        {
+          "scholar": "Rita Levi-Montalcini",
+          "award_year": 1986
+        },
+        {
+          "scholar": "Linda B. Buck",
+          "award_year": 2004
+        },
+        {
+          "scholar": "Fran\u00e7oise Barr\u00e9-Sinoussi",
+          "award_year": 2008
+        },
+        {
+          "scholar": "Gertrude B. Elion",
+          "award_year": 1988
+        },
+        {
+          "scholar": "Elizabeth H. Blackburn",
+          "award_year": 2009
+        },
+        {
+          "scholar": "Christiane N\u00fcsslein-Volhard",
+          "award_year": 1995
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with an institution in France won the Economics prize?",
+      "answer": "The scholars affiliated with an institution in France who won the Economics prize are Jean Tirole and Maurice Allais. Jean Tirole won the prize in 2014 while affiliated with the Toulouse School of Economics (TSE), and Maurice Allais won the prize in 1988 while affiliated with \\u00c9cole Nationale Sup\\u00e9rieur des Mines de Paris.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) \nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(co.name) CONTAINS 'france' AND toLower(p.category) CONTAINS 'economics'\nRETURN DISTINCT s.knownName AS ScholarName, p.awardYear AS PrizeYear, i.name AS InstitutionName",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "ScholarName": "Jean Tirole",
+          "PrizeYear": 2014,
+          "InstitutionName": "Toulouse School of Economics (TSE)"
+        },
+        {
+          "ScholarName": "Maurice Allais",
+          "PrizeYear": 1988,
+          "InstitutionName": "\u00c9cole Nationale Sup\u00e9rieur des Mines de Paris"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars won a prize with a 1/3 share portion?",
+      "answer": "The scholars who won a prize with a 1/3 share portion include:\n\n- Andrew Huxley\n- Arieh Warshel\n- Ben R. Mottelson\n- Bernard L. Feringa\n- Daniel Nathans\n- Esther Duflo\n- Harvey J. Alter\n- Jack Steinberger\n- Max Delbr\u00fcck\n- Paul J. Crutzen\n- Pavel A. Cherenkov\n- Richard E. Taylor\n- Richard P. Feynman\n- Richard R. Schrock\n- Robert Huber\n- Sin-Itiro Tomonaga\n- Stefan W. Hell\n- Tim Hunt\n- Ulf von Euler\n- Werner Arber\n- William F. Sharpe\n- Yves Chauvin",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize)\nWHERE toLower(r.portion) = '1/3'\nRETURN s.knownName",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Andrew Huxley"
+        },
+        {
+          "s.knownName": "Arieh Warshel"
+        },
+        {
+          "s.knownName": "Ben R. Mottelson"
+        },
+        {
+          "s.knownName": "Bernard L. Feringa"
+        },
+        {
+          "s.knownName": "Daniel Nathans"
+        },
+        {
+          "s.knownName": "Esther Duflo"
+        },
+        {
+          "s.knownName": "Harvey J. Alter"
+        },
+        {
+          "s.knownName": "Jack Steinberger"
+        },
+        {
+          "s.knownName": "Max Delbr\u00fcck"
+        },
+        {
+          "s.knownName": "Paul J. Crutzen"
+        },
+        {
+          "s.knownName": "Pavel A. Cherenkov"
+        },
+        {
+          "s.knownName": "Richard E. Taylor"
+        },
+        {
+          "s.knownName": "Richard P. Feynman"
+        },
+        {
+          "s.knownName": "Richard R. Schrock"
+        },
+        {
+          "s.knownName": "Robert Huber"
+        },
+        {
+          "s.knownName": "Sin-Itiro Tomonaga"
+        },
+        {
+          "s.knownName": "Stefan W. Hell"
+        },
+        {
+          "s.knownName": "Tim Hunt"
+        },
+        {
+          "s.knownName": "Ulf von Euler"
+        },
+        {
+          "s.knownName": "Werner Arber"
+        },
+        {
+          "s.knownName": "William F. Sharpe"
+        },
+        {
+          "s.knownName": "Yves Chauvin"
+        },
+        {
+          "s.knownName": "Alfred D. Hershey"
+        },
+        {
+          "s.knownName": "Arvid Carlsson"
+        },
+        {
+          "s.knownName": "David J. Gross"
+        },
+        {
+          "s.knownName": "David M. Lee"
+        },
+        {
+          "s.knownName": "Dickinson W. Richards"
+        },
+        {
+          "s.knownName": "Eric F. Wieschaus"
+        },
+        {
+          "s.knownName": "Fran\u00e7ois Jacob"
+        },
+        {
+          "s.knownName": "George H. Whipple"
+        },
+        {
+          "s.knownName": "George R. Minot"
+        },
+        {
+          "s.knownName": "H. David Politzer"
+        },
+        {
+          "s.knownName": "H. Gobind Khorana"
+        },
+        {
+          "s.knownName": "Hiroshi Amano"
+        },
+        {
+          "s.knownName": "Jean-Pierre Sauvage"
+        },
+        {
+          "s.knownName": "John C. Harsanyi"
+        },
+        {
+          "s.knownName": "Louis J. Ignarro"
+        },
+        {
+          "s.knownName": "Michael W. Young"
+        },
+        {
+          "s.knownName": "Paul Greengard"
+        },
+        {
+          "s.knownName": "Philip Dybvig"
+        },
+        {
+          "s.knownName": "Renato Dulbecco"
+        },
+        {
+          "s.knownName": "Sir Alexander Fleming"
+        },
+        {
+          "s.knownName": "Sydney Brenner"
+        },
+        {
+          "s.knownName": "Thomas A. Steitz"
+        },
+        {
+          "s.knownName": "Thomas H. Weller"
+        },
+        {
+          "s.knownName": "Abhijit Banerjee"
+        },
+        {
+          "s.knownName": "Akira Yoshino"
+        },
+        {
+          "s.knownName": "Anton Zeilinger"
+        },
+        {
+          "s.knownName": "Charles M. Rice"
+        },
+        {
+          "s.knownName": "Christopher A. Pissarides"
+        },
+        {
+          "s.knownName": "Daniel C. Tsui"
+        },
+        {
+          "s.knownName": "Douglas Diamond"
+        },
+        {
+          "s.knownName": "Eric Betzig"
+        },
+        {
+          "s.knownName": "Eric Kandel"
+        },
+        {
+          "s.knownName": "George E. Palade"
+        },
+        {
+          "s.knownName": "Jean-Marie Lehn"
+        },
+        {
+          "s.knownName": "Johann Deisenhofer"
+        },
+        {
+          "s.knownName": "John F. Nash Jr."
+        },
+        {
+          "s.knownName": "Julian Schwinger"
+        },
+        {
+          "s.knownName": "Lars Peter Hansen"
+        },
+        {
+          "s.knownName": "Leon N. Cooper"
+        },
+        {
+          "s.knownName": "M. Stanley Whittingham"
+        },
+        {
+          "s.knownName": "Mario J. Molina"
+        },
+        {
+          "s.knownName": "Michael Houghton"
+        },
+        {
+          "s.knownName": "Niels K. Jerne"
+        },
+        {
+          "s.knownName": "Nikolaas Tinbergen"
+        },
+        {
+          "s.knownName": "Osamu Shimomura"
+        },
+        {
+          "s.knownName": "Philip S. Hench"
+        },
+        {
+          "s.knownName": "Philip W. Anderson"
+        },
+        {
+          "s.knownName": "Richard E. Smalley"
+        },
+        {
+          "s.knownName": "Robert C. Richardson"
+        },
+        {
+          "s.knownName": "Robert Schrieffer"
+        },
+        {
+          "s.knownName": "Roger Y. Tsien"
+        },
+        {
+          "s.knownName": "Sir Bernard Katz"
+        },
+        {
+          "s.knownName": "Sune K. Bergstr\u00f6m"
+        },
+        {
+          "s.knownName": "Aage N. Bohr"
+        },
+        {
+          "s.knownName": "Alain Aspect"
+        },
+        {
+          "s.knownName": "Andr\u00e9 F. Cournand"
+        },
+        {
+          "s.knownName": "Aziz Sancar"
+        },
+        {
+          "s.knownName": "Bengt I. Samuelsson"
+        },
+        {
+          "s.knownName": "Carl Wieman"
+        },
+        {
+          "s.knownName": "Carolyn Bertozzi"
+        },
+        {
+          "s.knownName": "Dudley R. Herschbach"
+        },
+        {
+          "s.knownName": "Ernst B. Chain"
+        },
+        {
+          "s.knownName": "Ferid Murad"
+        },
+        {
+          "s.knownName": "George A. Akerlof"
+        },
+        {
+          "s.knownName": "Isamu Akasaki"
+        },
+        {
+          "s.knownName": "Jacques Dubochet"
+        },
+        {
+          "s.knownName": "Jacques Monod"
+        },
+        {
+          "s.knownName": "James Watson"
+        },
+        {
+          "s.knownName": "Jeffrey C. Hall"
+        },
+        {
+          "s.knownName": "John C. Polanyi"
+        },
+        {
+          "s.knownName": "John Clauser"
+        },
+        {
+          "s.knownName": "John R. Vane"
+        },
+        {
+          "s.knownName": "K. Barry Sharpless"
+        },
+        {
+          "s.knownName": "Leonid Hurwicz"
+        },
+        {
+          "s.knownName": "Martin Karplus"
+        },
+        {
+          "s.knownName": "Maurice Wilkins"
+        },
+        {
+          "s.knownName": "Michael Kremer"
+        },
+        {
+          "s.knownName": "Michael Levitt"
+        },
+        {
+          "s.knownName": "Ragnar Granit"
+        },
+        {
+          "s.knownName": "Robert B. Laughlin"
+        },
+        {
+          "s.knownName": "Robert J. Shiller"
+        },
+        {
+          "s.knownName": "Sir Harold Kroto"
+        },
+        {
+          "s.knownName": "Sir John Eccles"
+        },
+        {
+          "s.knownName": "Walter H. Brattain"
+        },
+        {
+          "s.knownName": "Werner Forssmann"
+        },
+        {
+          "s.knownName": "William E. Moerner"
+        },
+        {
+          "s.knownName": "Wolfgang Ketterle"
+        },
+        {
+          "s.knownName": "Aaron Ciechanover"
+        },
+        {
+          "s.knownName": "Anthony J. Leggett"
+        },
+        {
+          "s.knownName": "Ben Bernanke"
+        },
+        {
+          "s.knownName": "Claude Cohen-Tannoudji"
+        },
+        {
+          "s.knownName": "Douglas D. Osheroff"
+        },
+        {
+          "s.knownName": "Eric Cornell"
+        },
+        {
+          "s.knownName": "Frederick C. Robbins"
+        },
+        {
+          "s.knownName": "Hartmut Michel"
+        },
+        {
+          "s.knownName": "Henry W. Kendall"
+        },
+        {
+          "s.knownName": "Hideki Shirakawa"
+        },
+        {
+          "s.knownName": "Howard M. Temin"
+        },
+        {
+          "s.knownName": "James Rainwater"
+        },
+        {
+          "s.knownName": "Keffer Hartline"
+        },
+        {
+          "s.knownName": "Leon M. Lederman"
+        },
+        {
+          "s.knownName": "Marshall W. Nirenberg"
+        },
+        {
+          "s.knownName": "Merton H. Miller"
+        },
+        {
+          "s.knownName": "Randy W. Schekman"
+        },
+        {
+          "s.knownName": "Richard Henderson"
+        },
+        {
+          "s.knownName": "Robert F. Furchgott"
+        },
+        {
+          "s.knownName": "Robert W. Holley"
+        },
+        {
+          "s.knownName": "Sheldon Glashow"
+        },
+        {
+          "s.knownName": "Tadeus Reichstein"
+        },
+        {
+          "s.knownName": "William B. Shockley"
+        },
+        {
+          "s.knownName": "William G. Kaelin Jr"
+        },
+        {
+          "s.knownName": "John Bardeen"
+        },
+        {
+          "s.knownName": "John Bardeen"
+        },
+        {
+          "s.knownName": "Abdus Salam"
+        },
+        {
+          "s.knownName": "Ada E. Yonath"
+        },
+        {
+          "s.knownName": "Albert Claude"
+        },
+        {
+          "s.knownName": "Andr\u00e9 Lwoff"
+        },
+        {
+          "s.knownName": "Baruj Benacerraf"
+        },
+        {
+          "s.knownName": "C\u00e9sar Milstein"
+        },
+        {
+          "s.knownName": "Christian de Duve"
+        },
+        {
+          "s.knownName": "Ei-ichi Negishi"
+        },
+        {
+          "s.knownName": "Francis Crick"
+        },
+        {
+          "s.knownName": "Frank Wilczek"
+        },
+        {
+          "s.knownName": "George H. Hitchings"
+        },
+        {
+          "s.knownName": "George Wald"
+        },
+        {
+          "s.knownName": "Georges J.F. K\u00f6hler"
+        },
+        {
+          "s.knownName": "H. Robert Horvitz"
+        },
+        {
+          "s.knownName": "Il\u00b4ja M. Frank"
+        },
+        {
+          "s.knownName": "Jack W. Szostak"
+        },
+        {
+          "s.knownName": "John B. Goodenough"
+        },
+        {
+          "s.knownName": "Leland Hartwell"
+        },
+        {
+          "s.knownName": "Melvin Schwartz"
+        },
+        {
+          "s.knownName": "Oliver Smithies"
+        },
+        {
+          "s.knownName": "Reinhard Selten"
+        },
+        {
+          "s.knownName": "Richard F. Heck"
+        },
+        {
+          "s.knownName": "Robert F. Curl Jr."
+        },
+        {
+          "s.knownName": "Robert H. Grubbs"
+        },
+        {
+          "s.knownName": "Roger B. Myerson"
+        },
+        {
+          "s.knownName": "Salvador E. Luria"
+        },
+        {
+          "s.knownName": "Sir Paul Nurse"
+        },
+        {
+          "s.knownName": "Tomas Lindahl"
+        },
+        {
+          "s.knownName": "A. Michael Spence"
+        },
+        {
+          "s.knownName": "Alan Hodgkin"
+        },
+        {
+          "s.knownName": "Alan MacDiarmid"
+        },
+        {
+          "s.knownName": "Carol W. Greider"
+        },
+        {
+          "s.knownName": "Charles J. Pedersen"
+        },
+        {
+          "s.knownName": "David Baltimore"
+        },
+        {
+          "s.knownName": "Gertrude B. Elion"
+        },
+        {
+          "s.knownName": "Hamilton O. Smith"
+        },
+        {
+          "s.knownName": "Irwin Rose"
+        },
+        {
+          "s.knownName": "James E. Rothman"
+        },
+        {
+          "s.knownName": "Michael Rosbash"
+        },
+        {
+          "s.knownName": "Sir Nevill F. Mott"
+        },
+        {
+          "s.knownName": "Sir Peter J. Ratcliffe"
+        },
+        {
+          "s.knownName": "Venkatraman Ramakrishnan"
+        },
+        {
+          "s.knownName": "Vitaly L. Ginzburg"
+        },
+        {
+          "s.knownName": "Alan Heeger"
+        },
+        {
+          "s.knownName": "Eugene F. Fama"
+        },
+        {
+          "s.knownName": "F. Sherwood Rowland"
+        },
+        {
+          "s.knownName": "Horst L. St\u00f6rmer"
+        },
+        {
+          "s.knownName": "Igor Y. Tamm"
+        },
+        {
+          "s.knownName": "Jerome I. Friedman"
+        },
+        {
+          "s.knownName": "John E. Sulston"
+        },
+        {
+          "s.knownName": "Peter A. Diamond"
+        },
+        {
+          "s.knownName": "Steven Chu"
+        },
+        {
+          "s.knownName": "William P. Murphy"
+        },
+        {
+          "s.knownName": "Akira Suzuki"
+        },
+        {
+          "s.knownName": "Dale T. Mortensen"
+        },
+        {
+          "s.knownName": "Edward B. Lewis"
+        },
+        {
+          "s.knownName": "Edward C. Kendall"
+        },
+        {
+          "s.knownName": "Elizabeth H. Blackburn"
+        },
+        {
+          "s.knownName": "George D. Snell"
+        },
+        {
+          "s.knownName": "Jean Dausset"
+        },
+        {
+          "s.knownName": "Joachim Frank"
+        },
+        {
+          "s.knownName": "John H. Van Vleck"
+        },
+        {
+          "s.knownName": "Julius Axelrod"
+        },
+        {
+          "s.knownName": "Konrad Lorenz"
+        },
+        {
+          "s.knownName": "Mario R. Capecchi"
+        },
+        {
+          "s.knownName": "Martin Chalfie"
+        },
+        {
+          "s.knownName": "Morten Meldal"
+        },
+        {
+          "s.knownName": "Paul Modrich"
+        },
+        {
+          "s.knownName": "Sir James W. Black"
+        },
+        {
+          "s.knownName": "Sir Martin J. Evans"
+        },
+        {
+          "s.knownName": "Thomas C. S\u00fcdhof"
+        },
+        {
+          "s.knownName": "Alexei Abrikosov"
+        },
+        {
+          "s.knownName": "Avram Hershko"
+        },
+        {
+          "s.knownName": "Christiane N\u00fcsslein-Volhard"
+        },
+        {
+          "s.knownName": "Donald J. Cram"
+        },
+        {
+          "s.knownName": "Eric S. Maskin"
+        },
+        {
+          "s.knownName": "Gregg L. Semenza"
+        },
+        {
+          "s.knownName": "Harry M. Markowitz"
+        },
+        {
+          "s.knownName": "John F. Enders"
+        },
+        {
+          "s.knownName": "Joseph E. Stiglitz"
+        },
+        {
+          "s.knownName": "Karl von Frisch"
+        },
+        {
+          "s.knownName": "Shuji Nakamura"
+        },
+        {
+          "s.knownName": "Sir Howard Florey"
+        },
+        {
+          "s.knownName": "Sir J. Fraser Stoddart"
+        },
+        {
+          "s.knownName": "Steven Weinberg"
+        },
+        {
+          "s.knownName": "William D. Phillips"
+        },
+        {
+          "s.knownName": "Yuan T. Lee"
+        }
+      ]
+    },
+    {
+      "question": "Which institutions in Japan have been affiliated with Physics laureates?",
+      "answer": "The institutions in Japan that have been affiliated with Physics laureates are Meijo University, Kyoto Sangyo University, University of Tokyo, Nagoya University, High Energy Accelerator Research Organization (KEK), Yukawa Institute for Theoretical Physics (YITP), Kyoto University, and Tokyo University of Education.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) CONTAINS 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)\nMATCH (i)-[:IS_LOCATED_IN]->(ci:City)\nMATCH (ci)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'japan'\nRETURN DISTINCT i.name AS institution",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "institution": "Meijo University"
+        },
+        {
+          "institution": "Kyoto Sangyo University"
+        },
+        {
+          "institution": "University of Tokyo"
+        },
+        {
+          "institution": "Nagoya University"
+        },
+        {
+          "institution": "High Energy Accelerator Research Organization (KEK)"
+        },
+        {
+          "institution": "Yukawa Institute for Theoretical Physics (YITP), Kyoto University"
+        },
+        {
+          "institution": "Tokyo University of Education"
+        },
+        {
+          "institution": "Kyoto University"
+        }
+      ]
+    },
+    {
+      "question": "Who won the Nobel Prize in Chemistry in 2022?",
+      "answer": "The Nobel Prize in Chemistry in 2022 was won by Carolyn Bertozzi, K. Barry Sharpless, and Morten Meldal.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2022\nRETURN s.knownName AS winner, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "winner": "Carolyn Bertozzi",
+          "award_year": 2022
+        },
+        {
+          "winner": "K. Barry Sharpless",
+          "award_year": 2022
+        },
+        {
+          "winner": "Morten Meldal",
+          "award_year": 2022
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Columbia University won the Economics prize?",
+      "answer": "The scholars affiliated with Columbia University who won the Economics prize are Robert Mundell in 1999, Edmund S. Phelps in 2006, and William Vickrey in 1996.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) CONTAINS 'economics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution) \nWHERE toLower(i.name) CONTAINS 'columbia'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Robert Mundell",
+          "p.awardYear": 1999,
+          "Institution": "Columbia University"
+        },
+        {
+          "s.knownName": "Edmund S. Phelps",
+          "p.awardYear": 2006,
+          "Institution": "Columbia University"
+        },
+        {
+          "s.knownName": "William Vickrey",
+          "p.awardYear": 1996,
+          "Institution": "Columbia University"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Yale University won a prize in Chemistry?",
+      "answer": "The scholars affiliated with Yale University who won a prize in Chemistry are Lars Onsager, who received the award in 1968, Sidney Altman, who received it in 1989, and Thomas A. Steitz, who received it in 2009.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'yale'\nMATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry'\nRETURN s.knownName, p.awardYear, i.name AS Institution",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Lars Onsager",
+          "p.awardYear": 1968,
+          "Institution": "Yale University"
+        },
+        {
+          "s.knownName": "Sidney Altman",
+          "p.awardYear": 1989,
+          "Institution": "Yale University"
+        },
+        {
+          "s.knownName": "Thomas A. Steitz",
+          "p.awardYear": 2009,
+          "Institution": "Yale University"
+        }
+      ]
+    },
+    {
+      "question": "Who are the scholars affiliated with the University of Chicago who won the Economics prize?",
+      "answer": "The scholars affiliated with the University of Chicago who won the Economics prize are:\n\nDouglas Diamond (2022), Eugene F. Fama (2013), Gary Becker (1992), George J. Stigler (1982), James J. Heckman (2000), Lars Peter Hansen (2013), Merton H. Miller (1990), Milton Friedman (1976), Richard H. Thaler (2017), Robert E. Lucas Jr. (1995), Robert W. Fogel (1993), Roger B. Myerson (2007), Ronald H. Coase (1991), and Theodore W. Schultz (1979).",
+      "cypher": "MATCH (scholar:Scholar)-[:AFFILIATED_WITH]->(inst:Institution) WHERE toLower(inst.name) CONTAINS 'university of chicago'\nMATCH (scholar)-[:WON]->(prize:Prize) WHERE toLower(prize.category) CONTAINS 'economics'\nRETURN scholar.knownName AS scholar, prize.awardYear AS award_year, inst.name AS institution",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Douglas Diamond",
+          "award_year": 2022,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Eugene F. Fama",
+          "award_year": 2013,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Gary Becker",
+          "award_year": 1992,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "George J. Stigler",
+          "award_year": 1982,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "James J. Heckman",
+          "award_year": 2000,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Lars Peter Hansen",
+          "award_year": 2013,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Merton H. Miller",
+          "award_year": 1990,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Milton Friedman",
+          "award_year": 1976,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Richard H. Thaler",
+          "award_year": 2017,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Robert E. Lucas Jr.",
+          "award_year": 1995,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Robert W. Fogel",
+          "award_year": 1993,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Roger B. Myerson",
+          "award_year": 2007,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Ronald H. Coase",
+          "award_year": 1991,
+          "institution": "University of Chicago"
+        },
+        {
+          "scholar": "Theodore W. Schultz",
+          "award_year": 1979,
+          "institution": "University of Chicago"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars won Physiology or Medicine in 1920?",
+      "answer": "August Krogh won Physiology or Medicine in 1920.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'medicine' AND p.awardYear = 1920\nRETURN DISTINCT s.knownName, p.awardYear",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "August Krogh",
+          "p.awardYear": 1920
+        }
+      ]
+    },
+    {
+      "question": "Which scholars won Chemistry in 2010?",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:WON {portion: '*'}]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2010\nRETURN s.knownName, p.awardYear",
+      "stats": {
+        "total": 0
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars won Chemistry in 1926?",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:WON {portion: '*'}]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1926\nRETURN s.knownName, p.awardYear",
+      "stats": {
+        "total": 0
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars won Chemistry in 1990?",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:WON {portion: '*' }]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1990\nRETURN s.knownName, p.awardYear",
+      "stats": {
+        "total": 0
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars born in Taiwan won the Chemistry prize between 1986 and 1991?",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'chemistry' AND p.awardYear >= 1986 AND p.awardYear <= 1991\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'taiwan'\nRETURN s.knownName, p.awardYear, co.name AS BirthCountry",
+      "stats": {
+        "total": 0
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars affiliated with Institute for Infectious Diseases won a prize in Physiology or Medicine?",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) CONTAINS 'medicine' AND toLower(p.category) CONTAINS 'physiology'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution) \nWHERE toLower(i.name) CONTAINS 'institute for infectious diseases'\nRETURN DISTINCT s.knownName, p.category, p.awardYear, i.name AS Institution",
+      "stats": {
+        "total": 0
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars affiliated with CERN won a prize in Physics?",
+      "answer": "The scholars affiliated with CERN who won a prize in Physics are Carlo Rubbia, Jack Steinberger, Simon van der Meer, and Georges Charpak.",
+      "cypher": "MATCH (scholar:Scholar)-[:AFFILIATED_WITH]->(inst:Institution), (scholar)-[:WON]->(prize:Prize)\nWHERE toLower(inst.name) CONTAINS 'cern' AND toLower(prize.category) CONTAINS 'physics'\nWITH scholar, prize, inst, prize.awardYear AS award_year, prize.category AS prize_category\nMATCH (inst)-[:IS_LOCATED_IN]->(city:City)-[:IS_CITY_IN]->(country:Country)\nRETURN scholar.knownName AS scholar, award_year, prize_category, country.name AS country",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Carlo Rubbia",
+          "award_year": 1984,
+          "prize_category": "physics",
+          "country": "Switzerland"
+        },
+        {
+          "scholar": "Jack Steinberger",
+          "award_year": 1988,
+          "prize_category": "physics",
+          "country": "Switzerland"
+        },
+        {
+          "scholar": "Simon van der Meer",
+          "award_year": 1984,
+          "prize_category": "physics",
+          "country": "Switzerland"
+        },
+        {
+          "scholar": "Georges Charpak",
+          "award_year": 1992,
+          "prize_category": "physics",
+          "country": "Switzerland"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with University of Oxford won a prize in Chemistry?",
+      "answer": "The scholars affiliated with the University of Oxford who won a prize in Chemistry are Frederick Soddy in 1921, Sir Cyril Hinshelwood in 1956, Sir Robert Robinson in 1947, and Dorothy Crowfoot Hodgkin in 1964.",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), \n      (s)-[:WON]->(p:Prize)\nWHERE toLower(i.name) CONTAINS 'university of oxford' \n  AND toLower(p.category) CONTAINS 'chemistry'\nRETURN s.knownName AS scholar, p.awardYear AS award_year, i.name AS institution",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Frederick Soddy",
+          "award_year": 1921,
+          "institution": "University of Oxford"
+        },
+        {
+          "scholar": "Sir Cyril Hinshelwood",
+          "award_year": 1956,
+          "institution": "University of Oxford"
+        },
+        {
+          "scholar": "Sir Robert Robinson",
+          "award_year": 1947,
+          "institution": "University of Oxford"
+        },
+        {
+          "scholar": "Dorothy Crowfoot Hodgkin",
+          "award_year": 1964,
+          "institution": "University of Oxford, Royal Society"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars were born in Pretoria?",
+      "answer": "The scholars born in Pretoria are Michael Levitt and Max Theiler.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WHERE toLower(ci.name) = 'pretoria' RETURN s.knownName AS scholar",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Michael Levitt"
+        },
+        {
+          "scholar": "Max Theiler"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars were born in Turin?",
+      "answer": "The scholars born in Turin are Rita Levi-Montalcini and Salvador E. Luria.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WHERE toLower(ci.name) = 'turin' RETURN s.knownName AS scholar, ci.name AS birth_city",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Rita Levi-Montalcini",
+          "birth_city": "Turin"
+        },
+        {
+          "scholar": "Salvador E. Luria",
+          "birth_city": "Turin"
+        }
+      ]
+    },
+    {
+      "question": "Which scholars born in Switzerland won the Physics prize between 1980 and 2020?",
+      "answer": "The scholars born in Switzerland who won the Physics prize between 1980 and 2020 are Didier Queloz, K. Alex M\u00fcller, and Michel Mayor. Didier Queloz and Michel Mayor won in 2019, while K. Alex M\u00fcller won in 1987.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'physics' AND p.awardYear >= 1980 AND p.awardYear <= 2020\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE (toLower(co.name) CONTAINS 'switzerland' OR toLower(co.name) CONTAINS 'swiss confederation')\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholar": "Didier Queloz",
+          "award_year": 2019
+        },
+        {
+          "scholar": "K. Alex M\u00fcller",
+          "award_year": 1987
+        },
+        {
+          "scholar": "Michel Mayor",
+          "award_year": 2019
+        }
+      ]
+    },
+    {
+      "question": "How many female scholars won a Nobel Prize between 1980 and 2000?",
+      "answer": "Between 1980 and 2000, there were 4 female scholars who won a Nobel Prize.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND p.awardYear >= 1980 AND p.awardYear <= 2000\nRETURN count(DISTINCT s) as female_laureates",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "female_laureates": 4
+        }
+      ]
+    },
+    {
+      "question": "Which scholars have won more than one Nobel Prize?",
+      "answer": "The scholars who have won more than one Nobel Prize are Frederick Sanger, Linus Pauling, Marie Curie, K. Barry Sharpless, and John Bardeen.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWITH s, COUNT(p) AS prize_count\nWHERE prize_count > 1\nRETURN s.knownName",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "s.knownName": "Frederick Sanger"
+        },
+        {
+          "s.knownName": "Linus Pauling"
+        },
+        {
+          "s.knownName": "Marie Curie"
+        },
+        {
+          "s.knownName": "K. Barry Sharpless"
+        },
+        {
+          "s.knownName": "John Bardeen"
+        }
+      ]
+    },
+    {
+      "question": "How many Physics laureates were born in Paris?",
+      "answer": "The Physics laureates born in Paris are 3.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' MATCH (s)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' RETURN count(s) as physics_laureates",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "physics_laureates": 3
+        }
+      ]
+    },
+    {
+      "question": "How many scholars won a prize with a 1/3 share portion?",
+      "answer": "221 scholars won a prize with a 1/3 share portion.",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(r.portion) = '1/3' RETURN count(DISTINCT s) as scholars_with_third_share",
+      "stats": {
+        "total": 0
+      },
+      "context": [
+        {
+          "scholars_with_third_share": 221
+        }
+      ]
+    }
+  ]
+}

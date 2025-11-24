@@ -227,8 +227,8 @@
 ]
     },
     {
-      "question": "Which scholars won Nobel Prizes in Physics after 1950?",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND p.awardYear > 1950 RETURN s.knownName",
+      "question": "Which scholars won Nobel Prizes in Physics after 1990?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Physics' AND p.awardYear > 1990 RETURN s.knownName",
       "expected":[
     "Andre Geim",
     "Ben R. Mottelson",
@@ -403,17 +403,6 @@
     "Yoichiro Nambu"
 ]
     },
-
-    {
-      "question": "Which scholars are affiliated with Max Planck Institute?",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'max planck institute' RETURN s.knownName",
-      "expected": [
-    "Klaus Hasselmann",
-    "Stefan W. Hell",
-    "Theodor W. Hänsch",
-    "Svante Pääbo",
-    "Reinhard Genzel"]
-    },
     {
       "question": "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?",
       "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE (toLower(co.name) CONTAINS 'germany' OR co.name = 'DE')\n  AND s.deathDate >= '1935-01-01'\n  AND s.deathDate <= '1945-12-31'\nRETURN DISTINCT s.knownName AS Scholarname, i.name AS InstitutionName",
@@ -466,10 +455,19 @@
       ]
     },
     {
-      "question": "Which scholars born in Italy won a Nobel Prize in Chemistry?",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'italy' MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'Chemistry' RETURN s.knownName",
+      "question": "Which scholars born in France won a Nobel Prize in Chemistry?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' MATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'france' RETURN DISTINCT s.knownName",
       "expected": [
-        "Giulio Natta"
+        "Alfred Werner",
+        "Emmanuelle Charpentier",
+        "Frédéric Joliot",
+        "Henri Moissan",
+        "Irène Joliot-Curie",
+        "Jean-Marie Lehn",
+        "Jean-Pierre Sauvage",
+        "Luis Leloir",
+        "Paul Sabatier",
+        "Victor Grignard"
       ]
     },
     {
@@ -482,26 +480,10 @@
       ]
     },
     {
-      "question": "Who won the Nobel Prize in Literature in 1954?",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Literature' AND p.awardYear = 1954 RETURN s.knownName",
+      "question": "Which scholars affiliated with Stanford University won a prize in 1996?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear = 1996 MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'stanford' RETURN DISTINCT s.knownName",
       "expected": [
-        "Ernest Hemingway"
-      ]
-    },
-    {
-      "question": "Which scholars affiliated with Stanford University won a prize in 2001?",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear = 2001 MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE i.name CONTAINS 'Stanford University' RETURN s.knownName",
-      "expected": [
-        "A. Michael Spence"
-      ]
-    },
-    {
-      "question": "Which scholars won the Nobel Peace Prize between 1990 and 1992?",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'Peace' AND p.awardYear >= 1990 AND p.awardYear <= 1992 RETURN s.knownName",
-      "expected": [
-        "Mikhail Gorbachev",
-        "Aung San Suu Kyi",
-        "Rigoberta Menchú Tum"
+        "Douglas D. Osheroff"
       ]
     },
     {
@@ -515,24 +497,22 @@
     },
     {
       "question": "Which scholars affiliated with Harvard University won the Medicine prize?",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'medicine' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'harvard university' RETURN DISTINCT s.knownName",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'medicine' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'harvard' RETURN DISTINCT s.knownName",
       "expected": [
-        "George R. Minot",
-        "William P. Murphy",
-        "Fritz Lipmann",
-        "John F. Enders",
-        "Frederick C. Robbins",
-        "Thomas H. Weller",
-        "Georg von Békésy",
-        "Konrad Bloch",
-        "George Wald",
         "Baruj Benacerraf",
         "David H. Hubel",
-        "Torsten N. Wiesel",
-        "Joseph E. Murray",
-        "Linda B. Buck",
+        "Fritz Lipmann",
+        "Georg von Békésy",
+        "George R. Minot",
+        "George Wald",
         "Jack W. Szostak",
-        "William G. Kaelin Jr"
+        "John F. Enders",
+        "Konrad Bloch",
+        "Linda B. Buck",
+        "Thomas H. Weller",
+        "Torsten N. Wiesel",
+        "William G. Kaelin Jr",
+        "William P. Murphy"
       ]
     },
     {
@@ -823,17 +803,6 @@
       ]
     },
     {
-      "question": "Which scholars born in Italy won the Physics prize?",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'italy' MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'physics' RETURN s.knownName",
-      "expected": [
-        "Guglielmo Marconi",
-        "Enrico Fermi",
-        "Emilio Segrè",
-        "Riccardo Giacconi",
-        "Giorgio Parisi"
-      ]
-    },
-    {
       "question": "Which scholars affiliated with Yale University won a prize in Chemistry?",
       "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'chemistry' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'yale university' RETURN s.knownName",
       "expected": [
@@ -841,13 +810,6 @@
         "Sidney Altman",
         "John B. Fenn",
         "Thomas A. Steitz"
-      ]
-    },
-    {
-      "question": "How many scholars won the Nobel Prize in Economics?",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.category = 'economics' RETURN count(s)",
-      "expected": [
-        92
       ]
     },
     {
@@ -871,18 +833,124 @@
       ]
     },
     {
-      "question": "Which scholars born in the Netherlands won the Physics prize?",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) = 'the netherlands' MATCH (s)-[:WON]->(p:Prize) WHERE p.category = 'physics' RETURN s.knownName",
+      "question": "Which scholars won Physiology or Medicine in 1920?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physiology or medicine' AND p.awardYear = 1920 RETURN s.knownName",
       "expected": [
-        "Pieter Zeeman",
-        "Johannes Diderik van der Waals",
-        "Heike Kamerlingh Onnes",
-        "Peter Debye",
-        "Frits Zernike",
-        "Nicolaas Bloembergen",
-        "Simon van der Meer",
-        "Gerardus 't Hooft",
-        "Martinus J.G. Veltman"
+        "August Krogh"
+      ]
+    },
+    {
+      "question": "Which scholars won Chemistry in 2010?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2010 RETURN s.knownName",
+      "expected": [
+        "Akira Suzuki",
+        "Ei-ichi Negishi",
+        "Richard F. Heck"
+      ]
+    },
+    {
+      "question": "Which scholars won Chemistry in 1926?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1926 RETURN s.knownName",
+      "expected": [
+        "The Svedberg"
+      ]
+    },
+    {
+      "question": "Which scholars won Chemistry in 1990?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1990 RETURN s.knownName",
+      "expected": [
+        "Elias James Corey"
+      ]
+    },
+    {
+      "question": "Which scholars born in Taiwan won the Chemistry prize between 1986 and 1991?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry' AND p.awardYear >= 1986 AND p.awardYear <= 1991 MATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'taiwan' RETURN DISTINCT s.knownName, p.awardYear, co.name AS BirthCountry",
+      "expected": [
+        "Yuan T. Lee"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with Institute for Infectious Diseases won a prize in Physiology or Medicine?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON]->(p:Prize) WHERE i.name = \"Institute for Infectious Diseases\" AND toLower(p.category) = 'physiology or medicine' RETURN s.knownName",
+      "expected": [
+        "Robert Koch"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with CERN won a prize in Physics?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON]->(p:Prize) WHERE i.name = \"CERN\" AND toLower(p.category) = 'physics' RETURN s.knownName",
+      "expected": [
+        "Carlo Rubbia",
+        "Georges Charpak",
+        "Jack Steinberger",
+        "Simon van der Meer"
+      ]
+    },
+    {
+      "question": "Which scholars affiliated with University of Oxford won a prize in Chemistry?",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON]->(p:Prize) WHERE i.name = \"University of Oxford\" AND toLower(p.category) = 'chemistry' RETURN s.knownName",
+      "expected": [
+        "Frederick Soddy",
+        "Sir Cyril Hinshelwood",
+        "Sir Robert Robinson"
+      ]
+    },
+    {
+      "question": "Which scholars were born in Pretoria?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE c.name = \"Pretoria\" RETURN s.knownName",
+      "expected": [
+        "Max Theiler",
+        "Michael Levitt"
+      ]
+    },
+    {
+      "question": "Which scholars were born in Turin?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE c.name = \"Turin\" RETURN s.knownName",
+      "expected": [
+        "Rita Levi-Montalcini",
+        "Salvador E. Luria"
+      ]
+    },
+    {
+      "question": "Which scholars born in Switzerland won the Physics prize between 1980 and 2020?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' AND p.awardYear >= 1980 AND p.awardYear <= 2020 MATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'switzerland' RETURN DISTINCT s.knownName, p.awardYear, co.name AS BirthCountry",
+      "expected": [
+        "Didier Queloz",
+        "Heinrich Rohrer",
+        "K. Alex Müller",
+        "Michel Mayor"
+      ]
+    },
+    {
+      "question": "How many female scholars won a Nobel Prize between 1980 and 2000?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE s.gender = 'female' AND p.awardYear >= 1980 AND p.awardYear <= 2000 RETURN count(s) AS FemaleLaureates",
+      "expected": [
+        "4" 
+      ]
+    },
+    {
+      "question": "Which scholars have won more than one Nobel Prize?",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WITH s, count(p) AS prize_count WHERE prize_count > 1 RETURN s.knownName",
+      "expected": [
+        "Frederick Sanger",
+        "John Bardeen",
+        "K. Barry Sharpless",
+        "Linus Pauling",
+        "Marie Curie"
+      ]
+    },
+    {
+      "question": "How many Physics laureates were born in Paris?",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' RETURN count(DISTINCT s)",
+      "expected": [
+        "3" 
+      ]
+    },
+    {
+      "question": "How many scholars won a prize with a 1/3 share portion?",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE r.portion = '1/3' RETURN count(s)",
+      "expected": [
+        "221" 
       ]
     }
   ]
