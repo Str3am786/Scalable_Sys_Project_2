@@ -8,9 +8,10 @@ import os
 os.makedirs("./results", exist_ok=True)
 
 logging.basicConfig(
-    filename="./results/cache_log.txt",
+    filename="./results/cache_test/cache_log.txt",
     level=logging.INFO,
     format="[%(asctime)s] - %(message)s",
+    filemode="w"
 )
 
 def write(value: str):

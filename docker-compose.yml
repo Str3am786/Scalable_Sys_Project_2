@@ -29,3 +29,7 @@ services:
       --judge-only 
       --plain-file ${PLAIN_FILE} 
       --rag-file ${RAG_FILE}
+
+  cachetest:
+    <<: *base_app
+    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--caching-test","2"]

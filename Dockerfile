@@ -7,8 +7,13 @@ RUN apt-get update && apt-get install -y \
     cmake \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# COPY requirements.txt .
+# RUN pip install --no-cache-dir -r requirements.txt
+
+
+COPY src/ src/
+COPY pyproject.toml .
+RUN pip install -e .
 
 COPY src ./src
 

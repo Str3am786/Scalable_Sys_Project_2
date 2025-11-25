@@ -13,7 +13,6 @@ from typing import List, Dict, Any
 import os
 
 TEST = {
-    
     "0": { "rag" : False,"cache": False},
     "1": { "rag" : False,"cache": True},
     "2": { "rag" : True,"cache": False},
@@ -294,6 +293,7 @@ def main():
         print("------------Starting Evaluation of Tests Answers---------------------")
         evaluation_res_test = evaluate_test(test_filepath)
         print(f"Conlcluded Evaluation of Test {args.single_test}. You can find the result in {evaluation_res_test}") 
+        
         
     elif args.caching_test: 
         

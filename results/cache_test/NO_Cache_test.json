@@ -1,0 +1,134 @@
+{
+  "results": [
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 3.36,
+        "text2cypher": 2.23,
+        "db_exec": 0.0,
+        "answer_gen": 1.14
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The scholars who won Chemistry prizes in 2000 are Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 4.04,
+        "text2cypher": 2.88,
+        "db_exec": 0.0,
+        "answer_gen": 1.15
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 2.81,
+        "text2cypher": 1.94,
+        "db_exec": 0.0,
+        "answer_gen": 0.87
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "In 1922, prizes were awarded in three categories: Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 3.45,
+        "text2cypher": 2.27,
+        "db_exec": 0.0,
+        "answer_gen": 1.18
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The scholars who won Chemistry prizes in 2000 are Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 4.06,
+        "text2cypher": 2.75,
+        "db_exec": 0.0,
+        "answer_gen": 1.3
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "In 1922, prizes were awarded in three categories: Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 2.0,
+        "text2cypher": 1.05,
+        "db_exec": 0.0,
+        "answer_gen": 0.95
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 2.56,
+        "text2cypher": 1.19,
+        "db_exec": 0.0,
+        "answer_gen": 1.38
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The scholars who won Chemistry prizes in 2000 are Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 3.49,
+        "text2cypher": 2.46,
+        "db_exec": 0.0,
+        "answer_gen": 1.03
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "In 1922, prizes were awarded in three categories: Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 1.62,
+        "text2cypher": 1.06,
+        "db_exec": 0.0,
+        "answer_gen": 0.55
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 2.96,
+        "text2cypher": 2.12,
+        "db_exec": 0.0,
+        "answer_gen": 0.84
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 4.0,
+        "text2cypher": 1.93,
+        "db_exec": 0.0,
+        "answer_gen": 2.06
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in the categories of Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 11.67,
+        "text2cypher": 5.34,
+        "db_exec": 0.0,
+        "answer_gen": 6.33
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 12.81,
+        "text2cypher": 7.36,
+        "db_exec": 0.0,
+        "answer_gen": 5.45
+      }
+    }
+  ]
+}

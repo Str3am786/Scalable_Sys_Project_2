@@ -12,6 +12,15 @@ from src.scalable_sys.rag.graph_rag import GraphRAG
 
 from src.scalable_sys.evaluation.analyze_results import generate_comparison_table
 
+from .analyze_cache_results import summary_cache_log, get_cache_results, create_report
+
+
+CACHE_TEST = {
+    "0": False,
+    "1": True,
+    "2": "BOTH"
+}
+
 def get_project_root() -> str:
     """Returns the absolute path to the project root."""
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -121,6 +130,46 @@ def extract_score(text: str) -> int:
         pass
     return 0
 
+def cache_test(input_file : str= "./data/test_input.json", out_folder : str = "results/cache_test", use_cache : bool = False) -> str:
+    
+    test_set = load_test_set(input_file)
+    test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    llm = get_llm(use_cache=use_cache, rag = True)
+    
+    if use_cache:
+        cache_maxsize,cache_ttl_seconds = get_cache_parameters()
+        print(f"CACHE PARAMETERS: Size = {cache_maxsize}, Time to Live = {cache_ttl_seconds}")
+        filepath = f"./{out_folder}/Cache_test.json"
+
+    else:
+        print(f"NO CACHE USED")
+        filepath = f"./{out_folder}/NO_Cache_test.json"
+        
+    counter = 1
+    
+    for test in test_set:
+        
+        print(f"Starting test for question n° {counter}")
+        counter += 1
+        prompt = test["question"]
+        answer, stats, c , all_tested_cyphers, results = llm.generate(prompt)
+        result = {
+            "question": prompt,
+            "answer": answer,
+            "stats": stats
+        }            
+        record_test(filepath,result)
+                
+    return filepath
+
+
+def get_cache_parameters() -> List[int]:
+    cfg = load_config()
+    return cfg.rag_cache_maxsize, cfg.rag_cache_ttl_seconds
+    
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--prompt", required=False, help="User question for single test")
@@ -131,12 +180,34 @@ def main():
     parser.add_argument("--plain-file", type=str, help="Path to existing plain LLM results")
     parser.add_argument("--rag-file", type=str, help="Path to existing RAG results")
     parser.add_argument("--test", action="store_true", help="Run single prompt test")
-
+    parser.add_argument("--caching-test",type=str,choices=["0", "1", "2"],help="Select which test to run",)
+    
     args = parser.parse_args()
     use_cache = not args.no_cache
     
     PROJECT_ROOT = get_project_root()
     TEST_INPUT_PATH = os.path.join(PROJECT_ROOT, "data", "test_input.json")
+    
+    if args.caching_test: 
+        
+        if args.caching_test == "2":
+            c = [True,False]
+            print("YOU CHOOSED BOTH configurations:")
+        else:
+            c = [CACHE_TEST[args.caching_test]]
+        
+        for type_test in c:
+            
+            print("------------Starting Test---------------------")
+            print(f"CACHE: {type_test}")
+            test_filepath = cache_test(input_file="./data/test_cache.json",use_cache = type_test)
+            print(f"Conlcluded Test. You can find the result in {test_filepath}") 
+            cache_maxsize,cache_ttl_seconds = get_cache_parameters()
+            create_report(test_filepath, cache_maxsize, cache_ttl_seconds,used_cache=type_test)
+            print(f"Conlcluded Test. You can find the result in {test_filepath}") 
+        
+        print("FINISHED, CHECK FOLDER cache_test for results")
+        
     
     if args.complete_test or args.judge_only:
         print("=== STARTING EVALUATION PIPELINE ===")

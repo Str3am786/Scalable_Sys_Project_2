@@ -278,14 +278,17 @@ class GraphRAG(LLM):
         Main entry point for Evaluation Pipeline.
         Returns: (answer, stats, cypher_query, all_tested_cyphers, results_context)
         """
-        # Generate Cypher        
+        # Generate Cypher    
+        t0 = time.perf_counter()
+    
         exemplars_str = ""
         if self.use_exemplars:
             exs = select_exemplars(question, k=3)
             exemplars_str = format_exemplars_for_prompt(exs)
-
+        t1 = time.perf_counter()
         cypher_query, all_tested_cyphers = self._generate_cypher(question, exemplars_str)
-        
+        t2 = time.perf_counter()
+
         # Execute Query
         results = []
         try:
@@ -298,6 +301,7 @@ class GraphRAG(LLM):
         except Exception as e:
             print(f"Cypher Error: {e}")
             return "Error executing graph query.", {"error": str(e)}, cypher_query, [], []
+        t3 = time.perf_counter()
 
         if not results:
             return "No information found in the database.", {"total": 0}, cypher_query, all_tested_cyphers, []
@@ -307,9 +311,17 @@ class GraphRAG(LLM):
         prompt = f"Context:\n{context_str}\n\nQuestion: {question}"
         ans_response = self.answer_gen(question=question, context=context_str)
         answer = ans_response.answer
+        t4 = time.perf_counter()
+        
+        stats = {
+            "total": round(t4 - t0, 2),
+            "text2cypher": round(t2 - t1, 2),
+            "db_exec": round(t3 - t2, 2),
+            "answer_gen": round(t4 - t3, 2)
+        }
 
         # Return 5 values as expected by evaluate_pipeline.py
-        return answer, {"total": 0}, cypher_query, all_tested_cyphers, results
+        return answer,stats, cypher_query, all_tested_cyphers, results
 
     def stream(self, prompt: str, **kwargs) -> Iterable[str]:
         yield self.generate(prompt)[0]
