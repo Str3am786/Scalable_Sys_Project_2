@@ -19,7 +19,7 @@ class LLMConfig:
     rag_use_exemplars: bool
     rag_use_self_refine: bool
     rag_use_postprocess: bool
-    rag_cache_text2cypher: bool
+    # rag_cache_text2cypher: bool
     rag_cache_maxsize: int
     rag_cache_ttl_seconds: int
     
@@ -60,7 +60,7 @@ def load_config(yaml_path: str = "config.yaml") -> LLMConfig:
         rag_use_exemplars=rag_cfg.get("use_exemplars", True),
         rag_use_self_refine=rag_cfg.get("use_self_refine", True),
         rag_use_postprocess=rag_cfg.get("use_postprocess", True),
-        rag_cache_text2cypher=rag_cfg.get("cache_text2cypher", True),
+        # rag_cache_text2cypher=rag_cfg.get("cache_text2cypher", True),
         rag_cache_maxsize=rag_cfg.get("cache_maxsize", 256),
         rag_cache_ttl_seconds=rag_cfg.get("cache_ttl_seconds", 0),
         

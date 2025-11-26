@@ -1,7 +1,18 @@
 services:
   # Base Configuration
+  explorer:
+    image: kuzudb/explorer:0.11.1
+    environment:
+      - MODE=READ_ONLY
+      - KUZU_FILE=./nobel.kuzu
+    ports:
+      - 8000:8000
+    volumes:
+      - ./data/:/database
   base_app: &base_app
-    build: .
+    build:
+      context: .
+      dockerfile: logic_dockerfile
     extra_hosts:
       - "host.docker.internal:host-gateway"
     tty: true

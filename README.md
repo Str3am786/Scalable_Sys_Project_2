@@ -51,6 +51,7 @@ docker compose run app python -m src.scalable_sys.app --prompt "List all female 
 ```
 
 **Validation Pipeline**
+
 Run the full test suite to benchmark the pipeline against the our curated test set:
 
 ```bash
@@ -58,12 +59,30 @@ docker compose up validate
 ```
 
 **LLM Judge**
+
 Run the judge service to compare two specific output files (Plain LLM vs GraphRAG). You must pass the file paths as environment variables:
 
 ```bash
 PLAIN_FILE="results/plain_output.json" RAG_FILE="results/rag_output.json" docker compose up judge
 ```
 
+**Cache Test**
+
+Run the a cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
+
+The sample questions generated for this evaluation are stored in   __data/test_cache/__
+Results, cache log and performance reports will be available in __results/cache_test/__ folder.
+
+
+```bash
+docker compose up cachetest
+```
+
+Cache is tunable by setting two parameters in the `config.yaml` file:
+
+- `cache_maxsize`: Cache storage dimension.;
+
+- `ache_ttl_seconds:`: Keys Time to Live
 
 ### Project Structure
 

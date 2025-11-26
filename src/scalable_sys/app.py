@@ -38,7 +38,7 @@ def get_llm(use_cache: bool = False):
             use_exemplars=cfg.rag_use_exemplars,
             use_self_refine=cfg.rag_use_self_refine,
             use_postprocess=cfg.rag_use_postprocess,
-            cache_text2cypher=cfg.rag_cache_text2cypher,
+            cache_text2cypher=use_cache,
             cache_maxsize=cfg.rag_cache_maxsize,
             cache_ttl_seconds=cfg.rag_cache_ttl_seconds,
         )
