@@ -2,10 +2,13 @@
   "results": [
     {
       "question": "Which scholars won Physics in 1921?",
-      "answer": "Albert Einstein won the Physics Nobel Prize in 1921.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1921\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "answer": "Albert Einstein won the Nobel Prize in Physics in 1921.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1921\nRETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear",
       "stats": {
-        "total": 0
+        "total": 5.39,
+        "text2cypher": 4.59,
+        "db_exec": 0.0,
+        "answer_gen": 0.79
       },
       "context": [
         {
@@ -16,227 +19,162 @@
     },
     {
       "question": "Which scholars were born in Germany?",
-      "answer": "The scholars born in Germany are:\n- Gerhard Herzberg\n- James Franck\n- Klaus Hasselmann\n- Max Delbr\u00fcck\n- Otto Loewi\n- Robert Huber\n- Arno Penzias\n- Eduard Buchner\n- Gerd Binnig\n- Otto Hahn\n- Robert J. Aumann\n- Werner Heisenberg\n- Hans Spemann\n- Otto Diels\n- Rainer Weiss\n- Sir Bernard Katz\n- Carl Bosch\n- Ernst B. Chain\n- Ernst Ruska\n- Georg Wittig\n- John C. Polanyi\n- Max Planck\n- Werner Forssmann\n- Wolfgang Ketterle\n- Adolf Windaus\n- Gustav Hertz\n- J. Hans D. Jensen\n- Benjamin List\n- Bert Sakmann\n- Ernst Otto Fischer\n- Feodor Lynen\n- Georges J.F. K\u00f6hler\n- Theodor W. H\u00e4nsch\n- Rudolf M\u00f6ssbauer\n- Adolf von Baeyer\n- Horst L. St\u00f6rmer\n- Thomas C. S\u00fcdhof",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'germany'\nRETURN s.knownName AS scholar, ci.name AS birth_city, co.name AS birth_country",
+      "answer": "The scholars born in Germany are:\n\nGerhard Herzberg, James Franck, Klaus Hasselmann, Max Delbr\u00fcck, Otto Loewi, Robert Huber, Arno Penzias, Eduard Buchner, Gerd Binnig, Otto Hahn, Robert J. Aumann, Werner Heisenberg, Hans Spemann, Otto Diels, Rainer Weiss, Sir Bernard Katz, Carl Bosch, Ernst B. Chain, Ernst Ruska, Georg Wittig, John C. Polanyi, Max Planck, Werner Forssmann, Wolfgang Ketterle, Adolf Windaus, Gustav Hertz, J. Hans D. Jensen, Benjamin List, Bert Sakmann, Ernst Otto Fischer, Feodor Lynen, Georges J.F. K\u00f6hler, Theodor W. H\u00e4nsch, Rudolf M\u00f6ssbauer, Adolf von Baeyer, Horst L. St\u00f6rmer, and Thomas C. S\u00fcdhof.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'germany' RETURN s.knownName AS scholar",
       "stats": {
-        "total": 0
+        "total": 9.55,
+        "text2cypher": 3.48,
+        "db_exec": 0.01,
+        "answer_gen": 6.07
       },
       "context": [
         {
-          "scholar": "Gerhard Herzberg",
-          "birth_city": "Hamburg",
-          "birth_country": "Germany"
+          "scholar": "Gerhard Herzberg"
         },
         {
-          "scholar": "James Franck",
-          "birth_city": "Hamburg",
-          "birth_country": "Germany"
+          "scholar": "James Franck"
         },
         {
-          "scholar": "Klaus Hasselmann",
-          "birth_city": "Hamburg",
-          "birth_country": "Germany"
+          "scholar": "Klaus Hasselmann"
         },
         {
-          "scholar": "Max Delbr\u00fcck",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Max Delbr\u00fcck"
         },
         {
-          "scholar": "Otto Loewi",
-          "birth_city": "Frankfurt-on-the-Main",
-          "birth_country": "Germany"
+          "scholar": "Otto Loewi"
         },
         {
-          "scholar": "Robert Huber",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Robert Huber"
         },
         {
-          "scholar": "Arno Penzias",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Arno Penzias"
         },
         {
-          "scholar": "Eduard Buchner",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Eduard Buchner"
         },
         {
-          "scholar": "Gerd Binnig",
-          "birth_city": "Frankfurt-on-the-Main",
-          "birth_country": "Germany"
+          "scholar": "Gerd Binnig"
         },
         {
-          "scholar": "Otto Hahn",
-          "birth_city": "Frankfurt-on-the-Main",
-          "birth_country": "Germany"
+          "scholar": "Otto Hahn"
         },
         {
-          "scholar": "Robert J. Aumann",
-          "birth_city": "Frankfurt-on-the-Main",
-          "birth_country": "Germany"
+          "scholar": "Robert J. Aumann"
         },
         {
-          "scholar": "Werner Heisenberg",
-          "birth_city": "W\u00fcrzburg",
-          "birth_country": "Germany"
+          "scholar": "Werner Heisenberg"
         },
         {
-          "scholar": "Hans Spemann",
-          "birth_city": "Stuttgart",
-          "birth_country": "Germany"
+          "scholar": "Hans Spemann"
         },
         {
-          "scholar": "Otto Diels",
-          "birth_city": "Hamburg",
-          "birth_country": "Germany"
+          "scholar": "Otto Diels"
         },
         {
-          "scholar": "Rainer Weiss",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Rainer Weiss"
         },
         {
-          "scholar": "Sir Bernard Katz",
-          "birth_city": "Leipzig",
-          "birth_country": "Germany"
+          "scholar": "Sir Bernard Katz"
         },
         {
-          "scholar": "Carl Bosch",
-          "birth_city": "Cologne",
-          "birth_country": "Germany"
+          "scholar": "Carl Bosch"
         },
         {
-          "scholar": "Ernst B. Chain",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Ernst B. Chain"
         },
         {
-          "scholar": "Ernst Ruska",
-          "birth_city": "Heidelberg",
-          "birth_country": "Germany"
+          "scholar": "Ernst Ruska"
         },
         {
-          "scholar": "Georg Wittig",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Georg Wittig"
         },
         {
-          "scholar": "John C. Polanyi",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "John C. Polanyi"
         },
         {
-          "scholar": "Max Planck",
-          "birth_city": "Kiel",
-          "birth_country": "Germany"
+          "scholar": "Max Planck"
         },
         {
-          "scholar": "Werner Forssmann",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Werner Forssmann"
         },
         {
-          "scholar": "Wolfgang Ketterle",
-          "birth_city": "Heidelberg",
-          "birth_country": "Germany"
+          "scholar": "Wolfgang Ketterle"
         },
         {
-          "scholar": "Adolf Windaus",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Adolf Windaus"
         },
         {
-          "scholar": "Gustav Hertz",
-          "birth_city": "Hamburg",
-          "birth_country": "Germany"
+          "scholar": "Gustav Hertz"
         },
         {
-          "scholar": "J. Hans D. Jensen",
-          "birth_city": "Hamburg",
-          "birth_country": "Germany"
+          "scholar": "J. Hans D. Jensen"
         },
         {
-          "scholar": "Benjamin List",
-          "birth_city": "Frankfurt-on-the-Main",
-          "birth_country": "Germany"
+          "scholar": "Benjamin List"
         },
         {
-          "scholar": "Bert Sakmann",
-          "birth_city": "Stuttgart",
-          "birth_country": "Germany"
+          "scholar": "Bert Sakmann"
         },
         {
-          "scholar": "Ernst Otto Fischer",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Ernst Otto Fischer"
         },
         {
-          "scholar": "Feodor Lynen",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Feodor Lynen"
         },
         {
-          "scholar": "Georges J.F. K\u00f6hler",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Georges J.F. K\u00f6hler"
         },
         {
-          "scholar": "Theodor W. H\u00e4nsch",
-          "birth_city": "Heidelberg",
-          "birth_country": "Germany"
+          "scholar": "Theodor W. H\u00e4nsch"
         },
         {
-          "scholar": "Rudolf M\u00f6ssbauer",
-          "birth_city": "Munich",
-          "birth_country": "Germany"
+          "scholar": "Rudolf M\u00f6ssbauer"
         },
         {
-          "scholar": "Adolf von Baeyer",
-          "birth_city": "Berlin",
-          "birth_country": "Germany"
+          "scholar": "Adolf von Baeyer"
         },
         {
-          "scholar": "Horst L. St\u00f6rmer",
-          "birth_city": "Frankfurt-on-the-Main",
-          "birth_country": "Germany"
+          "scholar": "Horst L. St\u00f6rmer"
         },
         {
-          "scholar": "Thomas C. S\u00fcdhof",
-          "birth_city": "G\u00f6ttingen",
-          "birth_country": "Germany"
+          "scholar": "Thomas C. S\u00fcdhof"
         }
       ]
     },
     {
       "question": "Which prizes were awarded in 1922?",
-      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
-      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS category, p.awardYear AS year",
+      "answer": "In 1922, the Nobel Prizes were awarded in the following categories: Medicine, Chemistry, and Physics.",
+      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS prize_category, p.awardYear AS award_year",
       "stats": {
-        "total": 0
+        "total": 6.33,
+        "text2cypher": 4.27,
+        "db_exec": 0.0,
+        "answer_gen": 2.06
       },
       "context": [
         {
-          "category": "medicine",
-          "year": 1922
+          "prize_category": "medicine",
+          "award_year": 1922
         },
         {
-          "category": "chemistry",
-          "year": 1922
+          "prize_category": "chemistry",
+          "award_year": 1922
         },
         {
-          "category": "physics",
-          "year": 1922
+          "prize_category": "physics",
+          "award_year": 1922
         }
       ]
     },
     {
       "question": "Which scholars won Chemistry prizes in 2000?",
       "answer": "The scholars who won Chemistry prizes in 2000 are Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize {awardYear: 2000}) WHERE toLower(p.category) = 'chemistry' RETURN s.knownName, p.awardYear",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2000\nRETURN s.knownName, p.awardYear",
       "stats": {
-        "total": 0
+        "total": 5.13,
+        "text2cypher": 4.01,
+        "db_exec": 0.0,
+        "answer_gen": 1.12
       },
       "context": [
         {
@@ -255,10 +193,13 @@
     },
     {
       "question": "Which prizes were awarded in 1922?",
-      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "answer": "In 1922, the Nobel Prizes were awarded in the following categories: Medicine, Chemistry, and Physics.",
       "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category AS prize_category, p.awardYear AS award_year",
       "stats": {
-        "total": 0
+        "total": 1.14,
+        "text2cypher": 0.0,
+        "db_exec": 0.0,
+        "answer_gen": 1.14
       },
       "context": [
         {
@@ -277,10 +218,13 @@
     },
     {
       "question": "Which scholars were born in Paris?",
-      "answer": "The scholars born in Paris are Esther Duflo, Luis Leloir, Pierre-Gilles de Gennes, Jean-Pierre Sauvage, Alphonse Laveran, Andr\u00e9 F. Cournand, Ir\u00e8ne Joliot-Curie, Jacques Monod, Maurice Allais, Charles Richet, Pierre Curie, Fran\u00e7oise Barr\u00e9-Sinoussi, Henri Becquerel, Fr\u00e9d\u00e9ric Joliot, and Henri Moissan.",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)\nWHERE toLower(c.name) = 'paris'\nRETURN s.knownName",
+      "answer": "The scholars born in Paris are:\n\n- Esther Duflo\n- Luis Leloir\n- Pierre-Gilles de Gennes\n- Jean-Pierre Sauvage\n- Alphonse Laveran\n- Andr\u00e9 F. Cournand\n- Ir\u00e8ne Joliot-Curie\n- Jacques Monod\n- Maurice Allais\n- Charles Richet\n- Pierre Curie\n- Fran\u00e7oise Barr\u00e9-Sinoussi\n- Henri Becquerel\n- Fr\u00e9d\u00e9ric Joliot\n- Henri Moissan",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' RETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 7.01,
+        "text2cypher": 2.73,
+        "db_exec": 0.0,
+        "answer_gen": 4.28
       },
       "context": [
         {
@@ -332,10 +276,13 @@
     },
     {
       "question": "Which institutions are located in USA?",
-      "answer": "The institutions located in the USA include:\n\n- Stanford University, Stanford, CA\n- Massachusetts Institute of Technology (MIT), Cambridge, MA\n- Johns Hopkins University, Baltimore, MD\n- Space Telescope Science Institute, Baltimore, MD\n- California Institute of Technology (Caltech), Pasadena, CA\n- University of California, Santa Barbara, CA\n- University of California, Los Angeles, CA\n- University of California, San Diego, CA\n- University of California, Berkeley, CA\n- University of California, San Francisco, CA\n- University of California, Irvine, CA\n- University of Pennsylvania, Philadelphia, PA\n- University of Chicago, Chicago, IL\n- Argonne National Laboratory, Argonne, IL\n- Rockefeller Institute for Medical Research, New York, NY\n- Rockefeller Institute for Medical Research, Princeton, NJ\n- Carnegie Institution of Washington, Long Island, New York, NY\n- University of Texas Southwestern Medical Center at Dallas, Dallas, TX\n- Tufts University, Medford, MA\n- Harvard University, Cambridge, MA\n- Harvard Business School, Boston, MA\n- Columbia University Division, Cardio-Pulmonary Laboratory, Bellevue Hospital, New York, NY\n- Veterans Administration Hospital, New Orleans, LA\n- Veterans Administration Hospital, Bronx, NY\n- Stanford University School of Medicine, Stanford, CA\n- Princeton University, Princeton, NJ\n- University of Illinois, Urbana, IL\n- Scripps Research, La Jolla, CA\n- Howard Hughes Medical Institute, Durham, NC\n- Howard Hughes Medical Institute, Chevy Chase, MD\n- University of Southern California, Los Angeles, CA\n- Bell Laboratories, Holmdel, NJ\n- Bell Laboratories, Murray Hill, NJ\n- University of North Carolina, Chapel Hill, NC\n- Cold Spring Harbor Laboratory, Cold Spring Harbor, NY\n- The Institute for Cancer Research, Philadelphia, PA\n- Harvard Medical School, Boston, MA\n- The Brookings Institution, Washington, D.C.\n- The Scripps Research Institute, La Jolla, CA\n- Rockefeller University, New York, NY\n- Stanford Linear Accelerator Center, Stanford, CA\n- Washington University, St. Louis, MO\n- University of Colorado, JILA, Boulder, CO\n- Johns Hopkins University School of Medicine, Baltimore, MD\n- University of Chicago, Ben May Laboratory for Cancer Research, Chicago, IL\n- Du Pont, Wilmington, DE\n- Institute for Advanced Study, Princeton, NJ\n- National Institutes of Health, Bethesda, MD\n- Bell Telephone Laboratories, New York, NY\n- Bell Telephone Laboratories, Murray Hill, NJ\n- University of Massachusetts Medical School, Worcester, MA\n- Northwestern University, Evanston, IL\n- University of California, Kavli Institute for Theoretical Physics, Santa Barbara, CA\n- University of Washington, Seattle, WA\n- National Institute of Standards and Technology, Boulder, CO\n- National Institute of Standards and Technology, Gaithersburg, MD\n- University of Colorado, Boulder, CO\n- Cornell University, Ithaca, NY\n- Columbia University, New York, NY\n- Fred Hutchinson Cancer Research Center, Seattle, WA\n- Vanderbilt University, Nashville, TN\n- Saint Louis University, St. Louis, MO\n- Mayo Clinic, Rochester, MN\n- Arizona State University, Tempe, AZ\n- Federal Reserve Bank of Minneapolis, Minneapolis, MN\n- Purdue University, West Lafayette, IN\n- Indiana University, Bloomington, IN\n- Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA\n- University of Texas Medical School at Houston, Houston, TX\n- Carnegie Mellon University, Pittsburgh, PA\n- Western Reserve University, Cleveland, OH\n- Massachusetts General Hospital, Boston, MA\n- Jackson Laboratory, Bar Harbor, ME\n- Yale University, School of Medicine, New Haven, CT\n- Wellcome Research Laboratories, Research Triangle Park, NC\n- University of Rochester, Rochester, NY\n- University of Missouri, Columbia\n- University of Michigan, Ann Arbor, MI\n- University of Wisconsin, Madison, WI\n- University of California School of Medicine, San Francisco, CA\n- University of California School of Medicine, Los Angeles, CA\n- City University of New York, New York, NY\n- The Medical Foundation of Buffalo, Buffalo, NY\n- University of Texas, Austin, TX\n- General Electric Company, Schenectady, NY\n- Brown University, Providence, RI\n- Texas Instruments, Dallas, TX\n- Yale University, New Haven, CT\n- Center for Study of Public Choice, Fairfax, VA\n- Parker Institute for Cancer Immunotherapy, San Francisco, CA\n- University of Texas MD Anderson Cancer Center, Houston, TX\n- University of Maine, Maine, ME\n- US Naval Research Laboratory, Washington, D.C.\n- Virginia Commonwealth University, Richmond, VA\n- NASA Goddard Space Flight Center, Greenbelt, MD\n- J.F. Clauser & Assoc., Walnut Creek, CA\n- Research Division of Infectious Diseases, Children's Medical Center, Boston, MA\n- Brigham and Women's Hospital, Boston, MA\n- IBM Thomas J. Watson Research Center, Yorktown Heights, NY\n- Fermi National Accelerator Laboratory, Batavia, IL\n- University of Minnesota, Minneapolis, MN\n- Binghamton University, State University of New York, New York, NY\n- University of Utah, Salt Lake City, UT\n- National Institute of Environmental Health Sciences, Research Triangle Park, NC\n- Laboratories of the Division of Medicine and Public Health, Rockefeller Foundation, New York, NY\n- Digital Pathways, Inc., Mountain View, CA\n- Brandeis University, Waltham, MA\n- Long Term Capital Management, Greenwich, CT\n- Marine Biological Laboratory (MBL), Woods Hole, MA\n- Boston University Medical School, Massachusetts, MA\n- Carnegie Institute of Technology, Pittsburgh, PA\n- NYU Stern School of Business, New York, NY\n- Duke University School of Medicine, Durham, NC\n- St. Jude Children's Research Hospital, Memphis, TN\n- Massachusetts Institute of Technology (MIT), Center for Cancer Research, Cambridge, MA\n- Associated Universities Inc., Washington, D.C.\n- Rice University, Houston, TX\n- New England Biolabs, Beverly, MA\n- New York University, New York, NY\n- SUNY Health Science Center, Brooklyn, NY\n- Duke University Medical Center, Durham, NC\n- The Salk Institute, San Diego, CA\n- Lawrence Berkeley National Laboratory, Berkeley, CA\n- Rutgers University, New Brunswick, NJ\n- New York University, College of Medicine, New York, NY\n- Harvard University, Lyman Laboratory, Cambridge, MA\n- Gladstone Institutes, San Francisco, CA\n- Vanderbilt University School of Medicine, Nashville, TN\n- The Molecular Sciences Institute, Berkeley, CA\n- University of Maryland, Department of Economics and School of Public Policy, College Park, MD\n- George Mason University, Fairfax, VA\n- Harvard University, Biological Laboratories, Cambridge, MA\n- Semiconductor Laboratory of Beckman Instruments, Inc., Mountain View, CA\n- Drew University, Madison, NJ\n- Dana-Farber Cancer Institute, Boston, MA\n- Peter Brent Brigham Hospital, Boston, MA\n- Enrico Fermi Institute, University of Chicago, Chicago, IL",
-      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'usa'\nRETURN i.name AS institution, ci.name AS city",
+      "answer": "The following institutions are located in the USA:\n\n- Stanford University, Stanford, CA\n- Massachusetts Institute of Technology (MIT), Cambridge, MA\n- Johns Hopkins University, Baltimore, MD\n- Space Telescope Science Institute, Baltimore, MD\n- California Institute of Technology (Caltech), Pasadena, CA\n- University of California, Santa Barbara, CA\n- University of California, Los Angeles, CA\n- University of California, San Diego, CA\n- University of California, Berkeley, CA\n- University of California, San Francisco, CA\n- University of California, Irvine, CA\n- University of Pennsylvania, Philadelphia, PA\n- University of Chicago, Chicago, IL\n- Argonne National Laboratory, Argonne, IL\n- Rockefeller Institute for Medical Research, New York, NY\n- Rockefeller Institute for Medical Research, Princeton, NJ\n- Carnegie Institution of Washington, Long Island, New York, NY\n- University of Texas Southwestern Medical Center at Dallas, Dallas, TX\n- Tufts University, Medford, MA\n- Harvard University, Cambridge, MA\n- Harvard Business School, Boston, MA\n- Columbia University Division, Cardio-Pulmonary Laboratory, Bellevue Hospital, New York, NY\n- Veterans Administration Hospital, New Orleans, LA\n- Veterans Administration Hospital, Bronx, NY\n- Stanford University School of Medicine, Stanford, CA\n- Princeton University, Princeton, NJ\n- University of Illinois, Urbana, IL\n- Scripps Research, La Jolla, CA\n- Howard Hughes Medical Institute, Durham, NC\n- Howard Hughes Medical Institute, Chevy Chase, MD\n- University of Southern California, Los Angeles, CA\n- Bell Laboratories, Holmdel, NJ\n- Bell Laboratories, Murray Hill, NJ\n- University of North Carolina, Chapel Hill, NC\n- Cold Spring Harbor Laboratory, Cold Spring Harbor, NY\n- The Institute for Cancer Research, Philadelphia, PA\n- Harvard Medical School, Boston, MA\n- The Brookings Institution, Washington, D.C.\n- The Scripps Research Institute, La Jolla, CA\n- Rockefeller University, New York, NY\n- Stanford Linear Accelerator Center, Stanford, CA\n- Washington University, St. Louis, MO\n- University of Colorado, JILA, Boulder, CO\n- Johns Hopkins University School of Medicine, Baltimore, MD\n- University of Chicago, Ben May Laboratory for Cancer Research, Chicago, IL\n- Du Pont, Wilmington, DE\n- Institute for Advanced Study, Princeton, NJ\n- National Institutes of Health, Bethesda, MD\n- Bell Telephone Laboratories, New York, NY\n- Bell Telephone Laboratories, Murray Hill, NJ\n- University of Massachusetts Medical School, Worcester, MA\n- Northwestern University, Evanston, IL\n- University of California, Kavli Institute for Theoretical Physics, Santa Barbara, CA\n- University of Washington, Seattle, WA\n- National Institute of Standards and Technology, Boulder, CO\n- National Institute of Standards and Technology, Gaithersburg, MD\n- University of Colorado, Boulder, CO\n- Cornell University, Ithaca, NY\n- Columbia University, New York, NY\n- Fred Hutchinson Cancer Research Center, Seattle, WA\n- Vanderbilt University, Nashville, TN\n- Saint Louis University, St. Louis, MO\n- Mayo Clinic, Rochester, MN\n- Arizona State University, Tempe, AZ\n- Federal Reserve Bank of Minneapolis, Minneapolis, MN\n- Purdue University, West Lafayette, IN\n- Indiana University, Bloomington, IN\n- Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA\n- University of Texas Medical School at Houston, Houston, TX\n- Carnegie Mellon University, Pittsburgh, PA\n- Western Reserve University, Cleveland, OH\n- Massachusetts General Hospital, Boston, MA\n- Jackson Laboratory, Bar Harbor, ME\n- Yale University, School of Medicine, New Haven, CT\n- Wellcome Research Laboratories, Research Triangle Park, NC\n- University of Rochester, Rochester, NY\n- University of Missouri, Columbia\n- University of Michigan, Ann Arbor, MI\n- University of Wisconsin, Madison, WI\n- University of California School of Medicine, San Francisco, CA\n- University of California School of Medicine, Los Angeles, CA\n- City University of New York, New York, NY\n- The Medical Foundation of Buffalo, Buffalo, NY\n- University of Texas, Austin, TX\n- General Electric Company, Schenectady, NY\n- Brown University, Providence, RI\n- Texas Instruments, Dallas, TX\n- Yale University, New Haven, CT\n- Center for Study of Public Choice, Fairfax, VA\n- Parker Institute for Cancer Immunotherapy, San Francisco, CA\n- University of Texas MD Anderson Cancer Center, Houston, TX\n- University of Maine, Maine, ME\n- US Naval Research Laboratory, Washington, D.C.\n- Virginia Commonwealth University, Richmond, VA\n- NASA Goddard Space Flight Center, Greenbelt, MD\n- J.F. Clauser & Assoc., Walnut Creek, CA\n- Research Division of Infectious Diseases, Children's Medical Center, Boston, MA\n- Brigham and Women's Hospital, Boston, MA\n- IBM Thomas J. Watson Research Center, Yorktown Heights, NY\n- Fermi National Accelerator Laboratory, Batavia, IL\n- University of Minnesota, Minneapolis, MN\n- Binghamton University, State University of New York, New York, NY\n- University of Utah, Salt Lake City, UT\n- National Institute of Environmental Health Sciences, Research Triangle Park, NC\n- Laboratories of the Division of Medicine and Public Health, Rockefeller Foundation, New York, NY\n- Digital Pathways, Inc., Mountain View, CA\n- Brandeis University, Waltham, MA\n- Long Term Capital Management, Greenwich, CT\n- Marine Biological Laboratory (MBL), Woods Hole, MA\n- Boston University Medical School, Massachusetts, MA\n- Carnegie Institute of Technology, Pittsburgh, PA\n- NYU Stern School of Business, New York, NY\n- Duke University School of Medicine, Durham, NC\n- St. Jude Children's Research Hospital, Memphis, TN\n- Massachusetts Institute of Technology (MIT), Center for Cancer Research, Cambridge, MA\n- Associated Universities Inc., Washington, D.C.\n- Rice University, Houston, TX\n- New England Biolabs, Beverly, MA\n- New York University, New York, NY\n- SUNY Health Science Center, Brooklyn, NY\n- Duke University Medical Center, Durham, NC\n- The Salk Institute, San Diego, CA\n- Lawrence Berkeley National Laboratory, Berkeley, CA\n- Rutgers University, New Brunswick, NJ\n- New York University, College of Medicine, New York, NY\n- Harvard University, Lyman Laboratory, Cambridge, MA\n- Gladstone Institutes, San Francisco, CA\n- Vanderbilt University School of Medicine, Nashville, TN\n- The Molecular Sciences Institute, Berkeley, CA\n- University of Maryland, Department of Economics and School of Public Policy, College Park, MD\n- George Mason University, Fairfax, VA\n- Harvard University, Biological Laboratories, Cambridge, MA\n- Semiconductor Laboratory of Beckman Instruments, Inc., Mountain View, CA\n- Drew University, Madison, NJ\n- Dana-Farber Cancer Institute, Boston, MA\n- Peter Brent Brigham Hospital, Boston, MA\n- Enrico Fermi Institute, University of Chicago, Chicago, IL",
+      "cypher": "MATCH (i:Institution)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'usa' RETURN i.name AS institution, ci.name AS city",
       "stats": {
-        "total": 0
+        "total": 8.54,
+        "text2cypher": 2.94,
+        "db_exec": 0.01,
+        "answer_gen": 5.59
       },
       "context": [
         {
@@ -890,10 +837,13 @@
     },
     {
       "question": "Which scholars won Nobel Prizes in Physics after 1990?",
-      "answer": "Pierre-Gilles de Gennes won the Nobel Prize in Physics in 1991, Georges Charpak in 1992, Joseph H. Taylor Jr. and Russell A. Hulse in 1993, Bertram N. Brockhouse and Clifford G. Shull in 1994, Frederick Reines and Martin L. Perl in 1995, David M. Lee, Robert C. Richardson, and Douglas D. Osheroff in 1996, Claude Cohen-Tannoudji, Steven Chu, and William D. Phillips in 1997, Daniel C. Tsui, Robert B. Laughlin, and Horst L. St\u00f6rmer in 1998, Martinus J.G. Veltman and Gerardus 't Hooft in 1999, Jack Kilby, Zhores Alferov, George A. Akerlof, Herbert Kroemer, A. Michael Spence, and Joseph E. Stiglitz in 2000, Carl Wieman, Wolfgang Ketterle, and Eric Cornell in 2001, Masatoshi Koshiba and Raymond Davis Jr. in 2002, Riccardo Giacconi in 2002, Anthony J. Leggett in 2003, Vitaly L. Ginzburg, Alexei Abrikosov, and David J. Gross in 2003, H. David Politzer, Frank Wilczek, and David J. Gross in 2004, John L. Hall and Theodor W. H\u00e4nsch in 2005, Roy J. Glauber in 2005, George F. Smoot and John C. Mather in 2006, Albert Fert and Peter Gr\u00fcnberg in 2007, Makoto Kobayashi, Toshihide Maskawa, and Yoichiro Nambu in 2008, Charles K. Kao, Willard S. Boyle, and George E. Smith in 2009, Andre Geim and Konstantin Novoselov in 2010, Adam G. Riess, Saul Perlmutter, and Brian P. Schmidt in 2011, Serge Haroche and David J. Wineland in 2012, Peter Higgs and Fran\u00e7oise Englert in 2013, Hiroshi Amano, Isamu Akasaki, and Shuji Nakamura in 2014, Arthur B. McDonald and Takaaki Kajita in 2015, David J. Thouless, F. Duncan M. Haldane, and J. Michael Kosterlitz in 2016, Barry C. Barish, Rainer Weiss, and Kip S. Thorne in 2017, G\u00e9rard Mourou, Arthur Ashkin, and Donna Strickland in 2018, James Peebles in 2019, Michel Mayor and Didier Queloz in 2019, Andrea Ghez in 2020, Roger Penrose in 2020, Reinhard Genzel in 2020, Klaus Hasselmann in 2021, Giorgio Parisi in 2021, Syukuro Manabe in 2021, Anton Zeilinger, Alain Aspect, and John Clauser in 2022.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear > 1990\nRETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear",
+      "answer": "The scholars who won Nobel Prizes in Physics after 1990 are:\n\n- Pierre-Gilles de Gennes (1991)\n- Georges Charpak (1992)\n- Joseph H. Taylor Jr. (1993)\n- Russell A. Hulse (1993)\n- Bertram N. Brockhouse (1994)\n- Clifford G. Shull (1994)\n- Frederick Reines (1995)\n- Martin L. Perl (1995)\n- David M. Lee (1996)\n- Robert C. Richardson (1996)\n- Douglas D. Osheroff (1996)\n- Claude Cohen-Tannoudji (1997)\n- Steven Chu (1997)\n- William D. Phillips (1997)\n- Daniel C. Tsui (1998)\n- Robert B. Laughlin (1998)\n- Horst L. St\u00f6rmer (1998)\n- Martinus J.G. Veltman (1999)\n- Gerardus 't Hooft (1999)\n- Jack Kilby (2000)\n- Zhores Alferov (2000)\n- George A. Akerlof (2000)\n- Herbert Kroemer (2000)\n- A. Michael Spence (2000)\n- Joseph E. Stiglitz (2000)\n- Carl Wieman (2001)\n- Wolfgang Ketterle (2001)\n- Eric Cornell (2001)\n- Masatoshi Koshiba (2002)\n- Raymond Davis Jr. (2002)\n- Riccardo Giacconi (2002)\n- Anthony J. Leggett (2003)\n- Vitaly L. Ginzburg (2003)\n- Alexei Abrikosov (2003)\n- David J. Gross (2004)\n- H. David Politzer (2004)\n- Frank Wilczek (2004)\n- John L. Hall (2005)\n- Theodor W. H\u00e4nsch (2005)\n- Roy J. Glauber (2005)\n- George F. Smoot (2006)\n- John C. Mather (2006)\n- Albert Fert (2007)\n- Peter Gr\u00fcnberg (2007)\n- Makoto Kobayashi (2008)\n- Toshihide Maskawa (2008)\n- Yoichiro Nambu (2008)\n- Charles K. Kao (2009)\n- Willard S. Boyle (2009)\n- George E. Smith (2009)\n- Andre Geim (2010)\n- Konstantin Novoselov (2010)\n- Adam G. Riess (2011)\n- Saul Perlmutter (2011)\n- Brian P. Schmidt (2011)\n- Serge Haroche (2012)\n- David J. Wineland (2012)\n- Peter Higgs (2013)\n- Fran\u00e7ois Englert (2013)\n- Hiroshi Amano (2014)\n- Isamu Akasaki (2014)\n- Shuji Nakamura (2014)\n- Arthur B. McDonald (2015)\n- Takaaki Kajita (2015)\n- David J. Thouless (2016)\n- F. Duncan M. Haldane (2016)\n- J. Michael Kosterlitz (2016)\n- Barry C. Barish (2017)\n- Rainer Weiss (2017)\n- Kip S. Thorne (2017)\n- G\u00e9rard Mourou (2018)\n- Arthur Ashkin (2018)\n- Donna Strickland (2018)\n- James Peebles (2019)\n- Michel Mayor (2019)\n- Didier Queloz (2019)\n- Andrea Ghez (2020)\n- Roger Penrose (2020)\n- Reinhard Genzel (2020)\n- Klaus Hasselmann (2021)\n- Giorgio Parisi (2021)\n- Syukuro Manabe (2021)\n- Anton Zeilinger (2022)\n- Alain Aspect (2022)\n- John Clauser (2022)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear > 1990\nRETURN s.knownName AS scholar, p.awardYear AS award_year\nORDER BY p.awardYear",
       "stats": {
-        "total": 0
+        "total": 31.08,
+        "text2cypher": 4.91,
+        "db_exec": 0.0,
+        "answer_gen": 26.16
       },
       "context": [
         {
@@ -1240,30 +1190,18 @@
     },
     {
       "question": "Which scholars affiliated with an institution in Germany died between the years 1935 and 1945?",
-      "answer": "The scholars affiliated with an institution in Germany who died between 1935 and 1945 are:\n\n1. Carl Bosch, who died on 1940-04-26 at I.G. Farbenindustrie A.G. and University of Heidelberg.\n2. Hans Fischer, who died on 1945-03-31 at Technische Hochschule (Institute of Technology).\n3. Richard Willst\u00e4tter, who died on 1942-08-03 at Friedrich-Wilhelms-Universit\u00e4t and Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie.\n4. Walther Nernst, who died on 1941-11-18 at Berlin University.\n5. Hans Spemann, who died on 1941-09-12 at University of Freiburg im Breisgau.\n6. Richard Willst\u00e4tter (repeated), who died on 1942-08-03 at Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie.",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) = 'germany' AND s.deathDate >= '1935-01-01' AND s.deathDate <= '1945-12-31'\nRETURN DISTINCT s.knownName AS ScholarName, i.name AS InstitutionName, s.deathDate AS DeathDate",
+      "answer": "The scholars affiliated with an institution in Germany who died between the years 1935 and 1945 are:\n\n- Richard Willst\u00e4tter (Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie, Friedrich-Wilhelms-Universit\u00e4t; died 1942)\n- Walther Nernst (Berlin University; died 1941)\n- Hans Spemann (University of Freiburg im Breisgau; died 1941)\n- Carl Bosch (I.G. Farbenindustrie A.G., University of Heidelberg; died 1940)\n- Hans Fischer (Technische Hochschule (Institute of Technology); died 1945)",
+      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'germany' AND s.deathDate >= '1935-01-01' AND s.deathDate <= '1945-12-31'\nRETURN DISTINCT s.knownName AS ScholarName, i.name AS InstitutionName, s.deathDate AS DeathDate",
       "stats": {
-        "total": 0
+        "total": 11.42,
+        "text2cypher": 6.14,
+        "db_exec": 0.01,
+        "answer_gen": 5.27
       },
       "context": [
         {
-          "ScholarName": "Carl Bosch",
-          "InstitutionName": "I.G. Farbenindustrie A.G.",
-          "DeathDate": "1940-04-26"
-        },
-        {
-          "ScholarName": "Carl Bosch",
-          "InstitutionName": "University of Heidelberg",
-          "DeathDate": "1940-04-26"
-        },
-        {
-          "ScholarName": "Hans Fischer",
-          "InstitutionName": "Technische Hochschule (Institute of Technology)",
-          "DeathDate": "1945-03-31"
-        },
-        {
           "ScholarName": "Richard Willst\u00e4tter",
-          "InstitutionName": "Friedrich-Wilhelms-Universit\u00e4t",
+          "InstitutionName": "Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie",
           "DeathDate": "1942-08-03"
         },
         {
@@ -1277,47 +1215,70 @@
           "DeathDate": "1941-09-12"
         },
         {
+          "ScholarName": "Carl Bosch",
+          "InstitutionName": "I.G. Farbenindustrie A.G.",
+          "DeathDate": "1940-04-26"
+        },
+        {
           "ScholarName": "Richard Willst\u00e4tter",
-          "InstitutionName": "Kaiser-Wilhelm-Institut (now Max-Planck Institut) f\u00fcr Chemie",
+          "InstitutionName": "Friedrich-Wilhelms-Universit\u00e4t",
           "DeathDate": "1942-08-03"
+        },
+        {
+          "ScholarName": "Hans Fischer",
+          "InstitutionName": "Technische Hochschule (Institute of Technology)",
+          "DeathDate": "1945-03-31"
+        },
+        {
+          "ScholarName": "Carl Bosch",
+          "InstitutionName": "University of Heidelberg",
+          "DeathDate": "1940-04-26"
         }
       ]
     },
     {
       "question": "Which scholars won the Nobel Prize in Physics in 1933?",
-      "answer": "The scholars who won the Nobel Prize in Physics in 1933 are Paul A.M. Dirac and Erwin Schr\u00f6dinger.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1933\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "answer": "Paul Dirac and Erwin Schr\u00f6dinger won the Nobel Prize in Physics in 1933.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 1933\nRETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year",
       "stats": {
-        "total": 0
+        "total": 5.79,
+        "text2cypher": 5.29,
+        "db_exec": 0.0,
+        "answer_gen": 0.5
       },
       "context": [
         {
-          "scholar": "Paul A.M. Dirac",
+          "winner": "Paul A.M. Dirac",
+          "category": "physics",
           "award_year": 1933
         },
         {
-          "scholar": "Erwin Schr\u00f6dinger",
+          "winner": "Erwin Schr\u00f6dinger",
+          "category": "physics",
           "award_year": 1933
         }
       ]
     },
     {
       "question": "Who are the female laureates in Physics?",
-      "answer": "The female laureates in Physics are Maria Goeppert Mayer, Donna Strickland, Andrea Ghez, and Marie Curie.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND toLower(s.gender) = 'female'\nRETURN s.knownName AS laureate, p.category AS category, p.awardYear AS award_year",
+      "answer": "The female laureates in Physics are:\n- Donna Strickland (2018)\n- Maria Goeppert Mayer (1963)\n- Andrea Ghez (2020)\n- Marie Curie (1903)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND toLower(p.category) = 'physics'\nRETURN s.knownName AS laureate, p.category AS category, p.awardYear AS award_year",
       "stats": {
-        "total": 0
+        "total": 5.4,
+        "text2cypher": 2.43,
+        "db_exec": 0.0,
+        "answer_gen": 2.96
       },
       "context": [
-        {
-          "laureate": "Maria Goeppert Mayer",
-          "category": "physics",
-          "award_year": 1963
-        },
         {
           "laureate": "Donna Strickland",
           "category": "physics",
           "award_year": 2018
+        },
+        {
+          "laureate": "Maria Goeppert Mayer",
+          "category": "physics",
+          "award_year": 1963
         },
         {
           "laureate": "Andrea Ghez",
@@ -1333,20 +1294,28 @@
     },
     {
       "question": "Which scholars born in France won a Nobel Prize in Chemistry?",
-      "answer": "The scholars born in France who won a Nobel Prize in Chemistry are Fr\u00e9d\u00e9ric Joliot in 1935, Henri Moissan in 1906, Ir\u00e8ne Joliot-Curie in 1935, Jean-Pierre Sauvage in 2016, and Luis Leloir in 1970.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'chemistry' AND p.awardYear IS NOT NULL\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'france'\nRETURN s.knownName, p.awardYear, co.name AS BirthCountry",
+      "answer": "The scholars born in France who won a Nobel Prize in Chemistry are:\n\n- Jean-Pierre Sauvage (Awarded in 2016)\n- Fr\u00e9d\u00e9ric Joliot (Awarded in 1935)\n- Ir\u00e8ne Joliot-Curie (Awarded in 1935)\n- Henri Moissan (Awarded in 1906)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'chemistry'\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'france'\nRETURN DISTINCT s.knownName, p.awardYear, co.name AS BirthCountry",
       "stats": {
-        "total": 0
+        "total": 7.47,
+        "text2cypher": 5.16,
+        "db_exec": 0.01,
+        "answer_gen": 2.3
       },
       "context": [
+        {
+          "s.knownName": "Jean-Pierre Sauvage",
+          "p.awardYear": 2016,
+          "BirthCountry": "France"
+        },
         {
           "s.knownName": "Fr\u00e9d\u00e9ric Joliot",
           "p.awardYear": 1935,
           "BirthCountry": "France"
         },
         {
-          "s.knownName": "Henri Moissan",
-          "p.awardYear": 1906,
+          "s.knownName": "Luis Leloir",
+          "p.awardYear": 1970,
           "BirthCountry": "France"
         },
         {
@@ -1355,81 +1324,117 @@
           "BirthCountry": "France"
         },
         {
-          "s.knownName": "Jean-Pierre Sauvage",
-          "p.awardYear": 2016,
-          "BirthCountry": "France"
-        },
-        {
-          "s.knownName": "Luis Leloir",
-          "p.awardYear": 1970,
+          "s.knownName": "Henri Moissan",
+          "p.awardYear": 1906,
           "BirthCountry": "France"
         }
       ]
     },
     {
       "question": "Which Physics laureates were affiliated with an institution in Denmark?",
-      "answer": "The Physics laureates affiliated with an institution in Denmark are Ben R. Mottelson, Niels Bohr, and Aage N. Bohr.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(d:Country)\nWHERE toLower(d.name) = 'denmark'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS InstitutionName",
+      "answer": "The Physics laureates affiliated with an institution in Denmark are:\n\n- Niels Bohr, awarded in 1922, affiliated with Copenhagen University.\n- Ben R. Mottelson, awarded in 1975, affiliated with Nordita.\n- Aage N. Bohr, awarded in 1975, affiliated with the Niels Bohr Institute.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'denmark'\nRETURN DISTINCT s.knownName, p.awardYear, i.name as Institution",
       "stats": {
-        "total": 0
+        "total": 7.98,
+        "text2cypher": 5.2,
+        "db_exec": 0.01,
+        "answer_gen": 2.77
       },
       "context": [
         {
-          "s.knownName": "Ben R. Mottelson",
-          "p.awardYear": 1975,
-          "InstitutionName": "Nordita"
-        },
-        {
           "s.knownName": "Niels Bohr",
           "p.awardYear": 1922,
-          "InstitutionName": "Copenhagen University"
+          "Institution": "Copenhagen University"
+        },
+        {
+          "s.knownName": "Ben R. Mottelson",
+          "p.awardYear": 1975,
+          "Institution": "Nordita"
         },
         {
           "s.knownName": "Aage N. Bohr",
           "p.awardYear": 1975,
-          "InstitutionName": "Niels Bohr Institute"
+          "Institution": "Niels Bohr Institute"
         }
       ]
     },
     {
       "question": "Which scholars affiliated with Stanford University won a prize in 1996?",
-      "answer": "No information found in the database.",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON {portion: '*' }]->(p:Prize)\nWHERE toLower(i.name) CONTAINS 'stanford' AND p.awardYear = 1996\nRETURN DISTINCT s.knownName AS scholar, p.category AS prize_category, i.name AS institution",
+      "answer": "Douglas D. Osheroff, affiliated with Stanford University, won the Nobel Prize in Physics in 1996.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE p.awardYear = 1996 MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'stanford' RETURN DISTINCT s.knownName, p.category, i.name AS Institution",
       "stats": {
-        "total": 0
+        "total": 10.72,
+        "text2cypher": 8.04,
+        "db_exec": 0.01,
+        "answer_gen": 2.67
       },
-      "context": []
+      "context": [
+        {
+          "s.knownName": "Douglas D. Osheroff",
+          "p.category": "physics",
+          "Institution": "Stanford University"
+        }
+      ]
     },
     {
       "question": "Which scholars won the Nobel Prize in Economics in 2019?",
       "answer": "The scholars who won the Nobel Prize in Economics in 2019 are Esther Duflo, Abhijit Banerjee, and Michael Kremer.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics' AND p.awardYear = 2019\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics' AND p.awardYear = 2019\nRETURN s.knownName AS scholar, p.category AS category, p.awardYear AS award_year\nORDER BY p.awardYear",
       "stats": {
-        "total": 0
+        "total": 10.22,
+        "text2cypher": 6.55,
+        "db_exec": 0.01,
+        "answer_gen": 3.65
       },
       "context": [
         {
           "scholar": "Esther Duflo",
+          "category": "economics",
           "award_year": 2019
         },
         {
           "scholar": "Abhijit Banerjee",
+          "category": "economics",
           "award_year": 2019
         },
         {
           "scholar": "Michael Kremer",
+          "category": "economics",
           "award_year": 2019
         }
       ]
     },
     {
       "question": "Which scholars affiliated with Harvard University won the Medicine prize?",
-      "answer": "The scholars affiliated with Harvard University who won the Medicine prize are George R. Minot, William P. Murphy, Konrad Bloch, George Wald, and James Watson.",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), (s)-[:WON]->(p:Prize)\nWHERE toLower(i.name) CONTAINS 'harvard' AND toLower(p.category) CONTAINS 'medicine'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
+      "answer": "Scholars affiliated with Harvard University who won the Medicine prize are:\n- William P. Murphy (1934)\n- Baruj Benacerraf (1980)\n- Torsten N. Wiesel (1981)\n- Georg von B\u00e9k\u00e9sy (1961)\n- George R. Minot (1934)\n- Konrad Bloch (1964)\n- Fritz Lipmann (1953)\n- John F. Enders (1954)\n- Jack W. Szostak (2009)\n- George Wald (1967)\n- David H. Hubel (1981)\n- William G. Kaelin Jr (2019)\n- James Watson (1962)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'medicine' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'harvard' RETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
       "stats": {
-        "total": 0
+        "total": 16.33,
+        "text2cypher": 6.09,
+        "db_exec": 0.01,
+        "answer_gen": 10.23
       },
       "context": [
+        {
+          "s.knownName": "William P. Murphy",
+          "p.awardYear": 1934,
+          "Institution": "Harvard University"
+        },
+        {
+          "s.knownName": "Baruj Benacerraf",
+          "p.awardYear": 1980,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "Torsten N. Wiesel",
+          "p.awardYear": 1981,
+          "Institution": "Harvard Medical School"
+        },
+        {
+          "s.knownName": "Georg von B\u00e9k\u00e9sy",
+          "p.awardYear": 1961,
+          "Institution": "Harvard University"
+        },
         {
           "s.knownName": "George R. Minot",
           "p.awardYear": 1934,
@@ -1451,28 +1456,8 @@
           "Institution": "Harvard Medical School"
         },
         {
-          "s.knownName": "Georg von B\u00e9k\u00e9sy",
-          "p.awardYear": 1961,
-          "Institution": "Harvard University"
-        },
-        {
-          "s.knownName": "William P. Murphy",
-          "p.awardYear": 1934,
-          "Institution": "Harvard University"
-        },
-        {
           "s.knownName": "Jack W. Szostak",
           "p.awardYear": 2009,
-          "Institution": "Harvard Medical School"
-        },
-        {
-          "s.knownName": "Baruj Benacerraf",
-          "p.awardYear": 1980,
-          "Institution": "Harvard Medical School"
-        },
-        {
-          "s.knownName": "Torsten N. Wiesel",
-          "p.awardYear": 1981,
           "Institution": "Harvard Medical School"
         },
         {
@@ -1502,7 +1487,10 @@
       "answer": "The Nobel Prize in Physics in 2020 was won by Andrea Ghez, Roger Penrose, and Reinhard Genzel.",
       "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'physics' AND p.awardYear = 2020\nRETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year",
       "stats": {
-        "total": 0
+        "total": 6.62,
+        "text2cypher": 4.8,
+        "db_exec": 0.0,
+        "answer_gen": 1.82
       },
       "context": [
         {
@@ -1525,9 +1513,12 @@
     {
       "question": "Which scholars born in New York City won a Physics prize?",
       "answer": "The scholars born in New York City who won a Physics prize are:\n\n- Andrea Ghez (2020)\n- Arthur Ashkin (2018)\n- Carl D. Anderson (1936)\n- Frank Wilczek (2004)\n- H. David Politzer (2004)\n- Julian Schwinger (1965)\n- Leon M. Lederman (1988)\n- Leon N. Cooper (1972)\n- Martin L. Perl (1995)\n- Melvin Schwartz (1988)\n- Murray Gell-Mann (1969)\n- Richard P. Feynman (1965)\n- Robert Hofstadter (1961)\n- Roy J. Glauber (2005)\n- Russell A. Hulse (1993)\n- Sheldon Glashow (1979)\n- Steven Weinberg (1979)",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nMATCH (s)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'new york'\nRETURN s.knownName, p.awardYear, c.name AS BirthCity",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nMATCH (s)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'new york'\nRETURN s.knownName, p.awardYear, c.name as BirthCity",
       "stats": {
-        "total": 0
+        "total": 10.44,
+        "text2cypher": 3.97,
+        "db_exec": 0.0,
+        "answer_gen": 6.46
       },
       "context": [
         {
@@ -1619,88 +1610,83 @@
     },
     {
       "question": "Which female scholars won the Nobel Prize in Medicine?",
-      "answer": "The female scholars who won the Nobel Prize in Medicine are Carol W. Greider in 2009, Rosalyn Yalow in 1977, Tu Youyou in 2015, Barbara McClintock in 1983, May-Britt Moser in 2014, Gerty Cori in 1947, Rita Levi-Montalcini in 1986, Linda B. Buck in 2004, Fran\u00e7oise Barr\u00e9-Sinoussi in 2008, Gertrude B. Elion in 1988, Elizabeth H. Blackburn in 2009, and Christiane N\u00fcsslein-Volhard in 1995.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND toLower(p.category) = 'medicine'\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "answer": "The female scholars who won the Nobel Prize in Medicine are:\n\n- Carol W. Greider (2009)\n- Tu Youyou (2015)\n- Rosalyn Yalow (1977)\n- Barbara McClintock (1983)\n- May-Britt Moser (2014)\n- Gerty Cori (1947)\n- Rita Levi-Montalcini (1986)\n- Linda B. Buck (2004)\n- Fran\u00e7oise Barr\u00e9-Sinoussi (2008)\n- Gertrude B. Elion (1988)\n- Elizabeth H. Blackburn (2009)\n- Christiane N\u00fcsslein-Volhard (1995)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND toLower(p.category) = 'medicine'\nRETURN s.knownName, p.awardYear",
       "stats": {
-        "total": 0
+        "total": 12.89,
+        "text2cypher": 5.11,
+        "db_exec": 0.0,
+        "answer_gen": 7.78
       },
       "context": [
         {
-          "scholar": "Carol W. Greider",
-          "award_year": 2009
+          "s.knownName": "Carol W. Greider",
+          "p.awardYear": 2009
         },
         {
-          "scholar": "Rosalyn Yalow",
-          "award_year": 1977
+          "s.knownName": "Tu Youyou",
+          "p.awardYear": 2015
         },
         {
-          "scholar": "Tu Youyou",
-          "award_year": 2015
+          "s.knownName": "Rosalyn Yalow",
+          "p.awardYear": 1977
         },
         {
-          "scholar": "Barbara McClintock",
-          "award_year": 1983
+          "s.knownName": "Barbara McClintock",
+          "p.awardYear": 1983
         },
         {
-          "scholar": "May-Britt Moser",
-          "award_year": 2014
+          "s.knownName": "May-Britt Moser",
+          "p.awardYear": 2014
         },
         {
-          "scholar": "Gerty Cori",
-          "award_year": 1947
+          "s.knownName": "Gerty Cori",
+          "p.awardYear": 1947
         },
         {
-          "scholar": "Rita Levi-Montalcini",
-          "award_year": 1986
+          "s.knownName": "Rita Levi-Montalcini",
+          "p.awardYear": 1986
         },
         {
-          "scholar": "Linda B. Buck",
-          "award_year": 2004
+          "s.knownName": "Linda B. Buck",
+          "p.awardYear": 2004
         },
         {
-          "scholar": "Fran\u00e7oise Barr\u00e9-Sinoussi",
-          "award_year": 2008
+          "s.knownName": "Fran\u00e7oise Barr\u00e9-Sinoussi",
+          "p.awardYear": 2008
         },
         {
-          "scholar": "Gertrude B. Elion",
-          "award_year": 1988
+          "s.knownName": "Gertrude B. Elion",
+          "p.awardYear": 1988
         },
         {
-          "scholar": "Elizabeth H. Blackburn",
-          "award_year": 2009
+          "s.knownName": "Elizabeth H. Blackburn",
+          "p.awardYear": 2009
         },
         {
-          "scholar": "Christiane N\u00fcsslein-Volhard",
-          "award_year": 1995
+          "s.knownName": "Christiane N\u00fcsslein-Volhard",
+          "p.awardYear": 1995
         }
       ]
     },
     {
       "question": "Which scholars affiliated with an institution in France won the Economics prize?",
-      "answer": "The scholars affiliated with an institution in France who won the Economics prize are Jean Tirole and Maurice Allais. Jean Tirole won the prize in 2014 while affiliated with the Toulouse School of Economics (TSE), and Maurice Allais won the prize in 1988 while affiliated with \\u00c9cole Nationale Sup\\u00e9rieur des Mines de Paris.",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) \nMATCH (s)-[:WON]->(p:Prize)\nWHERE toLower(co.name) CONTAINS 'france' AND toLower(p.category) CONTAINS 'economics'\nRETURN DISTINCT s.knownName AS ScholarName, p.awardYear AS PrizeYear, i.name AS InstitutionName",
+      "answer": "No information found in the database.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)-[:AFFILIATED_WITH]->(i:Institution)-[:IS_LOCATED_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(p.category) CONTAINS 'economics' AND toLower(co.name) CONTAINS 'france'\nRETURN DISTINCT s.knownName AS ScholarName, i.name AS InstitutionName, p.awardYear",
       "stats": {
         "total": 0
       },
-      "context": [
-        {
-          "ScholarName": "Jean Tirole",
-          "PrizeYear": 2014,
-          "InstitutionName": "Toulouse School of Economics (TSE)"
-        },
-        {
-          "ScholarName": "Maurice Allais",
-          "PrizeYear": 1988,
-          "InstitutionName": "\u00c9cole Nationale Sup\u00e9rieur des Mines de Paris"
-        }
-      ]
+      "context": []
     },
     {
       "question": "Which scholars won a prize with a 1/3 share portion?",
-      "answer": "The scholars who won a prize with a 1/3 share portion include:\n\n- Andrew Huxley\n- Arieh Warshel\n- Ben R. Mottelson\n- Bernard L. Feringa\n- Daniel Nathans\n- Esther Duflo\n- Harvey J. Alter\n- Jack Steinberger\n- Max Delbr\u00fcck\n- Paul J. Crutzen\n- Pavel A. Cherenkov\n- Richard E. Taylor\n- Richard P. Feynman\n- Richard R. Schrock\n- Robert Huber\n- Sin-Itiro Tomonaga\n- Stefan W. Hell\n- Tim Hunt\n- Ulf von Euler\n- Werner Arber\n- William F. Sharpe\n- Yves Chauvin",
-      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize)\nWHERE toLower(r.portion) = '1/3'\nRETURN s.knownName",
+      "answer": "The scholars who won a prize with a 1/3 share portion are:\n\nAndrew Huxley, Arieh Warshel, Ben R. Mottelson, Bernard L. Feringa, Daniel Nathans, Esther Duflo, Harvey J. Alter, Jack Steinberger, Max Delbr\u00fcck, Paul J. Crutzen, Pavel A. Cherenkov, Richard E. Taylor, Richard P. Feynman, Richard R. Schrock, Robert Huber, Sin-Itiro Tomonaga, Stefan W. Hell, Tim Hunt, Ulf von Euler, Werner Arber, William F. Sharpe, Yves Chauvin, Alfred D. Hershey, Arvid Carlsson, David J. Gross, David M. Lee, Dickinson W. Richards, Eric F. Wieschaus, Fran\u00e7ois Jacob, George H. Whipple, George R. Minot, H. David Politzer, H. Gobind Khorana, Hiroshi Amano, Jean-Pierre Sauvage, John C. Harsanyi, Louis J. Ignarro, Michael W. Young, Paul Greengard, Philip Dybvig, Renato Dulbecco, Sir Alexander Fleming, Sydney Brenner, Thomas A. Steitz, Thomas H. Weller, Abhijit Banerjee, Akira Yoshino, Anton Zeilinger, Charles M. Rice, Christopher A. Pissarides, Daniel C. Tsui, Douglas Diamond, Eric Betzig, Eric Kandel, George E. Palade, Jean-Marie Lehn, Johann Deisenhofer, John F. Nash Jr., Julian Schwinger, Lars Peter Hansen, Leon N. Cooper, M. Stanley Whittingham, Mario J. Molina, Michael Houghton, Niels K. Jerne, Nikolaas Tinbergen, Osamu Shimomura, Philip S. Hench, Philip W. Anderson, Richard E. Smalley, Robert C. Richardson, Robert Schrieffer, Roger Y. Tsien, Sir Bernard Katz, Sune K. Bergstr\u00f6m, Aage N. Bohr, Alain Aspect, Andr\u00e9 F. Cournand, Aziz Sancar, Bengt I. Samuelsson, Carl Wieman, Carolyn Bertozzi, Dudley R. Herschbach, Ernst B. Chain, Ferid Murad, George A. Akerlof, Isamu Akasaki, Jacques Dubochet, Jacques Monod, James Watson, Jeffrey C. Hall, John C. Polanyi, John Clauser, John R. Vane, K. Barry Sharpless, Leonid Hurwicz, Martin Karplus, Maurice Wilkins, Michael Kremer, Michael Levitt, Ragnar Granit, Robert B. Laughlin, Robert J. Shiller, Sir Harold Kroto, Sir John Eccles, Walter H. Brattain, Werner Forssmann, William E. Moerner, Wolfgang Ketterle, Aaron Ciechanover, Anthony J. Leggett, Ben Bernanke, Claude Cohen-Tannoudji, Douglas D. Osheroff, Eric Cornell, Frederick C. Robbins, Hartmut Michel, Henry W. Kendall, Hideki Shirakawa, Howard M. Temin, James Rainwater, Keffer Hartline, Leon M. Lederman, Marshall W. Nirenberg, Merton H. Miller, Randy W. Schekman, Richard Henderson, Robert F. Furchgott, Robert W. Holley, Sheldon Glashow, Tadeus Reichstein, William B. Shockley, William G. Kaelin Jr, John Bardeen, John Bardeen, Abdus Salam, Ada E. Yonath, Albert Claude, Andr\u00e9 Lwoff, Baruj Benacerraf, C\u00e9sar Milstein, Christian de Duve, Ei-ichi Negishi, Francis Crick, Frank Wilczek, George H. Hitchings, George Wald, Georges J.F. K\u00f6hler, H. Robert Horvitz, Il\u2019ja M. Frank, Jack W. Szostak, John B. Goodenough, Leland Hartwell, Melvin Schwartz, Oliver Smithies, Reinhard Selten, Richard F. Heck, Robert F. Curl Jr., Robert H. Grubbs, Roger B. Myerson, Salvador E. Luria, Sir Paul Nurse, Tomas Lindahl, A. Michael Spence, Alan Hodgkin, Alan MacDiarmid, Carol W. Greider, Charles J. Pedersen, David Baltimore, Gertrude B. Elion, Hamilton O. Smith, Irwin Rose, James E. Rothman, Michael Rosbash, Sir Nevill F. Mott, Sir Peter J. Ratcliffe, Venkatraman Ramakrishnan, Vitaly L. Ginzburg, Alan Heeger, Eugene F. Fama, F. Sherwood Rowland, Horst L. St\u00f6rmer, Igor Y. Tamm, Jerome I. Friedman, John E. Sulston, Peter A. Diamond, Steven Chu, William P. Murphy, Akira Suzuki, Dale T. Mortensen, Edward B. Lewis, Edward C. Kendall, Elizabeth H. Blackburn, George D. Snell, Jean Dausset, Joachim Frank, John H. Van Vleck, Julius Axelrod, Konrad Lorenz, Mario R. Capecchi, Martin Chalfie, Morten Meldal, Paul Modrich, Sir James W. Black, Sir Martin J. Evans, Thomas C. S\u00fcdhof, Alexei Abrikosov, Avram Hershko, Christiane N\u00fcsslein-Volhard, Donald J. Cram, Eric S. Maskin, Gregg L. Semenza, Harry M. Markowitz, John F. Enders, Joseph E. Stiglitz, Karl von Frisch, Shuji Nakamura, Sir Howard Florey, Sir J. Fraser Stoddart, Steven Weinberg, William D. Phillips, Yuan T. Lee.",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(r.portion) = '1/3' RETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 56.28,
+        "text2cypher": 2.59,
+        "db_exec": 0.0,
+        "answer_gen": 53.68
       },
       "context": [
         {
@@ -2373,71 +2359,83 @@
     },
     {
       "question": "Which institutions in Japan have been affiliated with Physics laureates?",
-      "answer": "The institutions in Japan that have been affiliated with Physics laureates are Meijo University, Kyoto Sangyo University, University of Tokyo, Nagoya University, High Energy Accelerator Research Organization (KEK), Yukawa Institute for Theoretical Physics (YITP), Kyoto University, and Tokyo University of Education.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) CONTAINS 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)\nMATCH (i)-[:IS_LOCATED_IN]->(ci:City)\nMATCH (ci)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'japan'\nRETURN DISTINCT i.name AS institution",
+      "answer": "The institutions in Japan that have been affiliated with Physics laureates are: Tokyo University of Education, Kyoto Sangyo University, Meijo University, University of Tokyo, Nagoya University, High Energy Accelerator Research Organization (KEK), Yukawa Institute for Theoretical Physics (YITP), Kyoto University.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'physics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)\nMATCH (i)-[:IS_LOCATED_IN]->(ci:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'japan'\nRETURN DISTINCT i.name",
       "stats": {
-        "total": 0
+        "total": 8.2,
+        "text2cypher": 5.2,
+        "db_exec": 0.01,
+        "answer_gen": 2.99
       },
       "context": [
         {
-          "institution": "Meijo University"
+          "i.name": "Tokyo University of Education"
         },
         {
-          "institution": "Kyoto Sangyo University"
+          "i.name": "Kyoto Sangyo University"
         },
         {
-          "institution": "University of Tokyo"
+          "i.name": "Meijo University"
         },
         {
-          "institution": "Nagoya University"
+          "i.name": "University of Tokyo"
         },
         {
-          "institution": "High Energy Accelerator Research Organization (KEK)"
+          "i.name": "Nagoya University"
         },
         {
-          "institution": "Yukawa Institute for Theoretical Physics (YITP), Kyoto University"
+          "i.name": "High Energy Accelerator Research Organization (KEK)"
         },
         {
-          "institution": "Tokyo University of Education"
+          "i.name": "Yukawa Institute for Theoretical Physics (YITP), Kyoto University"
         },
         {
-          "institution": "Kyoto University"
+          "i.name": "Kyoto University"
         }
       ]
     },
     {
       "question": "Who won the Nobel Prize in Chemistry in 2022?",
-      "answer": "The Nobel Prize in Chemistry in 2022 was won by Carolyn Bertozzi, K. Barry Sharpless, and Morten Meldal.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2022\nRETURN s.knownName AS winner, p.awardYear AS award_year",
+      "answer": "Carolyn Bertozzi, K. Barry Sharpless, and Morten Meldal won the Nobel Prize in Chemistry in 2022.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2022\nRETURN s.knownName AS winner, p.category AS category, p.awardYear AS award_year",
       "stats": {
-        "total": 0
+        "total": 9.51,
+        "text2cypher": 7.36,
+        "db_exec": 0.0,
+        "answer_gen": 2.14
       },
       "context": [
         {
           "winner": "Carolyn Bertozzi",
+          "category": "chemistry",
           "award_year": 2022
         },
         {
           "winner": "K. Barry Sharpless",
+          "category": "chemistry",
           "award_year": 2022
         },
         {
           "winner": "Morten Meldal",
+          "category": "chemistry",
           "award_year": 2022
         }
       ]
     },
     {
       "question": "Which scholars affiliated with Columbia University won the Economics prize?",
-      "answer": "The scholars affiliated with Columbia University who won the Economics prize are Robert Mundell in 1999, Edmund S. Phelps in 2006, and William Vickrey in 1996.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) CONTAINS 'economics'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution) \nWHERE toLower(i.name) CONTAINS 'columbia'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
+      "answer": "Scholars affiliated with Columbia University who won the Economics prize are:\n- William Vickrey (1996)\n- Edmund S. Phelps (2006)\n- Robert Mundell (1999)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'economics' MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'columbia' RETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
       "stats": {
-        "total": 0
+        "total": 8.72,
+        "text2cypher": 7.33,
+        "db_exec": 0.0,
+        "answer_gen": 1.38
       },
       "context": [
         {
-          "s.knownName": "Robert Mundell",
-          "p.awardYear": 1999,
+          "s.knownName": "William Vickrey",
+          "p.awardYear": 1996,
           "Institution": "Columbia University"
         },
         {
@@ -2446,18 +2444,21 @@
           "Institution": "Columbia University"
         },
         {
-          "s.knownName": "William Vickrey",
-          "p.awardYear": 1996,
+          "s.knownName": "Robert Mundell",
+          "p.awardYear": 1999,
           "Institution": "Columbia University"
         }
       ]
     },
     {
       "question": "Which scholars affiliated with Yale University won a prize in Chemistry?",
-      "answer": "The scholars affiliated with Yale University who won a prize in Chemistry are Lars Onsager, who received the award in 1968, Sidney Altman, who received it in 1989, and Thomas A. Steitz, who received it in 2009.",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'yale'\nMATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'chemistry'\nRETURN s.knownName, p.awardYear, i.name AS Institution",
+      "answer": "Three scholars affiliated with Yale University have won a prize in Chemistry. They are:\n\n- Lars Onsager, who won the prize in 1968,\n- Thomas A. Steitz, who won the prize in 2009,\n- Sidney Altman, who won the prize in 1989.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) CONTAINS 'chemistry'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'yale'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
       "stats": {
-        "total": 0
+        "total": 7.44,
+        "text2cypher": 6.63,
+        "db_exec": 0.01,
+        "answer_gen": 0.79
       },
       "context": [
         {
@@ -2466,142 +2467,100 @@
           "Institution": "Yale University"
         },
         {
-          "s.knownName": "Sidney Altman",
-          "p.awardYear": 1989,
+          "s.knownName": "Thomas A. Steitz",
+          "p.awardYear": 2009,
           "Institution": "Yale University"
         },
         {
-          "s.knownName": "Thomas A. Steitz",
-          "p.awardYear": 2009,
+          "s.knownName": "Sidney Altman",
+          "p.awardYear": 1989,
           "Institution": "Yale University"
         }
       ]
     },
     {
       "question": "Who are the scholars affiliated with the University of Chicago who won the Economics prize?",
-      "answer": "The scholars affiliated with the University of Chicago who won the Economics prize are:\n\nDouglas Diamond (2022), Eugene F. Fama (2013), Gary Becker (1992), George J. Stigler (1982), James J. Heckman (2000), Lars Peter Hansen (2013), Merton H. Miller (1990), Milton Friedman (1976), Richard H. Thaler (2017), Robert E. Lucas Jr. (1995), Robert W. Fogel (1993), Roger B. Myerson (2007), Ronald H. Coase (1991), and Theodore W. Schultz (1979).",
-      "cypher": "MATCH (scholar:Scholar)-[:AFFILIATED_WITH]->(inst:Institution) WHERE toLower(inst.name) CONTAINS 'university of chicago'\nMATCH (scholar)-[:WON]->(prize:Prize) WHERE toLower(prize.category) CONTAINS 'economics'\nRETURN scholar.knownName AS scholar, prize.awardYear AS award_year, inst.name AS institution",
+      "answer": "Error executing graph query.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'economics'\nWITH s, p\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution)\nWHERE toLower(i.name) CONTAINS 'university of chicago'\nRETURN DISTINCT s.knownName AS scholar, p.awardYear AS award_year, i.name AS institution\nORDER BY p.awardYear",
       "stats": {
-        "total": 0
+        "error": "Binder exception: Variable p is not in scope."
       },
-      "context": [
-        {
-          "scholar": "Douglas Diamond",
-          "award_year": 2022,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Eugene F. Fama",
-          "award_year": 2013,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Gary Becker",
-          "award_year": 1992,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "George J. Stigler",
-          "award_year": 1982,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "James J. Heckman",
-          "award_year": 2000,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Lars Peter Hansen",
-          "award_year": 2013,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Merton H. Miller",
-          "award_year": 1990,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Milton Friedman",
-          "award_year": 1976,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Richard H. Thaler",
-          "award_year": 2017,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Robert E. Lucas Jr.",
-          "award_year": 1995,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Robert W. Fogel",
-          "award_year": 1993,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Roger B. Myerson",
-          "award_year": 2007,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Ronald H. Coase",
-          "award_year": 1991,
-          "institution": "University of Chicago"
-        },
-        {
-          "scholar": "Theodore W. Schultz",
-          "award_year": 1979,
-          "institution": "University of Chicago"
-        }
-      ]
+      "context": []
     },
     {
       "question": "Which scholars won Physiology or Medicine in 1920?",
-      "answer": "August Krogh won Physiology or Medicine in 1920.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'medicine' AND p.awardYear = 1920\nRETURN DISTINCT s.knownName, p.awardYear",
+      "answer": "August Krogh won the Nobel Prize in Physiology or Medicine in 1920.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) CONTAINS 'medicine' AND p.awardYear = 1920\nRETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 9.19,
+        "text2cypher": 6.36,
+        "db_exec": 0.01,
+        "answer_gen": 2.82
       },
       "context": [
         {
-          "s.knownName": "August Krogh",
-          "p.awardYear": 1920
+          "s.knownName": "August Krogh"
         }
       ]
     },
     {
       "question": "Which scholars won Chemistry in 2010?",
-      "answer": "No information found in the database.",
-      "cypher": "MATCH (s:Scholar)-[:WON {portion: '*'}]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2010\nRETURN s.knownName, p.awardYear",
+      "answer": "The scholars who won the Nobel Prize in Chemistry in 2010 are:\n- Ei-ichi Negishi\n- Richard F. Heck\n- Akira Suzuki",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 2010\nRETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 5.4,
+        "text2cypher": 3.86,
+        "db_exec": 0.0,
+        "answer_gen": 1.52
       },
-      "context": []
+      "context": [
+        {
+          "s.knownName": "Ei-ichi Negishi"
+        },
+        {
+          "s.knownName": "Richard F. Heck"
+        },
+        {
+          "s.knownName": "Akira Suzuki"
+        }
+      ]
     },
     {
       "question": "Which scholars won Chemistry in 1926?",
-      "answer": "No information found in the database.",
-      "cypher": "MATCH (s:Scholar)-[:WON {portion: '*'}]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1926\nRETURN s.knownName, p.awardYear",
+      "answer": "The scholar who won the Nobel Prize in Chemistry in 1926 was The Svedberg.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1926\nRETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 6.13,
+        "text2cypher": 4.91,
+        "db_exec": 0.0,
+        "answer_gen": 1.22
       },
-      "context": []
+      "context": [
+        {
+          "s.knownName": "The Svedberg"
+        }
+      ]
     },
     {
       "question": "Which scholars won Chemistry in 1990?",
-      "answer": "No information found in the database.",
-      "cypher": "MATCH (s:Scholar)-[:WON {portion: '*' }]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1990\nRETURN s.knownName, p.awardYear",
+      "answer": "Elias James Corey won the Nobel Prize in Chemistry in 1990.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry' AND p.awardYear = 1990\nRETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 4.59,
+        "text2cypher": 3.45,
+        "db_exec": 0.0,
+        "answer_gen": 1.13
       },
-      "context": []
+      "context": [
+        {
+          "s.knownName": "Elias James Corey"
+        }
+      ]
     },
     {
       "question": "Which scholars born in Taiwan won the Chemistry prize between 1986 and 1991?",
       "answer": "No information found in the database.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'chemistry' AND p.awardYear >= 1986 AND p.awardYear <= 1991\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'taiwan'\nRETURN s.knownName, p.awardYear, co.name AS BirthCountry",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(p.category) = 'chemistry'\nAND p.awardYear >= 1986 AND p.awardYear <= 1991\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE toLower(co.name) CONTAINS 'taiwan'\nRETURN DISTINCT s.knownName, p.awardYear, co.name AS BirthCountry",
       "stats": {
         "total": 0
       },
@@ -2609,83 +2568,73 @@
     },
     {
       "question": "Which scholars affiliated with Institute for Infectious Diseases won a prize in Physiology or Medicine?",
-      "answer": "No information found in the database.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) CONTAINS 'medicine' AND toLower(p.category) CONTAINS 'physiology'\nMATCH (s)-[:AFFILIATED_WITH]->(i:Institution) \nWHERE toLower(i.name) CONTAINS 'institute for infectious diseases'\nRETURN DISTINCT s.knownName, p.category, p.awardYear, i.name AS Institution",
+      "answer": "Robert Koch, affiliated with the Institute for Infectious Diseases, won the Nobel Prize in Physiology or Medicine in 1905.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:AFFILIATED_WITH]->(i:Institution)\nWHERE toLower(i.name) CONTAINS 'institute for infectious diseases' AND toLower(p.category) CONTAINS 'medicine'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS AffiliatedInstitution",
       "stats": {
-        "total": 0
-      },
-      "context": []
-    },
-    {
-      "question": "Which scholars affiliated with CERN won a prize in Physics?",
-      "answer": "The scholars affiliated with CERN who won a prize in Physics are Carlo Rubbia, Jack Steinberger, Simon van der Meer, and Georges Charpak.",
-      "cypher": "MATCH (scholar:Scholar)-[:AFFILIATED_WITH]->(inst:Institution), (scholar)-[:WON]->(prize:Prize)\nWHERE toLower(inst.name) CONTAINS 'cern' AND toLower(prize.category) CONTAINS 'physics'\nWITH scholar, prize, inst, prize.awardYear AS award_year, prize.category AS prize_category\nMATCH (inst)-[:IS_LOCATED_IN]->(city:City)-[:IS_CITY_IN]->(country:Country)\nRETURN scholar.knownName AS scholar, award_year, prize_category, country.name AS country",
-      "stats": {
-        "total": 0
+        "total": 9.54,
+        "text2cypher": 7.92,
+        "db_exec": 0.0,
+        "answer_gen": 1.61
       },
       "context": [
         {
-          "scholar": "Carlo Rubbia",
-          "award_year": 1984,
-          "prize_category": "physics",
-          "country": "Switzerland"
-        },
-        {
-          "scholar": "Jack Steinberger",
-          "award_year": 1988,
-          "prize_category": "physics",
-          "country": "Switzerland"
-        },
-        {
-          "scholar": "Simon van der Meer",
-          "award_year": 1984,
-          "prize_category": "physics",
-          "country": "Switzerland"
-        },
-        {
-          "scholar": "Georges Charpak",
-          "award_year": 1992,
-          "prize_category": "physics",
-          "country": "Switzerland"
+          "s.knownName": "Robert Koch",
+          "p.awardYear": 1905,
+          "AffiliatedInstitution": "Institute for Infectious Diseases"
         }
       ]
     },
     {
-      "question": "Which scholars affiliated with University of Oxford won a prize in Chemistry?",
-      "answer": "The scholars affiliated with the University of Oxford who won a prize in Chemistry are Frederick Soddy in 1921, Sir Cyril Hinshelwood in 1956, Sir Robert Robinson in 1947, and Dorothy Crowfoot Hodgkin in 1964.",
-      "cypher": "MATCH (s:Scholar)-[:AFFILIATED_WITH]->(i:Institution), \n      (s)-[:WON]->(p:Prize)\nWHERE toLower(i.name) CONTAINS 'university of oxford' \n  AND toLower(p.category) CONTAINS 'chemistry'\nRETURN s.knownName AS scholar, p.awardYear AS award_year, i.name AS institution",
+      "question": "Which scholars affiliated with CERN won a prize in Physics?",
+      "answer": "Error executing graph query.",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(p.category) = 'physics'\nWITH s, p\nOPTIONAL MATCH (s)-[:AFFILIATED_WITH]->(i:Institution) WHERE toLower(i.name) CONTAINS 'cern'\nRETURN DISTINCT s.knownName AS scholar, p.category AS prize_category, p.awardYear AS award_year ORDER BY p.awardYear",
       "stats": {
-        "total": 0
+        "error": "Binder exception: Variable p is not in scope."
+      },
+      "context": []
+    },
+    {
+      "question": "Which scholars affiliated with University of Oxford won a prize in Chemistry?",
+      "answer": "The scholars affiliated with the University of Oxford who won a prize in Chemistry are:\n- Sir Cyril Hinshelwood (1956)\n- Sir Robert Robinson (1947)\n- Dorothy Crowfoot Hodgkin (1964)\n- Frederick Soddy (1921)",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:AFFILIATED_WITH]->(i:Institution)\nWHERE toLower(p.category) CONTAINS 'chemistry' AND toLower(i.name) CONTAINS 'university of oxford'\nRETURN DISTINCT s.knownName, p.awardYear, i.name AS Institution",
+      "stats": {
+        "total": 6.17,
+        "text2cypher": 3.65,
+        "db_exec": 0.0,
+        "answer_gen": 2.51
       },
       "context": [
         {
-          "scholar": "Frederick Soddy",
-          "award_year": 1921,
-          "institution": "University of Oxford"
+          "s.knownName": "Sir Cyril Hinshelwood",
+          "p.awardYear": 1956,
+          "Institution": "University of Oxford"
         },
         {
-          "scholar": "Sir Cyril Hinshelwood",
-          "award_year": 1956,
-          "institution": "University of Oxford"
+          "s.knownName": "Sir Robert Robinson",
+          "p.awardYear": 1947,
+          "Institution": "University of Oxford"
         },
         {
-          "scholar": "Sir Robert Robinson",
-          "award_year": 1947,
-          "institution": "University of Oxford"
+          "s.knownName": "Dorothy Crowfoot Hodgkin",
+          "p.awardYear": 1964,
+          "Institution": "University of Oxford, Royal Society"
         },
         {
-          "scholar": "Dorothy Crowfoot Hodgkin",
-          "award_year": 1964,
-          "institution": "University of Oxford, Royal Society"
+          "s.knownName": "Frederick Soddy",
+          "p.awardYear": 1921,
+          "Institution": "University of Oxford"
         }
       ]
     },
     {
       "question": "Which scholars were born in Pretoria?",
-      "answer": "The scholars born in Pretoria are Michael Levitt and Max Theiler.",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WHERE toLower(ci.name) = 'pretoria' RETURN s.knownName AS scholar",
+      "answer": "Michael Levitt and Max Theiler were born in Pretoria.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'pretoria' RETURN s.knownName AS scholar",
       "stats": {
-        "total": 0
+        "total": 4.55,
+        "text2cypher": 3.11,
+        "db_exec": 0.0,
+        "answer_gen": 1.44
       },
       "context": [
         {
@@ -2698,10 +2647,13 @@
     },
     {
       "question": "Which scholars were born in Turin?",
-      "answer": "The scholars born in Turin are Rita Levi-Montalcini and Salvador E. Luria.",
-      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WHERE toLower(ci.name) = 'turin' RETURN s.knownName AS scholar, ci.name AS birth_city",
+      "answer": "Rita Levi-Montalcini and Salvador E. Luria were born in Turin.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(ci:City) WHERE toLower(ci.name) CONTAINS 'turin' RETURN s.knownName AS scholar, ci.name AS birth_city",
       "stats": {
-        "total": 0
+        "total": 5.83,
+        "text2cypher": 4.13,
+        "db_exec": 0.0,
+        "answer_gen": 1.69
       },
       "context": [
         {
@@ -2716,16 +2668,15 @@
     },
     {
       "question": "Which scholars born in Switzerland won the Physics prize between 1980 and 2020?",
-      "answer": "The scholars born in Switzerland who won the Physics prize between 1980 and 2020 are Didier Queloz, K. Alex M\u00fcller, and Michel Mayor. Didier Queloz and Michel Mayor won in 2019, while K. Alex M\u00fcller won in 1987.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) \nWHERE toLower(p.category) = 'physics' AND p.awardYear >= 1980 AND p.awardYear <= 2020\nMATCH (s)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country)\nWHERE (toLower(co.name) CONTAINS 'switzerland' OR toLower(co.name) CONTAINS 'swiss confederation')\nRETURN s.knownName AS scholar, p.awardYear AS award_year",
+      "answer": "Scholars born in Switzerland who won the Physics prize between 1980 and 2020 are:\n- K. Alex M\u00fcller in 1987\n- Michel Mayor and Didier Queloz in 2019",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(co.name) CONTAINS 'switzerland'\nWITH s, co\nMATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' AND p.awardYear >= 1980 AND p.awardYear <= 2020\nRETURN s.knownName AS scholar, p.awardYear AS award_year ORDER BY p.awardYear",
       "stats": {
-        "total": 0
+        "total": 7.67,
+        "text2cypher": 4.3,
+        "db_exec": 0.0,
+        "answer_gen": 3.36
       },
       "context": [
-        {
-          "scholar": "Didier Queloz",
-          "award_year": 2019
-        },
         {
           "scholar": "K. Alex M\u00fcller",
           "award_year": 1987
@@ -2733,15 +2684,22 @@
         {
           "scholar": "Michel Mayor",
           "award_year": 2019
+        },
+        {
+          "scholar": "Didier Queloz",
+          "award_year": 2019
         }
       ]
     },
     {
       "question": "How many female scholars won a Nobel Prize between 1980 and 2000?",
-      "answer": "Between 1980 and 2000, there were 4 female scholars who won a Nobel Prize.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND p.awardYear >= 1980 AND p.awardYear <= 2000\nRETURN count(DISTINCT s) as female_laureates",
+      "answer": "4 female scholars won a Nobel Prize between 1980 and 2000.",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWHERE toLower(s.gender) = 'female' AND p.awardYear >= 1980 AND p.awardYear <= 2000\nRETURN count(s) as female_laureates",
       "stats": {
-        "total": 0
+        "total": 10.06,
+        "text2cypher": 8.62,
+        "db_exec": 0.0,
+        "answer_gen": 1.43
       },
       "context": [
         {
@@ -2751,20 +2709,23 @@
     },
     {
       "question": "Which scholars have won more than one Nobel Prize?",
-      "answer": "The scholars who have won more than one Nobel Prize are Frederick Sanger, Linus Pauling, Marie Curie, K. Barry Sharpless, and John Bardeen.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWITH s, COUNT(p) AS prize_count\nWHERE prize_count > 1\nRETURN s.knownName",
+      "answer": "The following scholars have won more than one Nobel Prize:\n- Linus Pauling\n- Marie Curie\n- Frederick Sanger\n- K. Barry Sharpless\n- John Bardeen",
+      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize)\nWITH s, count(p) AS prize_count\nWHERE prize_count > 1\nRETURN s.knownName",
       "stats": {
-        "total": 0
+        "total": 4.31,
+        "text2cypher": 2.51,
+        "db_exec": 0.0,
+        "answer_gen": 1.79
       },
       "context": [
-        {
-          "s.knownName": "Frederick Sanger"
-        },
         {
           "s.knownName": "Linus Pauling"
         },
         {
           "s.knownName": "Marie Curie"
+        },
+        {
+          "s.knownName": "Frederick Sanger"
         },
         {
           "s.knownName": "K. Barry Sharpless"
@@ -2776,10 +2737,13 @@
     },
     {
       "question": "How many Physics laureates were born in Paris?",
-      "answer": "The Physics laureates born in Paris are 3.",
-      "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' MATCH (s)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' RETURN count(s) as physics_laureates",
+      "answer": "There were 3 Physics laureates born in Paris.",
+      "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City)-[:IS_CITY_IN]->(co:Country) WHERE toLower(c.name) CONTAINS 'paris' WITH s MATCH (s)-[:WON]->(p:Prize) WHERE toLower(p.category) = 'physics' RETURN count(s) as physics_laureates",
       "stats": {
-        "total": 0
+        "total": 7.74,
+        "text2cypher": 6.18,
+        "db_exec": 0.01,
+        "answer_gen": 1.56
       },
       "context": [
         {
@@ -2789,14 +2753,17 @@
     },
     {
       "question": "How many scholars won a prize with a 1/3 share portion?",
-      "answer": "221 scholars won a prize with a 1/3 share portion.",
-      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(r.portion) = '1/3' RETURN count(DISTINCT s) as scholars_with_third_share",
+      "answer": "222 scholars won a prize with a 1/3 share portion.",
+      "cypher": "MATCH (s:Scholar)-[r:WON]->(p:Prize) WHERE toLower(r.portion) = '1/3' RETURN count(s) as scholars_with_1_3_portion",
       "stats": {
-        "total": 0
+        "total": 4.56,
+        "text2cypher": 3.24,
+        "db_exec": 0.0,
+        "answer_gen": 1.31
       },
       "context": [
         {
-          "scholars_with_third_share": 221
+          "scholars_with_1_3_portion": 222
         }
       ]
     }

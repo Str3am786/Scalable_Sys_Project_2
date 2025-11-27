@@ -338,6 +338,10 @@ EXEMPLARS: list[dict] = [
             "RETURN DISTINCT s.knownName, p.awardYear, c.name AS BirthCity"
         ),
     },
+    {
+        "question": "Which scholars won a prize?",
+        "cypher": "MATCH (s:Scholar)-[:WON]->(p:Prize) RETURN s.knownName" 
+    }
 ]
 
 EXEMPLAR_QUESTIONS: List[str] = [ex["question"] for ex in EXEMPLARS]
@@ -429,6 +433,10 @@ def _enforce_lowercase_string_comparisons(query: str) -> str:
     def repl_eq(match):
         prop = match.group(1)
         lit = match.group(2)
+
+        if any(term in prop.lower() for term in ["year", "date", "count", "num"]):
+            return match.group(0)
+
         if prop.strip().lower().startswith("tolower("):
             return match.group(0)
         return f"toLower({prop}) = '{lit.lower()}'"
@@ -441,6 +449,10 @@ def _enforce_lowercase_string_comparisons(query: str) -> str:
     def repl_contains(match):
         prop = match.group(1)
         lit = match.group(2)
+
+        if any(term in prop.lower() for term in ["year", "date", "count", "num"]):
+            return match.group(0)
+
         if prop.strip().lower().startswith("tolower("):
             return match.group(0)
         return f"toLower({prop}) CONTAINS '{lit.lower()}'"

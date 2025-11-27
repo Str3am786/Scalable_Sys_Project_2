@@ -25,7 +25,7 @@ services:
   # Main App (Run with: docker compose up app)
   app:
     <<: *base_app
-    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars won Chemistry in 2010?"]
+    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars won the Nobel Prize in Medicine?"]
 
   # Full Validation Pipeline (Run with: docker compose up eval)
   eval:

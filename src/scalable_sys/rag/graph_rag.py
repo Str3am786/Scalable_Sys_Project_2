@@ -248,6 +248,16 @@ class GraphRAG(LLM):
                 - (:Institution)-[:IS_LOCATED_IN]->(:City)
                 - (:City)-[:IS_CITY_IN]->(:Country)
             </RELATIONSHIPS>
+            <WARNINGS>
+                1. **Disconnected Nodes**: There is NO direct relationship between (:Prize) and (:Institution).
+                    - WRONG: (p:Prize)-[:AFFILIATED_WITH]->(i:Institution)
+                    - CORRECT: Match them separately via the Scholar:
+                    MATCH (s:Scholar)-[:WON]->(p:Prize), (s)-[:AFFILIATED_WITH]->(i:Institution)
+
+                2. **Property Restrictions**: 
+                   - Do NOT use wildcards like {{portion: "*"}} inside relationships.
+                   - `awardYear` is an INTEGER. Do NOT use toLower() or quotes with it.
+            </WARNINGS>
             </GRAPH_SCHEMA>
         """
         return schema_template
