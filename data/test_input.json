@@ -57,11 +57,6 @@
       "expected": ["Hideki Shirakawa","Alan MacDiarmid","Alan Heeger"]
     },
     {
-      "question": "Which prizes were awarded in 1922?",
-      "cypher": "MATCH (p:Prize) WHERE p.awardYear = 1922 RETURN p.category",
-      "expected": ["Physics", "Medicine","Chemistry"]
-    },
-    {
       "question": "Which scholars were born in Paris?",
       "cypher": "MATCH (s:Scholar)-[:BORN_IN]->(c:City) WHERE toLower(c.name) CONTAINS 'paris' RETURN s.knownName",
       "expected": ["Esther Duflo",

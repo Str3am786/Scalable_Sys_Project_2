@@ -7,91 +7,193 @@
 
 | Metric | Sum | Average |
 |--------|-----|---------|
-| Total Time | `58.83` | `4.53` |
-| Text2cypher Time | `34.58` | `2.66` |
-| Answer_gen Time | `24.23` | `1.86` |
+| Total Time | `222.58` | `7.42` |
+| Text2cypher Time | `119.45` | `3.98` |
+| Answer_gen Time | `102.90` | `3.43` |
 
 ## 📝 Raw Results Summary
 
 ```json
 [
   {
-    "total":3.36,
-    "text2cypher":2.23,
-    "db_exec":0.0,
-    "answer_gen":1.14
+    "total":6.64,
+    "text2cypher":5.25,
+    "db_exec":0.01,
+    "answer_gen":1.37
   },
   {
-    "total":4.04,
-    "text2cypher":2.88,
-    "db_exec":0.0,
-    "answer_gen":1.15
+    "total":7.99,
+    "text2cypher":3.23,
+    "db_exec":0.01,
+    "answer_gen":4.75
   },
   {
-    "total":2.81,
-    "text2cypher":1.94,
-    "db_exec":0.0,
-    "answer_gen":0.87
-  },
-  {
-    "total":3.45,
-    "text2cypher":2.27,
-    "db_exec":0.0,
-    "answer_gen":1.18
-  },
-  {
-    "total":4.06,
-    "text2cypher":2.75,
-    "db_exec":0.0,
-    "answer_gen":1.3
-  },
-  {
-    "total":2.0,
-    "text2cypher":1.05,
-    "db_exec":0.0,
-    "answer_gen":0.95
-  },
-  {
-    "total":2.56,
-    "text2cypher":1.19,
-    "db_exec":0.0,
-    "answer_gen":1.38
-  },
-  {
-    "total":3.49,
-    "text2cypher":2.46,
+    "total":9.98,
+    "text2cypher":8.94,
     "db_exec":0.0,
     "answer_gen":1.03
   },
   {
-    "total":1.62,
-    "text2cypher":1.06,
+    "total":3.68,
+    "text2cypher":2.68,
     "db_exec":0.0,
-    "answer_gen":0.55
+    "answer_gen":0.99
   },
   {
-    "total":2.96,
-    "text2cypher":2.12,
+    "total":4.26,
+    "text2cypher":2.08,
     "db_exec":0.0,
-    "answer_gen":0.84
+    "answer_gen":2.18
   },
   {
-    "total":4.0,
-    "text2cypher":1.93,
-    "db_exec":0.0,
-    "answer_gen":2.06
+    "total":14.62,
+    "text2cypher":2.78,
+    "db_exec":0.01,
+    "answer_gen":11.83
   },
   {
-    "total":11.67,
-    "text2cypher":5.34,
+    "total":19.5,
+    "text2cypher":2.91,
     "db_exec":0.0,
-    "answer_gen":6.33
+    "answer_gen":16.59
   },
   {
-    "total":12.81,
-    "text2cypher":7.36,
+    "total":10.95,
+    "text2cypher":9.35,
+    "db_exec":0.01,
+    "answer_gen":1.59
+  },
+  {
+    "total":4.4,
+    "text2cypher":2.95,
+    "db_exec":0.01,
+    "answer_gen":1.44
+  },
+  {
+    "total":4.95,
+    "text2cypher":3.85,
+    "db_exec":0.01,
+    "answer_gen":1.09
+  },
+  {
+    "total":5.42,
+    "text2cypher":3.96,
+    "db_exec":0.01,
+    "answer_gen":1.45
+  },
+  {
+    "total":3.56,
+    "text2cypher":1.94,
+    "db_exec":0.01,
+    "answer_gen":1.61
+  },
+  {
+    "total":5.97,
+    "text2cypher":4.1,
     "db_exec":0.0,
-    "answer_gen":5.45
+    "answer_gen":1.86
+  },
+  {
+    "total":12.72,
+    "text2cypher":4.88,
+    "db_exec":0.01,
+    "answer_gen":7.83
+  },
+  {
+    "total":3.1,
+    "text2cypher":1.43,
+    "db_exec":0.0,
+    "answer_gen":1.67
+  },
+  {
+    "total":9.2,
+    "text2cypher":2.03,
+    "db_exec":0.0,
+    "answer_gen":7.16
+  },
+  {
+    "total":12.48,
+    "text2cypher":5.42,
+    "db_exec":0.0,
+    "answer_gen":7.06
+  },
+  {
+    "total":5.47,
+    "text2cypher":2.32,
+    "db_exec":0.01,
+    "answer_gen":3.14
+  },
+  {
+    "total":13.59,
+    "text2cypher":8.95,
+    "db_exec":0.0,
+    "answer_gen":4.64
+  },
+  {
+    "total":4.87,
+    "text2cypher":1.56,
+    "db_exec":0.0,
+    "answer_gen":3.3
+  },
+  {
+    "total":5.93,
+    "text2cypher":4.25,
+    "db_exec":0.0,
+    "answer_gen":1.67
+  },
+  {
+    "total":5.07,
+    "text2cypher":1.36,
+    "db_exec":0.0,
+    "answer_gen":3.7
+  },
+  {
+    "total":4.19,
+    "text2cypher":2.28,
+    "db_exec":0.0,
+    "answer_gen":1.9
+  },
+  {
+    "total":6.03,
+    "text2cypher":4.91,
+    "db_exec":0.0,
+    "answer_gen":1.11
+  },
+  {
+    "total":2.77,
+    "text2cypher":1.45,
+    "db_exec":0.0,
+    "answer_gen":1.32
+  },
+  {
+    "total":8.21,
+    "text2cypher":4.85,
+    "db_exec":0.0,
+    "answer_gen":3.36
+  },
+  {
+    "total":2.6,
+    "text2cypher":1.31,
+    "db_exec":0.0,
+    "answer_gen":1.28
+  },
+  {
+    "total":8.0,
+    "text2cypher":4.88,
+    "db_exec":0.0,
+    "answer_gen":3.12
+  },
+  {
+    "total":8.12,
+    "text2cypher":6.4,
+    "db_exec":0.01,
+    "answer_gen":1.71
+  },
+  {
+    "total":8.31,
+    "text2cypher":7.15,
+    "db_exec":0.0,
+    "answer_gen":1.15
   }
 ]
 ```

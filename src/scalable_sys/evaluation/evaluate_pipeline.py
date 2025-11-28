@@ -130,24 +130,32 @@ def extract_score(text: str) -> int:
         pass
     return 0
 
-def cache_test(input_file : str= "./data/test_input.json", out_folder : str = "results/cache_test", use_cache : bool = False) -> str:
-    
+def cache_test(
+    input_file: str = "./data/test_input.json",
+    out_folder: str = "results/cache_test",
+    use_cache: bool = False,
+    llm=None,
+    label: str = "",
+) -> str:
     test_set = load_test_set(input_file)
     test_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-    llm = get_llm(use_cache=use_cache, rag = True)
-    
+    if llm is None:
+        llm = get_llm(use_cache=use_cache, rag=True)
+
     if use_cache:
         cache_maxsize,cache_ttl_seconds = get_cache_parameters()
         print(f"CACHE PARAMETERS: Size = {cache_maxsize}, Time to Live = {cache_ttl_seconds}")
-        filepath = f"./{out_folder}/Cache_test.json"
+        base_name = "Cache_test"
 
     else:
-        print(f"NO CACHE USED")
-        filepath = f"./{out_folder}/NO_Cache_test.json"
-        
-    counter = 1
+        print("NO CACHE USED")
+        base_name = "NO_Cache_test"
     
+    suffix = f"_{label}" if label else ""
+    filepath = f"./{out_folder}/{base_name}{suffix}.json"
+
+    counter = 1
     for test in test_set:
         
         print(f"Starting test for question n° {counter}")
@@ -158,7 +166,7 @@ def cache_test(input_file : str= "./data/test_input.json", out_folder : str = "r
             "question": prompt,
             "answer": answer,
             "stats": stats
-        }            
+        }
         record_test(filepath,result)
                 
     return filepath
@@ -180,7 +188,12 @@ def main():
     parser.add_argument("--plain-file", type=str, help="Path to existing plain LLM results")
     parser.add_argument("--rag-file", type=str, help="Path to existing RAG results")
     parser.add_argument("--test", action="store_true", help="Run single prompt test")
-    parser.add_argument("--caching-test",type=str,choices=["0", "1", "2"],help="Select which test to run",)
+    parser.add_argument(
+        "--caching-test",
+        type=str,
+        choices=["0", "1", "2", "3"],
+        help="Select which test to run",
+    )
     
     args = parser.parse_args()
     use_cache = not args.no_cache
@@ -190,6 +203,41 @@ def main():
     
     if args.caching_test: 
         
+        if args.caching_test == "3":
+            run_id = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            out_folder = os.path.join("results", "cache_eval", run_id)
+            os.makedirs(out_folder, exist_ok=True)
+
+            llm = get_llm(use_cache=True, rag=True)
+
+            # COLD run: cache starts empty
+            print("------------Starting COLD cache test---------------------")
+            cold_filepath = cache_test(
+                input_file="./data/test_cache_warm_start.json",
+                out_folder=out_folder,
+                use_cache=True,
+                llm=llm,
+                label="cold",
+            )
+            cache_maxsize, cache_ttl_seconds = get_cache_parameters()
+            create_report(cold_filepath, cache_maxsize, cache_ttl_seconds, used_cache=True)
+            print(f"Concluded cold test. You can find the result in {cold_filepath}")
+
+            # WARM run: same LLM instance, cache already populated
+            print("------------Starting WARM cache test---------------------")
+            warm_filepath = cache_test(
+                input_file="./data/test_cache_warm_start.json",
+                out_folder=out_folder,
+                use_cache=True,
+                llm=llm,
+                label="warm",
+            )
+            create_report(warm_filepath, cache_maxsize, cache_ttl_seconds, used_cache=True)
+            print(f"Concluded warm test. You can find the result in {warm_filepath}")
+
+            print(f"FINISHED, CHECK FOLDER {out_folder} for cold/warm results")
+            return
+
         if args.caching_test == "2":
             c = [True,False]
             print("YOU CHOOSED BOTH configurations:")

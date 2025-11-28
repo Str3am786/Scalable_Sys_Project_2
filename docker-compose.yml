@@ -43,4 +43,4 @@ services:
 
   cachetest:
     <<: *base_app
-    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--caching-test","2"]
+    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--caching-test", "2"]
