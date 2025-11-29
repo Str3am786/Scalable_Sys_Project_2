@@ -94,8 +94,8 @@ There are two different cache tests you can run:
 
 Run the a cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
 
-The sample questions generated for this evaluation are stored in   __data/test_cache/__
-Results, cache log and performance reports will be available in __results/cache_test/__ folder.
+The sample questions generated for this evaluation are stored in `data/test_cache/`.
+Results, cache log and performance reports will be available in `results/cache_test/` folder.
 
 
 ```bash
