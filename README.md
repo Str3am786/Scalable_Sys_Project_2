@@ -38,7 +38,9 @@ Note: The default prompt is configured in docker-compose.yml. To ask a different
 docker compose run app python -m src.scalable_sys.app --prompt "List all female Physics laureates."
 ```
 
-**Evaluation Pipeline**
+## Evaluation Pipeline
+
+**Accuracy Tests**
 
 Run the full accuracy evaluation pipeline to benchmark the answer accuracies against our curated test set:
 
