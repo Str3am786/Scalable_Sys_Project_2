@@ -13,15 +13,8 @@ This project implements a Graph Retrieval-Augmented Generation (GraphRAG) system
 
 ## Quick Start
 
-### 1. Setup the LLM (Host Machine)
-Run the inference engine natively to leverage your local GPU.
-
-1.  **Install Ollama** from [ollama.com](https://ollama.com).
-2.  **Start Ollama** (ensure the app is running in the background).
-3.  **Download the Model**:
-    ```bash
-    ollama pull llama3.1:8b
-    ```
+### 1. Setup the LLM 
+Specify your LLM configuration in the .env file. When running the eval pipeline, the judge LLM needs to be soecified as well. We recommend using openrouter for quick and easy setup.
 
 ### 2. Generate the Database (Local)
 Build the `nobel.kuzu` graph database before running the container.
@@ -41,7 +34,7 @@ Build and run the application container. It connects to the LLMs configured via 
 **Main Application**
 Run the standard RAG pipeline with the default prompt configured in your compose file:
 ```bash
-docker compose up app
+docker compose up --build app
 
 Note: The default prompt is configured in docker-compose.yml. To ask a different question, edit the command line in that file or run:
 
@@ -50,13 +43,15 @@ Note: The default prompt is configured in docker-compose.yml. To ask a different
 docker compose run app python -m src.scalable_sys.app --prompt "List all female Physics laureates."
 ```
 
-**Validation Pipeline**
+**Evaluation Pipeline**
 
 Run the full test suite to benchmark the pipeline against the our curated test set:
 
 ```bash
-docker compose up validate
+docker compose up --build eval
 ```
+
+The results of the evaluation will be summarized in rssults/summary
 
 **LLM Judge**
 
@@ -66,7 +61,19 @@ Run the judge service to compare two specific output files (Plain LLM vs GraphRA
 PLAIN_FILE="results/plain_output.json" RAG_FILE="results/rag_output.json" docker compose up judge
 ```
 
-**Cache Test**
+**Cache Tests**
+
+There are two different cache tests you can run:
+
+1.Cold & warm start cache test:
+
+- Evaluates latency for a "cold" start, i.e. when none of the questions in the test set have been cached before. after the "cold" run, the system latency is evaluated again on the same test set, when all questions have been asked at least once. The results for both latency measurements are summarized in the results/cache_test folder
+- Run by setting the cache test number flag to "3" in the docker-compose file before running docker-compose up --build cachetest
+
+2. Cache test on a test set of 60% unique questions and 40% repeated questions.
+
+- The pipeline evaluates the latency with caching on, and then with caching off.
+- Set the number flag for the cachetest command to "2" in the docker-compose file to run this version of the cache evaluation.
 
 Run the a cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
 
@@ -75,7 +82,7 @@ Results, cache log and performance reports will be available in __results/cache_
 
 
 ```bash
-docker compose up cachetest
+docker compose up --build cachetest
 ```
 
 Cache is tunable by setting two parameters in the `config.yaml` file:
