@@ -48,7 +48,7 @@ docker compose up --build eval
 
 The results of the evaluation will be summarized in results/summary.
 
-The question set containing the expected answers used for this evaluation can be found in data/test_input.json
+The question set containing the ground truths used for this evaluation can be found in data/test_input.json
 
 **LLM Judge**
 
@@ -66,12 +66,14 @@ There are two different cache tests you can run:
 
 - Evaluates latency for a "cold" start, i.e. when none of the questions in the test set have been cached before. After the "cold" run, the system latency is evaluated again on the same test set, when all questions have been cached. This is the "warm" start evaluation.
 - The results for both latency measurements are summarized in the results/cache_eval folder under a folder for the specific time of running the test.
+- The test set used for this evaluation can be found in data/test_cache_warm_start.json
 - Run this test by setting the cache test number flag to "3" in the docker-compose file before running docker-compose up --build cachetest.
 
 2. Cache evaluation on a test set of 60% unique questions and 40% repeated questions.
 
 - The pipeline evaluates the latency with caching on, and then with caching off on the test set with a 60/40 split of unique and repeated questions.
 - The results for this evaluation are summarized in the results/cache_test folder.
+- The test set used for this evaluation can be found in data/test_cache.json
 - Set the number flag for the cachetest command to "2" in the docker-compose file to run this version of the cache evaluation.
 
 Run the a cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
