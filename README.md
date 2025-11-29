@@ -92,12 +92,6 @@ There are two different cache tests you can run:
 - The test set used for this evaluation can be found in `data/test_cache.json`.
 - Set the number flag for the cachetest command to `"2"` in the `docker-compose.yml` file to run this version of the cache evaluation.
 
-Run the cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
-
-The sample questions generated for this evaluation are stored in `data/test_cache/`.
-Results, cache log and performance reports will be available in `results/cache_test/` folder.
-
-
 ```bash
 docker compose up --build cachetest
 ```
