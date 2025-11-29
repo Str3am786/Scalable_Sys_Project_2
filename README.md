@@ -14,15 +14,10 @@ This project implements a Graph Retrieval-Augmented Generation (GraphRAG) system
 ## Quick Start
 
 ### 1. Setup the LLM 
-Specify your LLM configuration in the .env file. When running the eval pipeline, the judge LLM needs to be soecified as well. We recommend using openrouter for quick and easy setup.
+Specify your LLM configuration in the .env file. When running the eval pipeline, the judge LLM needs to be specified as well. We recommend using openrouter for quick and easy setup.
 
 ### 2. Generate the Database (Local)
 Build the `nobel.kuzu` graph database before running the container.
-
-```bash
-# Create venv and install dependencies
-python3 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
 
 # Run the build script
 python src/scalable_sys/rag/build_db.py
@@ -45,13 +40,13 @@ docker compose run app python -m src.scalable_sys.app --prompt "List all female 
 
 **Evaluation Pipeline**
 
-Run the full test suite to benchmark the pipeline against the our curated test set:
+Run the full test suite to benchmark the answer accuracies against our curated test set:
 
 ```bash
 docker compose up --build eval
 ```
 
-The results of the evaluation will be summarized in rssults/summary
+The results of the evaluation will be summarized in results/summary
 
 **LLM Judge**
 
@@ -65,14 +60,15 @@ PLAIN_FILE="results/plain_output.json" RAG_FILE="results/rag_output.json" docker
 
 There are two different cache tests you can run:
 
-1.Cold & warm start cache test:
+1. Cold & warm start cache test:
 
-- Evaluates latency for a "cold" start, i.e. when none of the questions in the test set have been cached before. after the "cold" run, the system latency is evaluated again on the same test set, when all questions have been asked at least once. The results for both latency measurements are summarized in the results/cache_test folder
-- Run by setting the cache test number flag to "3" in the docker-compose file before running docker-compose up --build cachetest
+- Evaluates latency for a "cold" start, i.e. when none of the questions in the test set have been cached before. After the "cold" run, the system latency is evaluated again on the same test set, when all questions have been cached. This is the "warm" start evaluation.
+- The results for both latency measurements are summarized in the results/cache_test folder.
+- Run this test by setting the cache test number flag to "3" in the docker-compose file before running docker-compose up --build cachetest.
 
-2. Cache test on a test set of 60% unique questions and 40% repeated questions.
+2. Cache evaluation on a test set of 60% unique questions and 40% repeated questions.
 
-- The pipeline evaluates the latency with caching on, and then with caching off.
+- The pipeline evaluates the latency with caching on, and then with caching off on the test set with a 60/40 split of unique and repeated questions.
 - Set the number flag for the cachetest command to "2" in the docker-compose file to run this version of the cache evaluation.
 
 Run the a cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
