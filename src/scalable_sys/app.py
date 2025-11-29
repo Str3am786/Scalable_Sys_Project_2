@@ -3,8 +3,7 @@ import argparse
 from src.scalable_sys.config import load_config
 from src.scalable_sys.llm.llama_server import LlamaServer
 from src.scalable_sys.llm.cached import CachedLLM
-# [MODIFIED] Import both the Manual and DSPy implementations
-from src.scalable_sys.rag.graph_rag import ManualGraphRAG, GraphRAG
+from src.scalable_sys.rag.graph_rag import GraphRAG
 
 
 def _make_base_llm(cfg):
@@ -32,32 +31,17 @@ def get_llm(use_cache: bool = False):
     base_llm = _make_base_llm(cfg)
 
     if cfg.backend == "rag":
-        # [MODIFIED] Instantiate the new DSPy-based GraphRAG
-        # This uses the new RefinedCypherGenerator pipeline
-        llm: GraphRAG | ManualGraphRAG | CachedLLM = GraphRAG(
+        # Instantiate the DSPy-based GraphRAG pipeline
+        llm = GraphRAG(
             llm=base_llm,
             db_path=cfg.rag_db_path,
             use_exemplars=cfg.rag_use_exemplars,
             use_self_refine=cfg.rag_use_self_refine,
             use_postprocess=cfg.rag_use_postprocess,
-            cache_text2cypher=cfg.rag_cache_text2cypher,
+            cache_text2cypher=use_cache,
             cache_maxsize=cfg.rag_cache_maxsize,
             cache_ttl_seconds=cfg.rag_cache_ttl_seconds,
         )
-
-        # [NOTE] If you want to run the legacy manual version for comparison,
-        # uncomment the block below and comment out the GraphRAG block above:
-
-        # llm = ManualGraphRAG(
-        #     llm=base_llm,
-        #     db_path=cfg.rag_db_path,
-        #     use_exemplars=cfg.rag_use_exemplars,
-        #     use_self_refine=cfg.rag_use_self_refine,
-        #     use_postprocess=cfg.rag_use_postprocess,
-        #     cache_text2cypher=cfg.rag_cache_text2cypher,
-        #     cache_maxsize=cfg.rag_cache_maxsize,
-        #     cache_ttl_seconds=cfg.rag_cache_ttl_seconds,
-        # )
 
     else:
         llm = base_llm

@@ -1,0 +1,295 @@
+{
+  "results": [
+    {
+      "question": "Which scholars won Physics in 1921?",
+      "answer": "Albert Einstein won the Physics Nobel Prize in 1921.",
+      "stats": {
+        "total": 4.16,
+        "text2cypher": 3.39,
+        "db_exec": 0.0,
+        "answer_gen": 0.76
+      }
+    },
+    {
+      "question": "Which scholars were born in Germany?",
+      "answer": "The scholars born in Germany are:\n- Gerhard Herzberg\n- James Franck\n- Klaus Hasselmann\n- Max Delbr\u00fcck\n- Otto Loewi\n- Robert Huber\n- Arno Penzias\n- Eduard Buchner\n- Gerd Binnig\n- Otto Hahn\n- Robert J. Aumann\n- Werner Heisenberg\n- Hans Spemann\n- Otto Diels\n- Rainer Weiss\n- Sir Bernard Katz\n- Carl Bosch\n- Ernst B. Chain\n- Ernst Ruska\n- Georg Wittig\n- John C. Polanyi\n- Max Planck\n- Werner Forssmann\n- Wolfgang Ketterle\n- Adolf Windaus\n- Gustav Hertz\n- J. Hans D. Jensen\n- Benjamin List\n- Bert Sakmann\n- Ernst Otto Fischer\n- Feodor Lynen\n- Georges J.F. K\u00f6hler\n- Theodor W. H\u00e4nsch\n- Rudolf M\u00f6ssbauer\n- Adolf von Baeyer\n- Horst L. St\u00f6rmer\n- Thomas C. S\u00fcdhof",
+      "stats": {
+        "total": 4.25,
+        "text2cypher": 1.84,
+        "db_exec": 0.01,
+        "answer_gen": 2.4
+      }
+    },
+    {
+      "question": "Which prizes were awarded in 1922?",
+      "answer": "The prizes awarded in 1922 were in Medicine, Chemistry, and Physics.",
+      "stats": {
+        "total": 4.11,
+        "text2cypher": 2.67,
+        "db_exec": 0.0,
+        "answer_gen": 1.44
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry prizes in 2000?",
+      "answer": "The scholars who won Chemistry prizes in 2000 are Hideki Shirakawa, Alan MacDiarmid, and Alan Heeger.",
+      "stats": {
+        "total": 10.3,
+        "text2cypher": 8.8,
+        "db_exec": 0.0,
+        "answer_gen": 1.5
+      }
+    },
+    {
+      "question": "Which scholars were born in Paris?",
+      "answer": "The scholars born in Paris are Esther Duflo, Luis Leloir, Pierre-Gilles de Gennes, Jean-Pierre Sauvage, Alphonse Laveran, Andr\u00e9e F. Cournand, Ir\u00e8ne Joliot-Curie, Jacques Monod, Maurice Allais, Charles Richet, Pierre Curie, Fran\u00e7oise Barr\u00e9-Sinoussi, Henri Becquerel, Fr\u00e9d\u00e9ric Joliot, and Henri Moissan.",
+      "stats": {
+        "total": 4.79,
+        "text2cypher": 2.33,
+        "db_exec": 0.0,
+        "answer_gen": 2.46
+      }
+    },
+    {
+      "question": "Which institutions are located in USA?",
+      "answer": "The institutions located in the USA include:\n\n- Stanford University, Stanford, CA\n- Massachusetts Institute of Technology (MIT), Cambridge, MA\n- Johns Hopkins University, Baltimore, MD\n- Space Telescope Science Institute, Baltimore, MD\n- California Institute of Technology (Caltech), Pasadena, CA\n- University of California, Santa Barbara, CA\n- University of California, Los Angeles, CA\n- University of California, San Diego, CA\n- University of California, Berkeley, CA\n- University of California, San Francisco, CA\n- University of California, Irvine, CA\n- University of Pennsylvania, Philadelphia, PA\n- University of Chicago, Chicago, IL\n- Argonne National Laboratory, Argonne, IL\n- Rockefeller Institute for Medical Research, New York, NY\n- Rockefeller Institute for Medical Research, Princeton, NJ\n- Carnegie Institution of Washington, Long Island, New York, NY\n- University of Texas Southwestern Medical Center at Dallas, Dallas, TX\n- Tufts University, Medford, MA\n- Harvard University, Cambridge, MA\n- Harvard Business School, Boston, MA\n- Columbia University Division, Cardio-Pulmonary Laboratory, Bellevue Hospital, New York, NY\n- Veterans Administration Hospital, New Orleans, LA\n- Veterans Administration Hospital, Bronx, NY\n- Stanford University School of Medicine, Stanford, CA\n- Princeton University, Princeton, NJ\n- University of Illinois, Urbana, IL\n- Scripps Research, La Jolla, CA\n- Howard Hughes Medical Institute, Durham, NC\n- Howard Hughes Medical Institute, Chevy Chase, MD\n- University of Southern California, Los Angeles, CA\n- Bell Laboratories, Holmdel, NJ\n- Bell Laboratories, Murray Hill, NJ\n- University of North Carolina, Chapel Hill, NC\n- Cold Spring Harbor Laboratory, Cold Spring Harbor, NY\n- The Institute for Cancer Research, Philadelphia, PA\n- Harvard Medical School, Boston, MA\n- The Brookings Institution, Washington, D.C.\n- The Scripps Research Institute, La Jolla, CA\n- Rockefeller University, New York, NY\n- Stanford Linear Accelerator Center, Stanford, CA\n- Washington University, St. Louis, MO\n- University of Colorado, JILA, Boulder, CO\n- Johns Hopkins University School of Medicine, Baltimore, MD\n- University of Chicago, Ben May Laboratory for Cancer Research, Chicago, IL\n- Du Pont, Wilmington, DE\n- Institute for Advanced Study, Princeton, NJ\n- National Institutes of Health, Bethesda, MD\n- Bell Telephone Laboratories, New York, NY\n- Bell Telephone Laboratories, Murray Hill, NJ\n- University of Massachusetts Medical School, Worcester, MA\n- Northwestern University, Evanston, IL\n- University of California, Kavli Institute for Theoretical Physics, Santa Barbara, CA\n- University of Washington, Seattle, WA\n- National Institute of Standards and Technology, Boulder, CO\n- National Institute of Standards and Technology, Gaithersburg, MD\n- University of Colorado, Boulder, CO\n- Cornell University, Ithaca, NY\n- Columbia University, New York, NY\n- Fred Hutchinson Cancer Research Center, Seattle, WA\n- Vanderbilt University, Nashville, TN\n- Saint Louis University, St. Louis, MO\n- Mayo Clinic, Rochester, MN\n- Arizona State University, Tempe, AZ\n- Federal Reserve Bank of Minneapolis, Minneapolis, MN\n- Purdue University, West Lafayette, IN\n- Indiana University, Bloomington, IN\n- Janelia Research Campus, Howard Hughes Medical Institute, Ashburn, VA\n- University of Texas Medical School at Houston, Houston, TX\n- Carnegie Mellon University, Pittsburgh, PA\n- Western Reserve University, Cleveland, OH\n- Massachusetts General Hospital, Boston, MA\n- Jackson Laboratory, Bar Harbor, ME\n- Yale University, School of Medicine, New Haven, CT\n- Wellcome Research Laboratories, Research Triangle Park, NC\n- University of Rochester, Rochester, NY\n- University of Missouri, Columbia\n- University of Michigan, Ann Arbor, MI\n- University of Wisconsin, Madison, WI\n- University of California School of Medicine, San Francisco, CA\n- University of California School of Medicine, Los Angeles, CA\n- City University of New York, New York, NY\n- The Medical Foundation of Buffalo, Buffalo, NY\n- University of Texas, Austin, TX\n- General Electric Company, Schenectady, NY\n- Brown University, Providence, RI\n- Texas Instruments, Dallas, TX\n- Yale University, New Haven, CT\n- Center for Study of Public Choice, Fairfax, VA\n- Parker Institute for Cancer Immunotherapy, San Francisco, CA\n- University of Texas MD Anderson Cancer Center, Houston, TX\n- University of Maine, Maine, ME\n- US Naval Research Laboratory, Washington, D.C.\n- Virginia Commonwealth University, Richmond, VA\n- NASA Goddard Space Flight Center, Greenbelt, MD\n- J.F. Clauser & Assoc., Walnut Creek, CA\n- Research Division of Infectious Diseases, Children's Medical Center, Boston, MA\n- Brigham and Women's Hospital, Boston, MA\n- IBM Thomas J. Watson Research Center, Yorktown Heights, NY\n- Fermi National Accelerator Laboratory, Batavia, IL\n- University of Minnesota, Minneapolis, MN\n- Binghamton University, State University of New York, New York, NY\n- University of Utah, Salt Lake City, UT\n- National Institute of Environmental Health Sciences, Research Triangle Park, NC\n- Laboratories of the Division of Medicine and Public Health, Rockefeller Foundation, New York, NY\n- Digital Pathways, Inc., Mountain View, CA\n- Brandeis University, Waltham, MA\n- Long Term Capital Management, Greenwich, CT\n- Marine Biological Laboratory (MBL), Woods Hole, MA\n- Boston University Medical School, Massachusetts, MA\n- Carnegie Institute of Technology, Pittsburgh, PA\n- NYU Stern School of Business, New York, NY\n- Duke University School of Medicine, Durham, NC\n- St. Jude Children's Research Hospital, Memphis, TN\n- Massachusetts Institute of Technology (MIT), Center for Cancer Research, Cambridge, MA\n- Associated Universities Inc., Washington, D.C.\n- Rice University, Houston, TX\n- New England Biolabs, Beverly, MA\n- New York University, New York, NY\n- SUNY Health Science Center, Brooklyn, NY\n- Duke University Medical Center, Durham, NC\n- The Salk Institute, San Diego, CA\n- Lawrence Berkeley National Laboratory, Berkeley, CA\n- Rutgers University, New Brunswick, NJ\n- New York University, College of Medicine, New York, NY\n- Harvard University, Lyman Laboratory, Cambridge, MA\n- Gladstone Institutes, San Francisco, CA\n- Vanderbilt University School of Medicine, Nashville, TN\n- The Molecular Sciences Institute, Berkeley, CA\n- University of Maryland, Department of Economics and School of Public Policy, College Park, MD\n- George Mason University, Fairfax, VA\n- Harvard University, Biological Laboratories, Cambridge, MA\n- Semiconductor Laboratory of Beckman Instruments, Inc., Mountain View, CA\n- Drew University, Madison, NJ\n- Dana-Farber Cancer Institute, Boston, MA\n- Peter Brent Brigham Hospital, Boston, MA\n- Enrico Fermi Institute, University of Chicago, Chicago, IL",
+      "stats": {
+        "total": 27.49,
+        "text2cypher": 2.73,
+        "db_exec": 0.01,
+        "answer_gen": 24.76
+      }
+    },
+    {
+      "question": "Which scholars won Nobel Prizes in Physics after 1990?",
+      "answer": "The scholars who won Nobel Prizes in Physics after 1990 are:\n\n- Pierre-Gilles de Gennes (1991)\n- Georges Charpak (1992)\n- Joseph H. Taylor Jr. (1993)\n- Russell A. Hulse (1993)\n- Bertram N. Brockhouse (1994)\n- Clifford G. Shull (1994)\n- Frederick Reines (1995)\n- Martin L. Perl (1995)\n- David M. Lee (1996)\n- Robert C. Richardson (1996)\n- Douglas D. Osheroff (1996)\n- Claude Cohen-Tannoudji (1997)\n- Steven Chu (1997)\n- William D. Phillips (1997)\n- Daniel C. Tsui (1998)\n- Robert B. Laughlin (1998)\n- Horst L. St\u00f6rmer (1998)\n- Martinus J.G. Veltman (1999)\n- Gerardus 't Hooft (1999)\n- Jack Kilby (2000)\n- Zhores Alferov (2000)\n- George A. Akerlof (2000)\n- Herbert Kroemer (2000)\n- A. Michael Spence (2000)\n- Joseph E. Stiglitz (2000)\n- Carl Wieman (2001)\n- Wolfgang Ketterle (2001)\n- Eric Cornell (2001)\n- Masatoshi Koshiba (2002)\n- Raymond Davis Jr. (2002)\n- Riccardo Giacconi (2002)\n- Anthony J. Leggett (2003)\n- Vitaly L. Ginzburg (2003)\n- Alexei Abrikosov (2003)\n- David J. Gross (2004)\n- H. David Politzer (2004)\n- Frank Wilczek (2004)\n- John L. Hall (2005)\n- Theodor W. H\u00e4nsch (2005)\n- Roy J. Glauber (2005)\n- George F. Smoot (2006)\n- John C. Mather (2006)\n- Albert Fert (2007)\n- Peter Gr\u00fcnberg (2007)\n- Makoto Kobayashi (2008)\n- Toshihide Maskawa (2008)\n- Yoichiro Nambu (2008)\n- Charles K. Kao (2009)\n- Willard S. Boyle (2009)\n- George E. Smith (2009)\n- Andre Geim (2010)\n- Konstantin Novoselov (2010)\n- Adam G. Riess (2011)\n- Saul Perlmutter (2011)\n- Brian P. Schmidt (2011)\n- Serge Haroche (2012)\n- David J. Wineland (2012)\n- Peter Higgs (2013)\n- Fran\u00e7ois Englert (2013)\n- Hiroshi Amano (2014)\n- Isamu Akasaki (2014)\n- Shuji Nakamura (2014)\n- Arthur B. McDonald (2015)\n- Takaaki Kajita (2015)\n- David J. Thouless (2016)\n- F. Duncan M. Haldane (2016)\n- J. Michael Kosterlitz (2016)\n- Barry C. Barish (2017)\n- Rainer Weiss (2017)\n- Kip S. Thorne (2017)\n- G\u00e9rard Mourou (2018)\n- Arthur Ashkin (2018)\n- Donna Strickland (2018)\n- James Peebles (2019)\n- Michel Mayor (2019)\n- Didier Queloz (2019)\n- Andrea Ghez (2020)\n- Roger Penrose (2020)\n- Reinhard Genzel (2020)\n- Klaus Hasselmann (2021)\n- Giorgio Parisi (2021)\n- Syukuro Manabe (2021)\n- Anton Zeilinger (2022)\n- Alain Aspect (2022)\n- John Clauser (2022)",
+      "stats": {
+        "total": 10.86,
+        "text2cypher": 3.18,
+        "db_exec": 0.0,
+        "answer_gen": 7.68
+      }
+    },
+    {
+      "question": "Who are the female laureates in Physics?",
+      "answer": "The female laureates in Physics are Marie Curie, Andrea Ghez, Donna Strickland, and Maria Goeppert Mayer.",
+      "stats": {
+        "total": 4.39,
+        "text2cypher": 3.2,
+        "db_exec": 0.0,
+        "answer_gen": 1.19
+      }
+    },
+    {
+      "question": "Which scholars born in France won a Nobel Prize in Chemistry?",
+      "answer": "The scholars born in France who won a Nobel Prize in Chemistry are Fr\u00e9d\u00e9ric Joliot, Henri Moissan, Ir\u00e8ne Joliot-Curie, Jean-Pierre Sauvage, and Luis Leloir. However, only Fr\u00e9d\u00e9ric Joliot and Ir\u00e8ne Joliot-Curie were born in France.",
+      "stats": {
+        "total": 5.73,
+        "text2cypher": 4.03,
+        "db_exec": 0.01,
+        "answer_gen": 1.7
+      }
+    },
+    {
+      "question": "Which Physics laureates were affiliated with an institution in Denmark?",
+      "answer": "The Physics laureates affiliated with an institution in Denmark are Aage N. Bohr, Ben R. Mottelson, and Niels Bohr.",
+      "stats": {
+        "total": 4.96,
+        "text2cypher": 3.52,
+        "db_exec": 0.01,
+        "answer_gen": 1.43
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Stanford University won a prize in 1996?",
+      "answer": "Douglas D. Osheroff won a physics prize in 1996 and is affiliated with Stanford University.",
+      "stats": {
+        "total": 3.52,
+        "text2cypher": 1.95,
+        "db_exec": 0.01,
+        "answer_gen": 1.57
+      }
+    },
+    {
+      "question": "Which scholars won the Nobel Prize in Economics in 2019?",
+      "answer": "The scholars who won the Nobel Prize in Economics in 2019 are Esther Duflo, Abhijit Banerjee, and Michael Kremer.",
+      "stats": {
+        "total": 2.96,
+        "text2cypher": 1.71,
+        "db_exec": 0.0,
+        "answer_gen": 1.24
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Harvard University won the Medicine prize?",
+      "answer": "The scholars affiliated with Harvard University who won the Medicine prize are:\n\n- James Watson in 1962\n- George R. Minot in 1934\n- Konrad Bloch in 1964\n- George Wald in 1967\n\nNote that some scholars are affiliated with Harvard Medical School, but they are not listed here as per the question's requirement.",
+      "stats": {
+        "total": 4.3,
+        "text2cypher": 2.72,
+        "db_exec": 0.01,
+        "answer_gen": 1.58
+      }
+    },
+    {
+      "question": "Who won the Nobel Prize in Physics in 2020?",
+      "answer": "The Nobel Prize in Physics in 2020 was awarded to Andrea Ghez, Roger Penrose, and Reinhard Genzel.",
+      "stats": {
+        "total": 2.9,
+        "text2cypher": 1.45,
+        "db_exec": 0.0,
+        "answer_gen": 1.44
+      }
+    },
+    {
+      "question": "Who won the Nobel Prize in Chemistry in 2022?",
+      "answer": "The Nobel Prize in Chemistry in 2022 was awarded to Carolyn Bertozzi, K. Barry Sharpless, and Morten Meldal.",
+      "stats": {
+        "total": 4.7,
+        "text2cypher": 3.4,
+        "db_exec": 0.0,
+        "answer_gen": 1.29
+      }
+    },
+    {
+      "question": "Who are the scholars affiliated with the University of Chicago who won the Economics prize?",
+      "answer": "The scholars affiliated with the University of Chicago who won the Economics prize are:\n\n- Douglas Diamond, awarded in 2022\n- Eugene F. Fama, awarded in 2013\n- Gary Becker, awarded in 1992\n- George J. Stigler, awarded in 1982\n- James J. Heckman, awarded in 2000\n- Lars Peter Hansen, awarded in 2013\n- Merton H. Miller, awarded in 1990\n- Milton Friedman, awarded in 1976\n- Richard H. Thaler, awarded in 2017\n- Robert E. Lucas Jr., awarded in 1995\n- Robert W. Fogel, awarded in 1993\n- Roger B. Myerson, awarded in 2007\n- Ronald H. Coase, awarded in 1991\n- Theodore W. Schultz, awarded in 1979",
+      "stats": {
+        "total": 7.74,
+        "text2cypher": 3.84,
+        "db_exec": 0.0,
+        "answer_gen": 3.89
+      }
+    },
+    {
+      "question": "Which scholars won Physiology or Medicine in 1920?",
+      "answer": "August Krogh won Physiology or Medicine in 1920.",
+      "stats": {
+        "total": 8.56,
+        "text2cypher": 7.58,
+        "db_exec": 0.0,
+        "answer_gen": 0.98
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry in 2010?",
+      "answer": "No information found in the database.",
+      "stats": {
+        "total": 0
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry in 1926?",
+      "answer": "The scholar who won the Chemistry Nobel Prize in 1926 was The Svedberg.",
+      "stats": {
+        "total": 13.88,
+        "text2cypher": 12.56,
+        "db_exec": 0.0,
+        "answer_gen": 1.31
+      }
+    },
+    {
+      "question": "Which scholars won Chemistry in 1990?",
+      "answer": "No information found in the database.",
+      "stats": {
+        "total": 0
+      }
+    },
+    {
+      "question": "Which scholars born in Taiwan won the Chemistry prize between 1986 and 1991?",
+      "answer": "No information found in the database.",
+      "stats": {
+        "total": 0
+      }
+    },
+    {
+      "question": "Which scholars affiliated with Institute for Infectious Diseases won a prize in Physiology or Medicine?",
+      "answer": "Robert Koch, who is affiliated with the Institute for Infectious Diseases, won a prize in Physiology or Medicine in 1905.",
+      "stats": {
+        "total": 5.28,
+        "text2cypher": 4.01,
+        "db_exec": 0.0,
+        "answer_gen": 1.26
+      }
+    },
+    {
+      "question": "Which scholars affiliated with CERN won a prize in Physics?",
+      "answer": "The scholars affiliated with CERN who won a prize in Physics are Jack Steinberger, Georges Charpak, Simon van der Meer, and Carlo Rubbia. They received their awards in the years 1988, 1992, 1984, and 1984 respectively, all while being associated with CERN in Geneva.",
+      "stats": {
+        "total": 5.83,
+        "text2cypher": 4.12,
+        "db_exec": 0.01,
+        "answer_gen": 1.7
+      }
+    },
+    {
+      "question": "Which scholars affiliated with University of Oxford won a prize in Chemistry?",
+      "answer": "The scholars affiliated with the University of Oxford who won a prize in Chemistry are Dorothy Crowfoot Hodgkin, Frederick Soddy, Sir Cyril Hinshelwood, and Sir Robert Robinson.",
+      "stats": {
+        "total": 7.04,
+        "text2cypher": 5.55,
+        "db_exec": 0.0,
+        "answer_gen": 1.49
+      }
+    },
+    {
+      "question": "Which scholars were born in Pretoria?",
+      "answer": "The scholars born in Pretoria are Michael Levitt and Max Theiler.",
+      "stats": {
+        "total": 3.88,
+        "text2cypher": 2.7,
+        "db_exec": 0.0,
+        "answer_gen": 1.17
+      }
+    },
+    {
+      "question": "Which scholars were born in Turin?",
+      "answer": "The scholars born in Turin are Rita Levi-Montalcini and Salvador E. Luria.",
+      "stats": {
+        "total": 3.79,
+        "text2cypher": 2.67,
+        "db_exec": 0.0,
+        "answer_gen": 1.11
+      }
+    },
+    {
+      "question": "Which scholars born in Switzerland won the Physics prize between 1980 and 2020?",
+      "answer": "The scholars born in Switzerland who won the Physics prize between 1980 and 2020 are K. Alex M\u00fcller in 1987, Didier Queloz in 2019, and Michel Mayor in 2019.",
+      "stats": {
+        "total": 6.05,
+        "text2cypher": 3.9,
+        "db_exec": 0.01,
+        "answer_gen": 2.14
+      }
+    },
+    {
+      "question": "How many female scholars won a Nobel Prize between 1980 and 2000?",
+      "answer": "Between 1980 and 2000, there were 4 female scholars who won a Nobel Prize.",
+      "stats": {
+        "total": 3.86,
+        "text2cypher": 2.6,
+        "db_exec": 0.0,
+        "answer_gen": 1.26
+      }
+    },
+    {
+      "question": "How many scholars won a prize with a 1/3 share portion?",
+      "answer": "222 scholars won a prize with a 1/3 share portion.",
+      "stats": {
+        "total": 3.51,
+        "text2cypher": 2.88,
+        "db_exec": 0.0,
+        "answer_gen": 0.63
+      }
+    },
+    {
+      "question": "How many Physics laureates were born in Paris?",
+      "answer": "The Physics laureates born in Paris are 3.",
+      "stats": {
+        "total": 2.75,
+        "text2cypher": 1.68,
+        "db_exec": 0.0,
+        "answer_gen": 1.06
+      }
+    }
+  ]
+}

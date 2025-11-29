@@ -1,21 +1,38 @@
 llm:
-  backend: rag        # "server" or "rag"
-  model_path: models/Phi-3-mini-4k-instruct-q4.gguf
-
-  server:
-    base_url: http://localhost:8008/v1
-    api_key: sk-noauth
-    model: local
-
-  params:
-    n_ctx: 4096
-    n_gpu_layers: 0
-
+  backend: rag
   rag:
-    db_path: data/nobel.kuzu
+    db_path: "data/nobel.kuzu"
+    # Behavior Flags
     use_exemplars: true
     use_self_refine: true
     use_postprocess: true
-    cache_text2cypher: true
-    cache_maxsize: 256
-    cache_ttl_seconds: 0
+    # Caching Strategy
+    # cache_text2cypher: true
+    cache_maxsize: 500
+    cache_ttl_seconds: 10000
+
+  evaluation:
+    prompt: "You are an expert evaluator for assessing the performance of a language model.Your task is to assign a score from 0 to 10 for the model's answer based STRICTLY on how well it matches the provided GROUND_TRUTH for the single question below.
+
+            ### SCORING INSTRUCTIONS:
+            1.  **Do NOT** award points for politeness, extra background context, or correct information that is not explicitly required by the GROUND_TRUTH.
+            2.  **Focus ONLY** on the **accuracy** and **completeness** relative to the GROUND_TRUTH.
+
+            ---
+
+            QUESTION:
+            {question_placeholder}
+
+            MODEL_ANSWER:
+            {model_answer_placeholder}
+
+            GROUND_TRUTH:
+            {ground_truth_placeholder}
+
+            ---
+
+            ### OUTPUT FORMAT CONSTRAINT:
+            Your output MUST contain nothing else. Do not add any conversational text, explanations, or reasoning.
+
+            As output, just give me back the score in this exact format, replacing the model name and score:
+            Score : <score>"

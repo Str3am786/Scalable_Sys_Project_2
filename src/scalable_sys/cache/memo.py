@@ -1,30 +1,73 @@
-from functools import lru_cache, wraps
 import time
-from typing import Callable, Any, Tuple
+import functools
+from collections import OrderedDict
+import logging
+from datetime import datetime
+import os
 
-def ttl_lru_cache(maxsize: int = 256, ttl_seconds: int = 0):
-    """
-    LRU with optional TTL. ttl_seconds=0 -> plain LRU.
-    Cache key is whatever your function uses (be careful to make args hashable).
-    """
-    def deco(func: Callable):
-        cached_func = lru_cache(maxsize=maxsize)(func)
-        expiries = {}
+os.makedirs("./results", exist_ok=True)
 
-        @wraps(func)
+logging.basicConfig(
+    filename="./results/cache_test/cache_log.txt",
+    level=logging.INFO,
+    format="[%(asctime)s] - %(message)s",
+    filemode="w"
+)
+
+def write(value: str):
+    logging.info(value)
+
+
+
+def ttl_lru_cache(maxsize: int = 128, ttl_seconds: int = 0, test: bool = False):
+    """
+    LRU Cache decorator with Time-to-Live (TTL) support.
+    If ttl_seconds <= 0, entries never expire (standard LRU).
+    """
+    def decorator(func):
+        # The cache stores keys mapped to (result, timestamp)
+        cache = OrderedDict()
+                    
+
+        @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            # Create a hashable key from args and kwargs
+            # Note: In your usage, you are passing a single string key, which is safe.
             key = (args, tuple(sorted(kwargs.items())))
-            now = time.time()
-            if ttl_seconds > 0:
-                exp = expiries.get(key)
-                if exp is None or now > exp:
-                    # bust this specific key
-                    try:
-                        cached_func.cache_pop(*key[0], **dict(key[1]))
-                    except Exception:
-                        pass
-                    expiries[key] = now + ttl_seconds
-            return cached_func(*args, **kwargs)
-        wrapper.cache_clear = cached_func.cache_clear  # expose for tests/admin
+
+            # 1. Check if key exists
+            if key in cache:
+                result, timestamp = cache[key]
+                write(f"HIT key: {key}")
+
+                # 2. Check TTL (if enabled)
+                if ttl_seconds > 0 and (time.time() - timestamp) > ttl_seconds:
+                    # Expired: remove and fall through to re-compute
+                    write(f"Expired key: {key}")
+                    del cache[key]
+                else:
+                    # Hit: Move to end (Mark as recently used)
+                    cache.move_to_end(key)
+                    return result
+
+            # 3. Compute result
+            result = func(*args, **kwargs)
+
+            # 4. Store in cache
+            cache[key] = (result, time.time())
+            write(f"Store Key {key} in cache")
+
+            # 5. Enforce Size Limit (Pruning)
+            if len(cache) > maxsize:
+                removed = cache.popitem(last=False)  # FIFO removal (removes the first/oldest item)
+                write(f"Max space reached -> Removed {removed}")
+
+            return result
+
+        def clear_cache():
+            cache.clear()
+
+        wrapper.cache_clear = clear_cache
         return wrapper
-    return deco
+
+    return decorator

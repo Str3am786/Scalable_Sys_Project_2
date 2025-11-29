@@ -1,0 +1,46 @@
+services:
+  # Base Configuration
+  explorer:
+    image: kuzudb/explorer:0.11.1
+    environment:
+      - MODE=READ_ONLY
+      - KUZU_FILE=./nobel.kuzu
+    ports:
+      - 8000:8000
+    volumes:
+      - ./data/:/database
+  base_app: &base_app
+    build:
+      context: .
+      dockerfile: logic_dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    tty: true
+    env_file:
+      - .env
+    volumes:
+      - ./results:/app/results
+      - ./data:/app/data
+
+  # Main App (Run with: docker compose up app)
+  app:
+    <<: *base_app
+    command: ["python", "-m", "src.scalable_sys.app", "--prompt", "Which scholars won the Nobel Prize in Medicine?"]
+
+  # Full Validation Pipeline (Run with: docker compose up eval)
+  eval:
+    <<: *base_app
+    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--complete-test"]
+
+  # Judge Only (Run with: docker compose up judge)
+  judge:
+    <<: *base_app
+    command: >
+      python -m src.scalable_sys.evaluation.evaluate_pipeline 
+      --judge-only 
+      --plain-file ${PLAIN_FILE} 
+      --rag-file ${RAG_FILE}
+
+  cachetest:
+    <<: *base_app
+    command: ["python", "-m", "src.scalable_sys.evaluation.evaluate_pipeline", "--caching-test", "2"]
