@@ -78,12 +78,12 @@ PLAIN_FILE="results/plain_output.json" RAG_FILE="results/rag_output.json" docker
 
 There are two different cache tests you can run:
 
-1. Cold & warm start cache test:
+1. Cold & warm start laatency evaluation:
 
-- Evaluates latency for a "cold" start, i.e. when none of the questions in the test set have been cached before. After the "cold" run, the system latency is evaluated again on the same test set, when all questions have been cached. This is the "warm" start evaluation.
-- The results for both latency measurements are summarized in the `results/cache_eval` folder under a folder for the specific time of running the test.
+- Measures latency for a "cold" start, i.e. when none of the questions in the test set have been cached before. After the "cold" run, the system latency is measured again on the same test set, when all questions have been cached. This is the "warm" start evaluation.
+- The results for both latency measurements are summarized in the `results/cache_eval` folder under a folder named based on the specific time of running the test.
 - The test set used for this evaluation can be found in `data/test_cache_warm_start.json`
-- Run this test by setting the cache test number flag to `"3"` in the `docker-compose.yml` file before running `docker-compose up --build cachetest`.
+- Run this evaluation by setting the cachetest number flag to `"3"` in the `docker-compose.yml` file before running `docker-compose up --build cachetest`.
 
 2. Cache evaluation on a test set of 60% unique questions and 40% repeated questions.
 
@@ -92,7 +92,7 @@ There are two different cache tests you can run:
 - The test set used for this evaluation can be found in `data/test_cache.json`.
 - Set the number flag for the cachetest command to `"2"` in the `docker-compose.yml` file to run this version of the cache evaluation.
 
-Run the a cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
+Run the cache test to compare the rag pipeline firstly __with__ and secondly __without__ LRU cache. 
 
 The sample questions generated for this evaluation are stored in `data/test_cache/`.
 Results, cache log and performance reports will be available in `results/cache_test/` folder.
