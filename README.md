@@ -14,7 +14,7 @@ This project implements a Graph Retrieval-Augmented Generation (GraphRAG) system
 ## Quick Start
 
 ### 1. Setup the LLM 
-Specify the environment variables in the `.env`file to match your LLM inference configuration of choice. We recommend using OpenRouter for quick and easy setup. When running the eval pipeline, the judge LLM needs to be specified as well. For our evaluations, we chose to use gpt-4o:
+Specify the environment variables in the `.env` file to match your LLM inference configuration of choice. We recommend using OpenRouter for quick and easy setup. When running the accuracy evaluation pipeline, the judge LLM needs to be specified as well. For our evaluations, we chose to use gpt-4o:
 
 ```bash
 # Set the base model
