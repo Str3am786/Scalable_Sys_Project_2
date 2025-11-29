@@ -64,7 +64,7 @@ docker-compose up --build eval
 
 The results of the evaluation will be summarized in `results/summary`.
 
-The question set containing the ground truths used for this evaluation can be found in `data/test_input.json`
+The question set containing the ground truths used for this evaluation can be found in `data/test_input.json`.
 
 **LLM Judge**
 
