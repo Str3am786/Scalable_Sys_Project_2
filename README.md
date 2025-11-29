@@ -106,7 +106,7 @@ Cache is tunable by setting two parameters in the `config.yaml` file:
 
 - `cache_maxsize`: Cache storage dimension.;
 
-- `ache_ttl_seconds:`: Keys Time to Live
+- `cache_ttl_seconds:`: Keys Time to Live
 
 ### Project Structure
 
