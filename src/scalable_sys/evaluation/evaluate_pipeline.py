@@ -255,6 +255,7 @@ def main():
             print(f"Conlcluded Test. You can find the result in {test_filepath}") 
         
         print("FINISHED, CHECK FOLDER cache_test for results")
+        return
         
     
     if args.complete_test or args.judge_only:
